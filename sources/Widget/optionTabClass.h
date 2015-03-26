@@ -1,0 +1,89 @@
+#ifndef OPTIONTABCLASS_H
+#define OPTIONTABCLASS_H
+
+#include <QtWidgets>
+/*
+#include <QObject>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QTextBrowser>
+#include <QLabel>
+#include <QCheckbox>
+#include <QGroupBox>
+#include <QProcess>
+#include <QRadioButton>
+*/
+
+#include "../widget.h"
+
+class OptionTab : public QWidget
+{
+    Q_OBJECT
+
+public:
+    OptionTab(Widget *parent = 0);
+    ~OptionTab();
+
+    void refreshTagTime();
+
+public slots:
+    void refreshCacheSize();
+    void deleteCache();    
+    void refreshTagLists();
+    void runUpdater();
+    void resetBoorusSettings();
+    void resetBooruDownloadPath();
+    void saveOptions();
+
+private:
+    QHBoxLayout *horizontalLayouts[LAYOUT_NUMBER_OPTIONS];
+
+    QSpacerItem *spacer;
+    Widget *parentWidget;
+
+    QGroupBox *groupBoxSearchSettings;
+    QVBoxLayout *layoutGroupBoxSearchSettings;
+
+    QVBoxLayout *layoutMain;
+        QLabel *credits;
+
+            QPushButton *pushButtonUpdater;
+
+        QGroupBox *groupBox;
+        QVBoxLayout *layoutGroupBox;
+        QGroupBox *groupBoxCredits;
+
+                QPushButton *pushButtonCache;
+                QPushButton *pushButtonReset;
+                QLabel *labelCache;
+
+                QPushButton *pushButtonTags;
+                QLabel *labelTags;
+
+                QPushButton *pushButtonResetAllDownloadPath;
+                QLineEdit *lineEditDownloadPath;
+
+            QCheckBox *checkBoxLoadingStartup;
+            QLabel *labelDefaultRating;
+            QComboBox *searchRating;
+            QLabel *labelDefaultBooru;
+            QComboBox *defaultBooru;
+            QPushButton *pushButtonRefreshCacheSize;
+
+
+            QHBoxLayout *layoutImages[2];
+            QLabel *labelQuadrillageImages[2];
+            QComboBox *nbImages[2];
+
+        QTextBrowser *textBrowserChangelog;
+
+        QPushButton *pushButtonSave;
+
+    int imageHost;
+
+};
+
+#endif // OPTIONTABCLASS_H

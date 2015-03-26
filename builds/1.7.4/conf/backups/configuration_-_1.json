@@ -1,0 +1,24 @@
+{
+   "paths" : {
+      "download" : "",
+      "downloadDefaut" : ""
+   },
+   "settings" : {
+      "api_key_derpibooru" : "",
+      "last_tag_refresh" : 0,
+      "preferred_booru" : 0,
+      "preferred_rating" : "s",
+      "window_h" : 768,
+      "window_w" : 1024
+   },
+   "versions" : {
+      "updater" : {
+         "last" : "0.1.4",
+         "local" : "0.1.4"
+      },
+      "viewer" : {
+         "last" : "1.0.2",
+         "local" : "1.1.0"
+      }
+   }
+}
