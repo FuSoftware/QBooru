@@ -2,22 +2,10 @@
 #define OPTIONTABCLASS_H
 
 #include <QtWidgets>
-/*
-#include <QObject>
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QTextBrowser>
-#include <QLabel>
-#include <QCheckbox>
-#include <QGroupBox>
-#include <QProcess>
-#include <QRadioButton>
-*/
 
 #include "../widget.h"
+
+class Widget;
 
 class OptionTab : public QWidget
 {

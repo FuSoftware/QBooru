@@ -1,25 +1,11 @@
-#include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <curl/curl.h>
-#include <curl/easy.h>
-#include <cstring>
-#include <ctime>
-#include <string.h>
-#include <fstream>
-#include <sstream>
-#include "widget.h"
-
-#include <QFile>
-
-#include "tinyxml2/tinyxml2.h"
-
 #include "fonctions.h"
-#include "filedownloader.h"
-#include "classBooruSite.h"
 
 Json::Value saveAndLoad(Json::Value root, char* file)
 {
+    /*
+     * Saves the specified Json::Value to a file.
+     * Loads the file and returns it's Json::Value root
+     * */
     Json::StyledWriter writer;
     saveJSONFile(file, writer.write(root));
     root = loadJSONFile(file);
@@ -28,11 +14,12 @@ Json::Value saveAndLoad(Json::Value root, char* file)
 
 Json::Value ordonnerBoorus(Json::Value root)
 {
-    Json::StyledWriter writer;
-    int nombre_boorus = root["settings"]["booru_number"].asInt();
+    /*
+     * Puts all the boorus in "configuration .json" (need to set it as input value) in the proper order.
+     * It also ensures no blank values are left in the booru list
+     * */
+    int nombre_boorus = root["settings"]["booru_number"].asInt();//Gets the booru number
     int i,j;
-    int max_temp;
-    int max = nombre_boorus - 1;
 
     for(j=0;j<nombre_boorus - 1;j++)
     {
@@ -98,6 +85,10 @@ const std::string currentDateTime()
 
 void outputInfo(std::string type, std::string data, int level)
 {
+    /*
+     * Outputs formatted messages  :
+     * [TYPE][DATE]|-->DATA
+     * */
     std::cout << "[" << type << "]"
               << "[" << currentDateTime() << "]"
               << "|";
@@ -112,6 +103,13 @@ void outputInfo(std::string type, std::string data, int level)
 
 void checkConfigFile()
 {
+    /*
+     * Checks the config file's validity by checking :
+     * - Versions
+     * - All the variables
+     * - Boorus
+     * */
+
     int errorbuf;
     int lastVersion[3];
     int localVersion[3];
@@ -138,7 +136,7 @@ void checkConfigFile()
     root["versions"]["updater"]["last"] = rootVersions["updater"].asCString();
     root["versions"]["viewer"]["last"] = rootVersions["viewer"].asCString();
 
-    /*Vérification des versions*/
+    /*Checks current and last version*/
     getVersion(strdup(root["versions"]["viewer"]["local"].asCString()),localVersion);
     getVersion(strdup(root["versions"]["viewer"]["last"].asCString()),lastVersion);
 
@@ -152,6 +150,7 @@ void checkConfigFile()
 
     if(newVersion)
     {
+        /*Updates if needed*/
         int reponse = QMessageBox::question(0, "Update", "A new update is available : " + QString(root["versions"]["viewer"]["last"].asCString()) + ". Do you want to update ?", QMessageBox ::Yes | QMessageBox::No);
 
         if (reponse == QMessageBox::Yes)
@@ -168,7 +167,7 @@ void checkConfigFile()
     }
 
 
-    /*Vérification des variables de configuration*/
+    /*Checks all the variables in the config file*/
 
     if(root["settings"]["preferred_rating"].asInt() >= 4) root["settings"]["preferred_rating"] = 0;
     root = saveAndLoad(root,CONF_FILE);
@@ -192,6 +191,7 @@ void checkConfigFile()
 
     outputInfo("INFO",std::string("Initial variables checked"),LEVEL_TOP_WIDGET);
 
+    /*Checks if boorus are valid*/
     root = checkBoorusIntegrity(root); //Boorus + booru_number
     root = saveAndLoad(root,CONF_FILE);
 

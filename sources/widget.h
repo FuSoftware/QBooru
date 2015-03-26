@@ -5,26 +5,7 @@
 #include <qtconcurrentrun.h>
 #include <QThread>
 
-/*
-#include <QDebug>
-#include <QDir>
-#include <QPixmap>
-#include <QProcess>
-#include <QWidget>
-#include <QPushButton>
-#include <QSignalMapper>
-#include <QTabWidget>
-#include <QMessageBox>
-*/
-
-#include "BooruHeaders/derpibooru_recherche.h"
-#include "BooruHeaders/derpibooru_fonctions.h"
-
-#include "BooruHeaders/gelbooru_recherche.h"
-#include "BooruHeaders/gelbooru_fonctions.h"
-
-#include "BooruHeaders/moebooru_recherche.h"
-#include "BooruHeaders/moebooru_fonctions.h"
+#include "BooruHeaders/headers.h"
 
 #include "Widget/imageTabClass.h"
 #include "Widget/optionTabClass.h"

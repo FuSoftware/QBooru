@@ -102,7 +102,8 @@ HEADERS  += widget.h \
     BooruHeaders/generic_booru_image.h \
     BooruHeaders/generic_booru_fonctions.h \
     constantes_win.h \
-    constantes_linux.h
+    constantes_linux.h \
+    BooruHeaders/headers.h
 
 FORMS    +=
 

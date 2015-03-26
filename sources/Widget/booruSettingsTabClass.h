@@ -2,18 +2,6 @@
 #define BOORUSETTINGSTABCLASS_H
 
 #include <QtWidgets>
-/*
-#include <QObject>
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QLabel>
-#include <QCheckbox>
-#include <QGroupBox>
-#include <QProcess>
-#include <QRadioButton>
-*/
 
 #include "../widget.h"
 #include "BooruSettingsWidgetClass.h"

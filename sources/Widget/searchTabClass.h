@@ -3,38 +3,9 @@
 
 #include <QtWidgets>
 
-/*
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QLabel>
-#include <QProgressBar>
-#include <QCheckbox>
-#include <QComboBox>
-#include <QGridLayout>
-#include <QKeyEvent>
-*/
-
 #include "imageTabClass.h"
 
-#include "../BooruHeaders/generic_booru_image.h"
-#include "../BooruHeaders/generic_booru_fonctions.h"
-
-#include "../BooruHeaders/derpibooru_recherche.h"
-#include "../BooruHeaders/derpibooru_fonctions.h"
-
-#include "../BooruHeaders/gelbooru_recherche.h"
-#include "../BooruHeaders/gelbooru_fonctions.h"
-
-#include "../BooruHeaders/moebooru_recherche.h"
-#include "../BooruHeaders/moebooru_fonctions.h"
-
-#include "../BooruHeaders/danbooru_recherche.h"
-#include "../BooruHeaders/danbooru_fonctions.h"
-
-
+#include "../BooruHeaders/headers.h"
 
 #include "../classBooruSite.h"
 #include "../Workers/caching_thread.h"

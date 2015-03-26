@@ -3,34 +3,10 @@
 
 #include <QtWidgets>
 
-/*
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QLabel>
-#include <QProgressBar>
-#include <QCheckbox>
-#include <QGridLayout>
-#include <QGroupBox>
-#include <QScrollArea>
-*/
-
 #include "constantes.h"
 #include "../widget.h"
 
-#include "../BooruHeaders/generic_booru_image.h"
-#include "../BooruHeaders/generic_booru_fonctions.h"
-
-#include "../BooruHeaders/derpibooru_recherche.h"
-#include "../BooruHeaders/derpibooru_fonctions.h"
-
-#include "../BooruHeaders/gelbooru_recherche.h"
-#include "../BooruHeaders/gelbooru_fonctions.h"
-
-#include "../BooruHeaders/moebooru_recherche.h"
-#include "../BooruHeaders/moebooru_fonctions.h"
+#include "../BooruHeaders/headers.h"
 
 #include "../classBooruSite.h"
 
@@ -111,7 +87,6 @@ private:
     int pageIndex;
     QThread *picture_thread;
     ViewerTabLoadingWorker *worker;
-    CachingWorker *worker_download;
 
 };
 
