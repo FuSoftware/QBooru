@@ -1,8 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <curl/curl.h>
-#include <curl/easy.h>
 #include <string>
 #include <sstream>
 #include "widget.h"
@@ -16,7 +12,6 @@
 #include "fonctions.h"
 #include "gelbooru_fonctions.h"
 #include "generic_booru_image.h"
-#include "filedownloader.h"
 
 int chargementImagesGelbooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath)
 {
@@ -115,7 +110,7 @@ int lectureXMLGelbooru(tinyxml2::XMLHandle hdl, BooruImage images[MAX_PICTURE_NU
         images[i].file_size = 0;
 
         /**
-          Useless for now :
+          Unusued for now :
           images[i].change        = atoi(elem->Attribute("change"));
           images[i].has_children  = strdup(elem->Attribute("has_children"));
           images[i].status        = std::string(elem->Attribute("status"));

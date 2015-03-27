@@ -15,7 +15,7 @@
 #include "fonctions.h"
 #include "generic_booru_fonctions.h"
 
-QString cacheImageGeneric(BooruImage imageCache, std::string cachePath, SearchTab *parent, int i)
+QString cacheImageGeneric(BooruImage imageCache, std::string cachePath)
 {
     std::stringstream out;
     out << imageCache.id;
@@ -23,20 +23,18 @@ QString cacheImageGeneric(BooruImage imageCache, std::string cachePath, SearchTa
     std::string fileName;
     std::string format;
 
-    /*Récupération de l'URL*/
+    /*Gets the URL*/
     std::string string_url = imageCache.preview_url;
 
-    /*Récupération de l'extension*/
+    /*Get the file's extension*/
     fileName = imageCache.preview_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
     std::string string_file_name = cachePath + out.str()+ "." + format;
 
-    /*Si le fichier existe, on ne cache pas, s'il est inexistant, on cache*/
-    std::cerr << "File " << string_file_name << " at " << string_url << std::endl;
-
+    /*Downloads file if it doesn't exist already*/
     cachingFile(stringToCString(string_url),stringToCString(string_file_name),false,true);
 
-    return QString(string_file_name.c_str());
+    return QString(string_file_name.c_str());// returns file path
 }
 
 QString cacheImageMediumGeneric(BooruImage imageCache, std::string cachePath, bool keepCache)
@@ -47,31 +45,28 @@ QString cacheImageMediumGeneric(BooruImage imageCache, std::string cachePath, bo
     std::string fileName;
     std::string format;
 
-    /*Récupération de l'URL*/
+    /*Gets the URL*/
     std::string string_url = imageCache.sample_url;
 
-    /*Récupération de l'extension*/
+    /*Get the file's extension*/
     fileName = imageCache.sample_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
     std::string string_file_name;
 
-    /*Si le fichier existe, on ne cache pas, s'il est inexistant, on cache*/
-    std::cerr << "File " << string_file_name << " at " << string_url << std::endl;
-
-    /** */
-
     if(keepCache)
     {
+        /*Changes name to "id_medium.ext" if requested in the settings*/
         string_file_name = cachePath + out.str()+ "." + "_medium" + format;
     }
     else
     {
+        /*Keeps "medium.ext" and overrides any previous file with the same name*/
         string_file_name = cachePath + "medium" + "." + format;
     }
 
     cachingFile(stringToCString(string_url),stringToCString(string_file_name),true,false);
 
-    return QString(string_file_name.c_str());
+    return QString(string_file_name.c_str());// returns file path
 }
 
 QString saveImageFullGeneric(BooruImage imageCache, std::string downloadPath)
@@ -83,23 +78,23 @@ QString saveImageFullGeneric(BooruImage imageCache, std::string downloadPath)
     QString fichierSortieString = "";
     std::string fileName;
 
-    QDir dir2(downloadPath.c_str());
-    if (!dir2.exists()) {
-        dir2.mkpath(".");
-    }
+    /*Checks if the download folder exists*/
+    checkFolder(downloadPath);
 
-    /*Récupération de l'extension*/
+    /*Sets remote file URL*/
     cacheUrlChar = stringToCString(imageCache.file_url.c_str());
+
+    /*Gets extension*/
     fileName     = imageCache.file_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
     formatChar = strdup(format.data());
 
-
+    /*Sets local file path*/
     fichierSortieString = QString(downloadPath.c_str()) + QString::number(imageCache.id) + QString("_full.") + formatChar;
     QByteArray ba2 = fichierSortieString.toLocal8Bit();
     fichierSortieChar = ba2.data();
 
     cachingFile(cacheUrlChar, fichierSortieChar,false, true);
 
-    return fichierSortieString;
+    return fichierSortieString;// returns file path
 }

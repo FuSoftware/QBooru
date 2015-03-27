@@ -1,22 +1,12 @@
 #include <iostream>
-#include <cstdlib>
-#include <cstdio>
-#include <curl/curl.h>
-#include <curl/easy.h>
-#include <string>
-#include <sstream>
-#include <fstream>
 #include "widget.h"
 
 #include <QString>
-#include <QDir>
-#include <QNetworkAccessManager>
 
 #include "../json/json.h"
 
 #include "fonctions.h"
 #include "derpibooru_fonctions.h"
-#include "filedownloader.h"
 
 void chargementImagesDerpibooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath)
 {

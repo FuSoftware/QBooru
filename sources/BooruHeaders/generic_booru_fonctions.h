@@ -9,7 +9,7 @@
 #include "../Workers/caching_thread.h"
 #include "../Widget/searchTabClass.h"
 
-QString cacheImageGeneric(BooruImage imageCache, std::string cachePath, SearchTab *parent, int i);
+QString cacheImageGeneric(BooruImage imageCache, std::string cachePath);
 
 QString cacheImageMediumGeneric(BooruImage imageCache, std::string cachePath, bool keepCache);
 QString saveImageFullGeneric(BooruImage imageCache, std::string downloadPath);
