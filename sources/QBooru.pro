@@ -20,7 +20,6 @@ SOURCES += main.cpp\
         widget.cpp \
     fonctions.cpp \
     fileutils.cpp \
-    filedownloader.cpp \
     fonctionsSDL.cpp \
     sdlglutils.cpp \
     classBooruSite.cpp \
@@ -54,7 +53,6 @@ HEADERS  += widget.h \
     fonctions.h \
     constantes.h \
     fileutils.h \
-    filedownloader.h \
     json/assertions.h \
     json/autolink.h \
     json/config.h \
@@ -108,7 +106,6 @@ HEADERS  += widget.h \
 FORMS    +=
 
 win32:{
-
 LIBS += "E:/Qt/Qt5.4.1/5.4/mingw491_32/lib/libcurl.a" "E:/Qt/Qt5.4.1/5.4/mingw491_32/lib/libcurldll.a"
 #SDL
 INCLUDEPATH+=E:\lib\SDL-devel-1.2.15-mingw32\SDL-1.2.15\include
