@@ -1,6 +1,8 @@
 #ifndef OPTIONTABCLASS_H
 #define OPTIONTABCLASS_H
 
+#define LAYOUT_NUMBER_OPTIONS 8 //Number of layouts in Options tab
+
 #include <QtWidgets>
 
 #include "../widget.h"
