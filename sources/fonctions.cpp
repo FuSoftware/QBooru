@@ -690,16 +690,18 @@ int cachingFile(char *url, char outfilename[4096], bool output, bool check_file_
 
             if(buf != 0)
             {
-                QWidget *errorWidget;
-                criticalCURLError(errorWidget,buf);
+                outputInfo("ERROR",
+                           std::string(std::string("cUrl error : ")+intToString(buf)),
+                           LEVEL_CACHING);
             }
 
             return res;
         }
         else
         {
-            QWidget *errorWidget;
-            criticalProgramError(errorWidget,28);
+            outputInfo("ERROR",
+                       std::string(std::string("cUrl init error ")),
+                       LEVEL_CACHING);
         }
     }
 
