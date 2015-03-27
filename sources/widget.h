@@ -1,3 +1,9 @@
+/*
+ * widget.h
+ *
+ * Contains the main Widget class.
+ */
+
 #ifndef WIDGET_H
 #define WIDGET_H
 

@@ -1,3 +1,10 @@
+/*
+ * fonctionsSDL.h
+ *
+ * Contains all the SDL related functions
+ *
+ */
+
 #include <iostream>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>

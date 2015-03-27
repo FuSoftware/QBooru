@@ -1,15 +1,36 @@
+/*
+ * constantes.h
+ *
+ * Contains app name and app version
+ *
+ * Contains main URLs for updates
+ *
+ * Contains all the unvariable values for the program
+ *
+ * Contains all Enums
+ * - InfoLevel for ouputting priorities
+ * - HostType to list all possible host APIs
+ * - Ratings to list the search ratings (Safe, Quest., Explicit)
+ *
+ * Contains links to Linux and Windows paths for both Debug and Release
+ *
+ */
+
 #ifndef CONSTANTES_H_INCLUDED
 #define CONSTANTES_H_INCLUDED
 
+/*
+ * Set this to 0 to change to the relative paths for the program (Release)
+ * Set this to 1 to change to the absolute paths for the program (Debug)
+ */
 #define DEBUG 1
 
 #define CURL_STATICLIB
 #define APP_NAME "QBooru Viewer"
 #define APP_VERSION "1.7.5"
-#define TAG_NUMBER    512
-#define MAX_BOORU_NUMBER 64
-#define MAX_PICTURE_NUMBER 64
-#define LAYOUT_NUMBER_OPTIONS 8
+#define TAG_NUMBER    512 //Max number of tags to show in the Viewer
+#define MAX_BOORU_NUMBER 64 //Max number of Boorus to load in the main widget
+#define MAX_PICTURE_NUMBER 64 //Max number of pictures/page
 
 #define CONF_FILE_URL "http://www.aht.li/2475858/configuration_-_defaut.json"
 #define CHANGELOG_FILE_URL "http://www.aht.li/2460180/changelog.txt"

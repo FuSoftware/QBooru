@@ -1,3 +1,17 @@
+/*
+ * fonctions.h
+ *
+ * Contains all the generic functions for the program such as :
+ * - Downloading
+ * - Outputing formatted messages
+ * - Save and Load JSON files
+ *
+ * Will be cut in several parts soon to separate:
+ * - JSON manipulation
+ * - Conversions between types
+ * - Generic functions
+ */
+
 #ifndef FONCTIONS_H_INCLUDED
 #define FONCTIONS_H_INCLUDED
 
@@ -24,7 +38,6 @@
 #include <QThread>
 
 #include "tinyxml2/tinyxml2.h"
-#include "filedownloader.h"
 #include "classBooruSite.h"
 #include "constantes.h"
 #include "json/json.h"

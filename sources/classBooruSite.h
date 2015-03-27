@@ -1,3 +1,20 @@
+/*
+ * classBooruSite.h
+ *
+ * Contains all basic variables to be able to use Booru Websites such as : (Examples given for Safebooru)
+ * - Name             (Safebooru)
+ * - Type             (gelbooru)
+ * - Base URL         ("http://safebooru.org")
+ * - Search URL       ("http://safebooru.org/index.php?page=dapi&s=post&q=index")
+ * - Taglist URL      ("http://safebooru.org/index.php?page=dapi&s=tag&q=index&order=name&limit=0")
+ * - Post index URL   ("http://safebooru.org/index.php?page=post&s=view&id=")
+ *
+ * - Cache path       ("cache/Safebooru/")
+ * - Download path    ("downloads/Safebooru/")
+ * - Search File Path ("cache/Safebooru/search.xml")
+ * - Tag file path    ("conf/tagsSafebooru.xml")
+ */
+
 #ifndef CLASSBOORUSITE_H_INCLUDED
 #define CLASSBOORUSITE_H_INCLUDED
 
