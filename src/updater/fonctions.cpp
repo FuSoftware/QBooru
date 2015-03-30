@@ -66,7 +66,7 @@ void outputInfo(std::string type, std::string data, int level)
     std::cout << "> " << data << std::endl;
 }
 
-void getVersion(const char* versionChar, int versionInt[3])
+void getVersion(const char* versionChar, int versionInt[VERSION_CONTROL_DIGITS])
 {
     unsigned int i = 0;
     int j = 0;

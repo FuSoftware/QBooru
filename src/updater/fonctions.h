@@ -9,6 +9,8 @@
 #include <QString>
 #include <QDir>
 
+#include "constantes.h"
+
 
 void runViewer();
 int msleep(unsigned long milisec);
@@ -17,7 +19,7 @@ const std::string currentDateTime();
 
 void outputInfo(std::string type, std::string data, int level);//Outputs formatted text to log
 
-void getVersion(const char* versionChar, int versionInt[3]);//Extracts the version from "lastVersion.json"
+void getVersion(const char* versionChar, int versionInt[VERSION_CONTROL_DIGITS]);//Extracts the version from "lastVersion.json"
 
 void checkFolder(std::string path);//Checks if the specified folder exists, and creates it if it doesn't
 QString readChangelog();//Returns the CHANGELOG_FILE's content

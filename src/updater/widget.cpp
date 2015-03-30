@@ -52,7 +52,7 @@ Widget::Widget(QWidget *parent)
     getVersion(root["versions"]["viewer"]["local"].asCString(),viewerVersions[0]);//LOCAL
     getVersion(root["versions"]["viewer"]["last"].asCString(),viewerVersions[1]);//LAST
 
-    for(int j=0;j<3;j++)
+    for(int j=0;j<VERSION_CONTROL_DIGITS;j++)
     {
         if(viewerVersions[1][j] > viewerVersions[0][j])
         {
