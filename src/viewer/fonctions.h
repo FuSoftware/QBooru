@@ -56,7 +56,7 @@ const std::string currentDateTime();
 void outputInfo(std::string type, std::string data, int level);//Outputs formatted text to log
 
 void checkConfigFile();//Checks if the configuration file is valid
-void getVersion(char* versionChar, int versionInt[3]);//Extracts the version from "lastVersion.json"
+void getVersion(char* versionChar, int versionInt[4]);//Extracts the version from "lastVersion.json"
 Json::Value checkBoorusIntegrity(Json::Value root);//Checks if the boorus are valid
 Json::Value resetBooruSites(Json::Value root);//Reset the boorus to the default ones
 void loadBooruSites(BooruSite sites[], int BooruIndex);//Loads an array with the Booru sites informations from configuration.json

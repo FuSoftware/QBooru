@@ -113,7 +113,7 @@ void Widget::setupHosts(BooruSite boorus[], int index)
 {    
     for(int i=0;i<index;i++)
     {
-        hostNames[i] = QString(boorus[i].name.c_str());
+        hostNames[i] = QString(boorus[i].getName().c_str());
     }
 }
 

@@ -55,7 +55,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
         layoutImageTabs = new QGridLayout;
             for(i=0;i<picture_number;i++)
             { 
-                imageTabs[i] = new ImageTab(this, booru.siteTypeInt);
+                imageTabs[i] = new ImageTab(this, booru.getSiteTypeInt());
                 buttonMapper->setMapping(imageTabs[i]->imageThumbnail, i);
                 connect(imageTabs[i]->imageThumbnail, SIGNAL(clicked()), buttonMapper , SLOT(map()));
             }
@@ -192,7 +192,7 @@ void SearchTab::loadSearch(int refreshTags)
     {
         tags = lineEditTags->text();
 
-        switch(booru.siteTypeInt)
+        switch(booru.getSiteTypeInt())
         {
         case DERPIBOORU_TYPE:
             switch(searchRating->currentIndex())
@@ -255,19 +255,19 @@ void SearchTab::loadSearch(int refreshTags)
 
     /*Tags*/
 
-    switch(booru.siteTypeInt)
+    switch(booru.getSiteTypeInt())
     {
     case DERPIBOORU_TYPE:
-        state = setTagsDerpibooru(tags.toStdString(), lineEditPageSet->text().toStdString(), derpibooruAPIKey, booru.cache_path, booru.search_url);
+        state = setTagsDerpibooru(tags.toStdString(), lineEditPageSet->text().toStdString(), derpibooruAPIKey, booru.getCachePath(), booru.getSearchUrl());
         break;
     case GELBOORU_TYPE:
-        state = setTagsGelbooru(tags.toStdString(), lineEditPageSet->text().toInt(), picture_number, booru.search_file_path, booru.search_url);
+        state = setTagsGelbooru(tags.toStdString(), lineEditPageSet->text().toInt(), picture_number, booru.getCachePath(), booru.getSearchUrl());
         break;
     case MOEBOORU_TYPE:
-        state = setTagsMoebooru(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.cache_path, booru.search_url);
+        state = setTagsMoebooru(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.getCachePath(), booru.getSearchUrl());
         break;
     case DANBOORU_TYPE:
-        state = setTagsDanbooru(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.cache_path, booru.search_url);
+        state = setTagsDanbooru(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.getCachePath(), booru.getSearchUrl());
         break;
     }
 
@@ -283,19 +283,19 @@ void SearchTab::loadSearch(int refreshTags)
         parentWidget->viewerTab->labelLoading->setText("Loading pictures");
         parentWidget->viewerTab->progressBar->setValue(progress);
 
-        switch(booru.siteTypeInt)
+        switch(booru.getSiteTypeInt())
         {
         case DERPIBOORU_TYPE:
-            chargementImagesDerpibooru(images, booru.search_file_path);
+            chargementImagesDerpibooru(images, booru.getSearchFilePath());
             break;
         case GELBOORU_TYPE:
-            chargementImagesGelbooru(images, booru.search_file_path);
+            chargementImagesGelbooru(images, booru.getSearchFilePath());
             break;
         case MOEBOORU_TYPE:
-            chargementImagesMoebooru(images, booru.search_file_path);
+            chargementImagesMoebooru(images, booru.getSearchFilePath());
             break;
         case DANBOORU_TYPE:
-            chargementImagesDanbooru(images, booru.search_file_path,booru.base_url);
+            chargementImagesDanbooru(images, booru.getSearchFilePath(),booru.getBaseUrl());
             break;
         }
 
@@ -404,7 +404,7 @@ void SearchTab::on_pushButton_pageMoins_clicked()
 
 void SearchTab::setViewer(int sender)
 {
-    parentWidget->viewerTab->loadPicture(booru.siteTypeInt, booru.index, sender, lineEditPageSet->text().toInt(), booru);
+    parentWidget->viewerTab->loadPicture(booru.getSiteTypeInt(), booru.getIndex(), sender, lineEditPageSet->text().toInt(), booru);
 }
 
 void SearchTab::checkPageButtonStatus()

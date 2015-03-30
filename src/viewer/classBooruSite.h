@@ -1,20 +1,3 @@
-/*
- * classBooruSite.h
- *
- * Contains all basic variables to be able to use Booru Websites such as : (Examples given for Safebooru)
- * - Name             (Safebooru)
- * - Type             (gelbooru)
- * - Base URL         ("http://safebooru.org")
- * - Search URL       ("http://safebooru.org/index.php?page=dapi&s=post&q=index")
- * - Taglist URL      ("http://safebooru.org/index.php?page=dapi&s=tag&q=index&order=name&limit=0")
- * - Post index URL   ("http://safebooru.org/index.php?page=post&s=view&id=")
- *
- * - Cache path       ("cache/Safebooru/")
- * - Download path    ("downloads/Safebooru/")
- * - Search File Path ("cache/Safebooru/search.xml")
- * - Tag file path    ("conf/tagsSafebooru.xml")
- */
-
 #ifndef CLASSBOORUSITE_H_INCLUDED
 #define CLASSBOORUSITE_H_INCLUDED
 
@@ -32,6 +15,34 @@ public:
     ~BooruSite();
     void saveBooruSite();
 
+    /*Getters*/
+    string getName();
+    string getTypeString();
+    string getBaseUrl();
+    string getSearchUrl();
+    string getTagUrl();
+    string getShowIndexUrl();
+    string getCachePath();
+    string getDownloadPath();
+    string getSearchFilePath();
+    string getTagFilePath();
+    int getSiteTypeInt();
+    int getIndex();
+
+    /*Setters*/
+    void setName(string in_name);
+    void setBaseUrl(string in_base_url);
+    void setSearchUrl(string in_search_url);
+    void setTagUrl(string in_tag_url);
+    void setShowIndexUrl(string in_show_index_url);
+    void setCachePath(string in_cache_path);
+    void setDownloadPath(string in_download_path);
+    void setSearchFilePath(string in_search_file_path);
+    void setTagFilePath(string in_tag_file_path);
+    void setSiteType(int type);
+    void setIndex(int i);
+	
+private:
     string name;
     string site_type_string;
 
@@ -39,17 +50,14 @@ public:
     string search_url;
     string tag_url;
     string show_index_url;
-	
+
     string cache_path;
     string download_path;
     string search_file_path;
     string tag_file_path;
 
-
     int siteTypeInt;
     int index;
-	
-private:
 };
 
 #endif

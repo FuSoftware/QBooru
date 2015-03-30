@@ -21,7 +21,7 @@ void SearchTabLoadingWorker::process()
 
     parent_tab->thread_pool[index] = new QThread(this);
 
-    pathFile = cacheImageGeneric(parent_tab->images[index], parent_tab->booru.cache_path);
+    pathFile = cacheImageGeneric(parent_tab->images[index], parent_tab->booru.getCachePath());
     uploader = QString::number(parent_tab->images[index].width) + QString("x") + QString::number(parent_tab->images[index].height);
 
     parent_tab->imageTabs[index]->loadPicture(pathFile, uploader);

@@ -204,7 +204,7 @@ void checkConfigFile()
     saveJSONFile(CONF_FILE, writer.write(root));
 }
 
-void getVersion(char* versionChar, int versionInt[3])
+void getVersion(char* versionChar, int versionInt[4])
 {
     unsigned int i = 0;
     int j = 0;
@@ -303,30 +303,28 @@ void loadBooruSites(BooruSite sites[], int BooruIndex)
     int i = 0;
     while(i < BooruIndex)
     {
-        sites[i].name = root["boorus"][i]["name"].asString();
+        sites[i].setName(root["boorus"][i]["name"].asString());
         outputInfo("INFO",
-                   std::string("Loading ") + sites[i].name,
+                   std::string("Loading ") + sites[i].getName(),
                    LEVEL_TOP_WIDGET);
 
-        sites[i].site_type_string = root["boorus"][i]["site_type_string"].asString();
+        sites[i].setBaseUrl(        root["boorus"][i]["base_url"].asString());
+        sites[i].setSearchUrl(      root["boorus"][i]["search_url"].asString());
+        sites[i].setTagUrl(         root["boorus"][i]["tag_url"].asString());
 
-        sites[i].base_url = root["boorus"][i]["base_url"].asString();
-        sites[i].search_url = root["boorus"][i]["search_url"].asString();
-        sites[i].tag_url = root["boorus"][i]["tag_url"].asString();
+        sites[i].setCachePath(      root["boorus"][i]["cache_path"].asString());
+        sites[i].setDownloadPath(   root["boorus"][i]["download_path"].asString());
+        sites[i].setSearchFilePath( root["boorus"][i]["search_file_path"].asString());
+        sites[i].setTagFilePath(    root["boorus"][i]["tag_file_path"].asString());
 
-        sites[i].cache_path = root["boorus"][i]["cache_path"].asString();
-        sites[i].download_path = root["boorus"][i]["download_path"].asString();
-        sites[i].search_file_path = root["boorus"][i]["search_file_path"].asString();
-        sites[i].tag_file_path = root["boorus"][i]["tag_file_path"].asString();
+        sites[i].setSiteType(       root["boorus"][i]["siteTypeInt"].asInt());
 
-        sites[i].siteTypeInt = root["boorus"][i]["siteTypeInt"].asInt();
+        sites[i].setShowIndexUrl(   root["boorus"][i]["show_index_url"].asString());
 
-        sites[i].show_index_url = root["boorus"][i]["show_index_url"].asString();
+        sites[i].setIndex(          root["boorus"][i]["index"].asInt());
 
-        sites[i].index = root["boorus"][i]["index"].asInt();
-
-        checkFolder(sites[i].cache_path);
-        checkFolder(sites[i].download_path);
+        checkFolder(sites[i].getCachePath());
+        checkFolder(sites[i].getDownloadPath());
 
         i++;
     }

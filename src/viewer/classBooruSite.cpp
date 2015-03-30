@@ -215,3 +215,137 @@ void BooruSite::saveBooruSite()
 
     saveJSONFile(CONF_FILE, output);
 }
+
+/*Getters*/
+string BooruSite::getName()
+{
+    return name;
+}
+
+string BooruSite::getTypeString()
+{
+    return site_type_string;
+}
+
+string BooruSite::getBaseUrl()
+{
+    return base_url;
+}
+
+string BooruSite::getSearchUrl()
+{
+    return search_url;
+}
+
+string BooruSite::getTagUrl()
+{
+    return tag_url;
+}
+
+string BooruSite::getShowIndexUrl()
+{
+    return show_index_url;
+}
+
+string BooruSite::getCachePath()
+{
+    return cache_path;
+}
+
+string BooruSite::getDownloadPath()
+{
+    return download_path;
+}
+
+string BooruSite::getSearchFilePath()
+{
+    return search_file_path;
+}
+
+string BooruSite::getTagFilePath()
+{
+    return tag_file_path;
+}
+
+int BooruSite::getSiteTypeInt()
+{
+    return siteTypeInt;
+}
+
+int BooruSite::getIndex()
+{
+    return index;
+}
+
+/*Setters*/
+void BooruSite::setName(string in_name)
+{
+    name = in_name;
+}
+
+void BooruSite::setBaseUrl(string in_base_url)
+{
+    base_url = in_base_url;
+}
+
+void BooruSite::setSearchUrl(string in_search_url)
+{
+    search_url = in_search_url;
+}
+
+void BooruSite::setTagUrl(string in_tag_url)
+{
+    tag_url = in_tag_url;
+}
+
+void BooruSite::setShowIndexUrl(string in_show_index_url)
+{
+    show_index_url = in_show_index_url;
+}
+
+void BooruSite::setCachePath(string in_cache_path)
+{
+    cache_path = in_cache_path;
+}
+
+void BooruSite::setDownloadPath(string in_download_path)
+{
+    download_path = in_download_path;
+}
+
+void BooruSite::setSearchFilePath(string in_search_file_path)
+{
+    search_file_path = in_search_file_path;
+}
+
+void BooruSite::setTagFilePath(string in_tag_file_path)
+{
+    tag_file_path = in_tag_file_path;
+}
+
+void BooruSite::setSiteType(int type)
+{
+    siteTypeInt = type;
+
+    switch(siteTypeInt)
+    {
+    case DERPIBOORU_TYPE:
+        site_type_string = "derpibooru";
+        break;
+    case GELBOORU_TYPE:
+        site_type_string = "gelbooru";
+        break;
+    case MOEBOORU_TYPE:
+        site_type_string = "moebooru";
+        break;
+    case DANBOORU_TYPE:
+        site_type_string = "danbooru";
+        break;
+    }
+}
+
+
+void BooruSite::setIndex(int i)
+{
+    index = i;
+}

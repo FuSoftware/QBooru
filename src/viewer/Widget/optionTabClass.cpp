@@ -283,7 +283,7 @@ void OptionTab::resetBooruDownloadPath()
     root["paths"]["default_download_path"] = lineEditDownloadPath->text().toStdString();
     for(i=0;i<root["settings"]["booru_number"].asInt();i++)
     {
-        boorus[i].download_path = (lineEditDownloadPath->text().toStdString() + boorus[i].name);
+        boorus[i].setDownloadPath(lineEditDownloadPath->text().toStdString() + boorus[i].getName());
         boorus[i].saveBooruSite();
     }
 
