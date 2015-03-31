@@ -218,4 +218,5 @@ pip-log.txt
 #############
 ## Qt
 #############
-builds-qt/
+Qt-builds/
+Qt-builds/*
