@@ -261,7 +261,7 @@ void SearchTab::loadSearch(int refreshTags)
         state = setTagsDerpibooru(tags.toStdString(), lineEditPageSet->text().toStdString(), derpibooruAPIKey, booru.getCachePath(), booru.getSearchUrl());
         break;
     case GELBOORU_TYPE:
-        state = setTagsGelbooru(tags.toStdString(), lineEditPageSet->text().toInt(), picture_number, booru.getCachePath(), booru.getSearchUrl());
+        state = setTagsGelbooru(tags.toStdString(), lineEditPageSet->text().toInt(), picture_number, booru.getSearchFilePath(), booru.getSearchUrl());
         break;
     case MOEBOORU_TYPE:
         state = setTagsMoebooru(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.getCachePath(), booru.getSearchUrl());

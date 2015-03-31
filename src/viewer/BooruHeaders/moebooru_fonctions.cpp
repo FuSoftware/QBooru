@@ -62,7 +62,7 @@ void chargementImagesMoebooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], st
 int returnTagNumberMoebooru(Json::Value root)
 {
     int tagIndex = 0;
-    while(root[tagIndex]["id"].asInt() != NULL)
+    while(root[tagIndex]["id"] == Json::intValue)
     {
         tagIndex++;
     }
@@ -82,7 +82,7 @@ int lectureTagsMoebooru(std::string input, std::string output[][3], Json::Value 
     j++;
 
     /*Lecture des tags*/
-    while(root[tagIndex]["id"].asInt() != NULL)
+    while(root[tagIndex]["id"] == Json::intValue)
     {
         if(strncmp(root[tagIndex]["name"].asCString(), input.c_str(), input.size()) == 0)
         {
