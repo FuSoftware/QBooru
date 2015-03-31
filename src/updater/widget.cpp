@@ -38,9 +38,19 @@ Widget::Widget(QWidget *parent)
     connect(pushButtonRunViewer,SIGNAL(clicked()),this,SLOT(runApplication()));
     connect(pushButtonUpdate,SIGNAL(clicked()),this,SLOT(updateSoftware()));
 
-    textBrowser->setText(readChangelog());
-
     setMinimumSize(640,480);
+
+    refreshInterface();
+}
+
+Widget::~Widget()
+{
+
+}
+
+void Widget::refreshInterface()
+{
+    textBrowser->setText(readChangelog());
 
     updateNeeded = false;
 
@@ -70,11 +80,6 @@ Widget::Widget(QWidget *parent)
     {
         pushButtonUpdate->setText("Update not needed");
     }
-}
-
-Widget::~Widget()
-{
-
 }
 
 void Widget::runApplication()
@@ -113,4 +118,5 @@ void Widget::runAndStopApplication()
 void Widget::updateSoftware()
 {
     cachingFile(LAST_EXECUTABLE_FILE_URL,VIEWER_MAIN_EXECUTABLE,true,false);
+    refreshInterface();
 }

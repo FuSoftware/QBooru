@@ -27,7 +27,7 @@
 
 #define CURL_STATICLIB
 #define APP_NAME "QBooru Viewer"
-#define APP_VERSION "1.7.5.3"
+#define APP_VERSION "1.7.5.4"
 #define TAG_NUMBER    512 //Max number of tags to show in the Viewer
 #define MAX_BOORU_NUMBER 64 //Max number of Boorus to load in the main widget
 #define MAX_PICTURE_NUMBER 64 //Max number of pictures/page
@@ -35,6 +35,7 @@
 #define CONF_FILE_URL "https://raw.githubusercontent.com/FlorentUguet/QBooru/master/builds/latest/conf/configuration.json"
 #define CHANGELOG_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/changelog.html"
 #define LAST_VERSION_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/versions.json"
+#define UPDATER_URL "https://github.com/FlorentUguet/QBooru/raw/master/builds/latest/QBooruUpdater.exe"
 
 enum InfoLevel
 {
