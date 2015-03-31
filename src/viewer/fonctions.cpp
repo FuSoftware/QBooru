@@ -111,8 +111,8 @@ void checkConfigFile()
      * */
 
     int errorbuf;
-    int lastVersion[3];
-    int localVersion[3];
+    int lastVersion[4];
+    int localVersion[4];
     bool newVersion = false;
     Json::Value root = loadJSONFile(CONF_FILE);
     Json::StyledWriter writer;
@@ -140,7 +140,7 @@ void checkConfigFile()
     getVersion(strdup(root["versions"]["viewer"]["local"].asCString()),localVersion);
     getVersion(strdup(root["versions"]["viewer"]["last"].asCString()),lastVersion);
 
-    for(int i=0;i<3;i++)
+    for(int i=0;i<4;i++)
     {
         if(lastVersion[i] > localVersion[i])
         {
