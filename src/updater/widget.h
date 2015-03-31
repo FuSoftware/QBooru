@@ -30,7 +30,7 @@ private:
     QPushButton *pushButtonUpdate;
     QPushButton *pushButtonExit;
 
-    int viewerVersions[2][3]; // viewerVersions[LOCAL/LAST][VERSION]
+    int viewerVersions[2][4]; // viewerVersions[LOCAL/LAST][VERSION]
     bool updateNeeded;
 };
 
