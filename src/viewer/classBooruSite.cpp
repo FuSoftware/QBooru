@@ -1,8 +1,4 @@
-#include <iostream>
 #include "classBooruSite.h"
-#include "constantes.h"
-#include "fonctions.h"
-#include "json/json.h"
 
 BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType, int booruIndex)
 {

@@ -2,6 +2,9 @@
 #define CLASSBOORUSITE_H_INCLUDED
 
 #include <iostream>
+#include "constantes.h"
+#include "fonctions.h"
+#include "json/json.h"
 
 using namespace std;
 

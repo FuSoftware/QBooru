@@ -5,13 +5,11 @@
 
 #include "constantes.h"
 #include "../widget.h"
-
 #include "../BooruHeaders/headers.h"
-
 #include "../classBooruSite.h"
-
 #include "../Workers/viewer_loading_thread.h"
 
+class BooruSite;
 class ViewerTabLoadingWorker;
 
 class ViewerTab: public QWidget

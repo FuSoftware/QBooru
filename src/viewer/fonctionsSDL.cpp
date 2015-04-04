@@ -1,16 +1,4 @@
-#include <iostream>
-#include <cstdio>
-#include <cstdlib>
-#include <QWidget>
-
-#include "constantes.h"
-#include "fonctions.h"
 #include "fonctionsSDL.h"
-#include "sdlglutils.h"
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
 
 #define TRANSLATION_BASE 20
 

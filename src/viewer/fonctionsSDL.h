@@ -6,9 +6,16 @@
  */
 
 #include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <QWidget>
+#include "constantes.h"
+#include "fonctions.h"
+#include "sdlglutils.h"
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-#include <QWidget>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 #ifndef FONCTIONSSDL_H
 #define FONCTIONSSDL_H
