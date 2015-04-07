@@ -19,6 +19,11 @@ SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
     int j=0;
     int k=0;
 
+    for(i=0;i<64;i++)
+    {
+        isLoading[i] = false;
+    }
+
     parentWidget = parent;
 
     installEventFilter(this);
@@ -58,6 +63,9 @@ SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
                 imageTabs[i] = new ImageTab(this, booru.getSiteTypeInt());
                 buttonMapper->setMapping(imageTabs[i]->imageThumbnail, i);
                 connect(imageTabs[i]->imageThumbnail, SIGNAL(clicked()), buttonMapper , SLOT(map()));
+
+                thread_pool_loading[i] = new QThread;
+                loading_worker[i] = new SearchTabLoadingWorker();
             }
 
         layoutSearchPage = new QHBoxLayout;
@@ -148,6 +156,11 @@ SearchTab::~SearchTab()
         delete imageTabs[i];
     }
     clearLayoutSecond(layoutMain);
+}
+
+void SearchTab::setLoadingState(int i, bool state)
+{
+    isLoading[i] = state;
 }
 
 void SearchTab::initialisationMiniatures()
@@ -474,27 +487,31 @@ void SearchTab::newSearch()
 
 void SearchTab::startLoadingPicture(int i)
 {
-    thread_pool_loading[i] = new QThread;
-    loading_worker[i] = new SearchTabLoadingWorker(this,i);
+    if(isLoading[i] == false)
+    {
+        thread_pool_loading[i] = new QThread;
+        loading_worker[i] = new SearchTabLoadingWorker(this,i);
 
-    loading_worker[i]->moveToThread(thread_pool_loading[i]);
+        loading_worker[i]->moveToThread(thread_pool_loading[i]);
 
-    connect(thread_pool_loading[i], SIGNAL(started()), loading_worker[i], SLOT(process()));
-    connect(loading_worker[i], SIGNAL(finished()), thread_pool_loading[i], SLOT(quit()));
-    connect(loading_worker[i], SIGNAL(finished()), loading_worker[i], SLOT(deleteLater()));
-    connect(loading_worker[i], SIGNAL(finished()), this, SLOT(image_loaded()));
-    connect(thread_pool_loading[i], SIGNAL(finished()), thread_pool_loading[i], SLOT(deleteLater()));
+        connect(thread_pool_loading[i], SIGNAL(started()), loading_worker[i], SLOT(process()));
+        connect(loading_worker[i], SIGNAL(finished()), thread_pool_loading[i], SLOT(quit()));
+        connect(loading_worker[i], SIGNAL(finished()), loading_worker[i], SLOT(deleteLater()));
+        connect(loading_worker[i], SIGNAL(finished(int)), this, SLOT(image_loaded(int)));
+        connect(thread_pool_loading[i], SIGNAL(finished()), thread_pool_loading[i], SLOT(deleteLater()));
 
-    thread_pool_loading[i]->start();
+        thread_pool_loading[i]->start();
+    }
 }
 
-void SearchTab::image_loaded()
+void SearchTab::image_loaded(int index)
 {
     loaded_pictures++;
     progress += 4;
-    progressBarSearch->setValue(progress);
-    parentWidget->viewerTab->progressBar->setValue(progress);
+    if(progressBarSearch){progressBarSearch->setValue(progress);parentWidget->viewerTab->progressBar->setValue(progress);} //Sometimes the progressBar has a SIGSEGV
 
     labelSearchStatus->setText(QString("Loaded thumbnails ") + QString::number(loaded_pictures) + QString("/") + QString::number(picture_number));
     parentWidget->viewerTab->labelLoading->setText(QString("Loaded thumbnails ") + QString::number(loaded_pictures) + QString("/") + QString::number(picture_number));
+    //delete loading_worker[i];
+    //delete thread_pool_loading[i];
 }

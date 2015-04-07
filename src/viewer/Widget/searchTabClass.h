@@ -15,6 +15,7 @@ class Widget;
 class ImageTab;
 class CachingWorker;
 class SearchTabLoadingWorker;
+class BooruSite;
 
 class SearchTab : public QWidget
 {
@@ -28,6 +29,7 @@ public:
     void loadTagViewer(QString tagString);
     void loadSearch(int refreshTags);
 
+    void setLoadingState(int i, bool state);
     void on_pushButton_pageMoins_clicked();
     void on_pushButton_pagePlus_clicked();
     void setKeyboard();
@@ -65,7 +67,7 @@ public slots:
     void setViewer(int sender);
     void newSearch();
     void startLoadingPicture(int i);
-    void image_loaded();
+    void image_loaded(int index);
 
 private:
     int loaded_pictures;
@@ -79,6 +81,7 @@ private:
     QSignalMapper *buttonMapper;
 
     bool isAffiched[64];
+    bool isLoading[64];
 
     Widget *parentWidget;
 

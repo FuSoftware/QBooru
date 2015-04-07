@@ -25,6 +25,8 @@ public:
     void loadPicture(int imageHostInt, int tabIndex, int index, int pageIndexInt, BooruSite booruSite);
     void loadPicture();
 
+    void setLoadingState(bool state);
+
     bool eventFilter(QObject *object, QEvent *event);
     void setKeyboard();
 
@@ -83,6 +85,7 @@ private:
     int imageHost;
     int imageIndex;
     int pageIndex;
+    bool isLoading;
     QThread *picture_thread;
     ViewerTabLoadingWorker *worker;
 

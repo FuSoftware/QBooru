@@ -1,4 +1,5 @@
 #include "classBooruSite.h"
+#include "fonctions.h"
 
 BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType, int booruIndex)
 {
@@ -28,7 +29,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType,
     case GELBOORU_TYPE:
         show_index_url = base_url + "/index.php?page=post&s=view&id=";
         search_url = base_url + "/index.php?page=dapi&s=post&q=index";
-        tag_url = "/index.php?page=dapi&s=tag&q=index&order=name&limit=0";
+        tag_url = base_url + "/index.php?page=dapi&s=tag&q=index&order=name&limit=0";
 
         search_file_path = cache_path + "/search.xml";
         tag_file_path = tag_file_path_base + ".xml";

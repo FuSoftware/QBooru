@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "constantes.h"
-#include "fonctions.h"
 #include "json/json.h"
 
 using namespace std;

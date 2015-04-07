@@ -12,6 +12,10 @@ TARGET = QBooru
 TEMPLATE = app
 RC_FILE = myapp.rc
 
+VERSION = 1.8.0.1
+QMAKE_TARGET_COMPANY = Florent Uguet
+QMAKE_TARGET_PRODUCT = QBooru
+
 target.path = $$[QT_INSTALL_EXAMPLES]/qtconcurrent/runfunction
 INSTALLS += target
 

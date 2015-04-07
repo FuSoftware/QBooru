@@ -10,6 +10,8 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
     int i;
     installEventFilter(this);
 
+    isLoading = false;
+
     /*Déclaration des variables (avec arbre)*/
     parentWidget = parent;
 
@@ -348,25 +350,33 @@ bool ViewerTab::eventFilter(QObject *object, QEvent *event)
 
 void ViewerTab::startLoadingPicture()
 {
-    picture_thread = new QThread;
-    worker = new ViewerTabLoadingWorker(this);
+    if(!isLoading)
+    {
+        picture_thread = new QThread;
+        worker = new ViewerTabLoadingWorker(this);
 
-    worker->moveToThread(picture_thread);
+        worker->moveToThread(picture_thread);
 
-    connect(picture_thread, SIGNAL(started()), worker, SLOT(process()));
-    connect(worker, SIGNAL(finished()), picture_thread, SLOT(quit()));
-    connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
-    connect(picture_thread, SIGNAL(finished()), picture_thread, SLOT(deleteLater()));
+        connect(picture_thread, SIGNAL(started()), worker, SLOT(process()));
+        connect(worker, SIGNAL(finished()), picture_thread, SLOT(quit()));
+        connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+        connect(picture_thread, SIGNAL(finished()), picture_thread, SLOT(deleteLater()));
 
-    connect(worker, SIGNAL(finished()), this, SLOT(imageLoaded()));
+        connect(worker, SIGNAL(finished()), this, SLOT(imageLoaded()));
 
-    picture_thread->start();
+        picture_thread->start();
+    }
 }
 
 void ViewerTab::imageLoaded()
 {
     progressBar->setValue(100);
     labelLoading->setText("Completed");
+}
+
+void ViewerTab::setLoadingState(bool state)
+{
+    isLoading = state;
 }
 
 

@@ -10,13 +10,16 @@ class SearchTabLoadingWorker : public QObject
     Q_OBJECT
 
 public:
+    SearchTabLoadingWorker();
     SearchTabLoadingWorker(SearchTab *parent, int image_index);
     ~SearchTabLoadingWorker();
 
 public slots:
     void process();
+    void setPicture(SearchTab *parent, int image_index);
 
 signals:
+    void finished(int index);
     void finished();
     void error(QString err);
 
