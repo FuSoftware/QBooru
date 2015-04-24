@@ -1,4 +1,14 @@
 # QBooru
+
+##Important notice
+Since 1.9, Gelbooru XML is depreciated, the JSON one is now used. Please apply the following changes to your Gelbooru sites' configuration :
+<ul>
+  <li>Change in your Gelbooru based website settings the search_file extensions from XML to JSON</li>
+  <li>Add to the search_url in your Gelbooru based website settings the term "&json=1"</li>
+  <li>or</li>
+  <li>Refer to "search_file_path" and "search_url" in https://github.com/FlorentUguet/QBooru/releases/download/v1.9.0/configuration.json</li>
+</ul>
+
 ##Summit
 QBooru is a lightweight Windows and Linux client that allows users to see pictures from most booru sites, and download them, for example :
 <ul>
