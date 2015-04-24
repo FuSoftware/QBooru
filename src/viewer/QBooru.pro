@@ -49,7 +49,6 @@ SOURCES += main.cpp\
     Workers/caching_thread.cpp \
     Workers/image_loading_thread.cpp \
     Workers/viewer_loading_thread.cpp \
-    tinyxml2/tinyxml2.cpp \
     BooruHeaders/generic_booru_image.cpp \
     BooruHeaders/generic_booru_fonctions.cpp
 
@@ -100,7 +99,6 @@ HEADERS  += widget.h \
     Workers/caching_thread.h \
     Workers/image_loading_thread.h \
     Workers/viewer_loading_thread.h \
-    tinyxml2/tinyxml2.h \
     BooruHeaders/generic_booru_image.h \
     BooruHeaders/generic_booru_fonctions.h \
     constantes_win.h \

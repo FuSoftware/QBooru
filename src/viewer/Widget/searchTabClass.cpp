@@ -217,7 +217,7 @@ void SearchTab::loadSearch(int refreshTags)
                 tags += ",questionable";
                 break;
             case RATING_EXPLICIT:
-                 tags += ",explicit" ;
+                tags += ",explicit" ;
                 break;
             }
             break;
@@ -231,7 +231,7 @@ void SearchTab::loadSearch(int refreshTags)
                 tags += " rating:questionable";
                 break;
             case RATING_EXPLICIT:
-                 tags += " rating:explicit" ;
+                tags += " rating:explicit" ;
                 break;
             }
             break;
@@ -246,7 +246,7 @@ void SearchTab::loadSearch(int refreshTags)
                 tags += " rating:q";
                 break;
             case RATING_EXPLICIT:
-                 tags += " rating:e" ;
+                tags += " rating:e" ;
                 break;
             }
         }
@@ -302,7 +302,7 @@ void SearchTab::loadSearch(int refreshTags)
             chargementImagesDerpibooru(images, booru.getSearchFilePath());
             break;
         case GELBOORU_TYPE:
-            chargementImagesGelbooru(images, booru.getSearchFilePath());
+            chargementImagesGelbooru(images, booru.getSearchFilePath(), booru.getBaseUrl());
             break;
         case MOEBOORU_TYPE:
             chargementImagesMoebooru(images, booru.getSearchFilePath());
@@ -327,7 +327,6 @@ void SearchTab::loadSearch(int refreshTags)
                 imageTabs[i]->setDisabled(false);
                 isAffiched[i] = true;
                 startLoadingPicture(i);
-                //imageRefreshUnique(i);
             }
             else
             {

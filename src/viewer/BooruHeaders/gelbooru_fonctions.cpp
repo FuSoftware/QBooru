@@ -7,121 +7,91 @@
 #include <QDir>
 #include <QNetworkAccessManager>
 
-#include "tinyxml2/tinyxml2.h"
+#include "json/json.h"
 
 #include "fonctions.h"
 #include "gelbooru_fonctions.h"
 #include "generic_booru_image.h"
 
-int chargementImagesGelbooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath)
+void chargementImagesGelbooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath, std::string baseSiteIndex)
 {
-    /// Return 0 = No error
-    /// Return 1 = Read error
-    /// Return X = Error nb X
-    /*Variables*/
-    QString stringOutFilename;
-    char* outfilename;
-    int errorbuf;
+    int i;
+    Json::Value root = loadJSONFile(stringToCString(searchFilePath)); // will contains the root value after parsing
+    Json::Value root_config = loadJSONFile(CONF_FILE); // will contains the root config value after parsing
+    int picture_number = root_config["settings"]["picture_number"].asInt();
 
-    /*Création des chemins*/
-    stringOutFilename = QString(searchFilePath.c_str());
+    std::string image;
+    std::string directory;
 
-    QByteArray ba2 = stringOutFilename.toLocal8Bit();
-
-    outfilename = ba2.data();
-
-    /*Chargement du fichier*/
-    tinyxml2::XMLDocument xmlDoc;
-    xmlDoc.LoadFile(outfilename);
-
-    if(xmlDoc.ErrorID() != 0)
+    for(i=0;i<picture_number;i++)
     {
-        errorbuf = xmlDoc.ErrorID();
+        image = root[i]["image"].asString();
+        directory = root[i]["directory"].asString();
 
-        QString buf = QString("Erreur ouverture fichier XML : Erreur TinyXML ") + QString::number(errorbuf);
-        outputInfo("ERROR",
-                   buf.toStdString(),
-                   LEVEL_SEARCH);
+        imagesAffichage[i].id               = root[i]["id"].asInt();
+        imagesAffichage[i].created_at       = returnTimeStringConvert(root[i]["change"].asInt());
+        imagesAffichage[i].author           = root[i]["owner"].asString();
+        imagesAffichage[i].score            = root[i]["score"].asInt();
+        imagesAffichage[i].file_size        = 0;
 
-        return errorbuf;
+        imagesAffichage[i].file_url    =  baseSiteIndex + std::string("/images/") + directory +std::string("/") + image;
+        imagesAffichage[i].width       =  root[i]["width"].asInt();
+        imagesAffichage[i].height      =  root[i]["height"].asInt();
+
+        /*Search tab*/
+        imagesAffichage[i].preview_url = baseSiteIndex + std::string("/thumbnails/") + directory +std::string("/thumbnail_") + image.substr(0,image.find_last_of('.')) + std::string(".jpg"); //http://gelbooru.com/thumbnails/16/b2/thumbnail_16b2851ba391157b418d9d6cb2a3b602.jpg
+
+        if(root[i]["sample"].asBool())
+        {
+            imagesAffichage[i].sample_url = baseSiteIndex + std::string("/samples/") + directory +std::string("/sample_") + image.substr(0,image.find_last_of('.')) + std::string(".jpg");//http://simg3.gelbooru.com/samples/16/24/sample_1624d72ba640bb22adb6820dbac88f01.jpg
+        }
+        else
+        {
+            imagesAffichage[i].sample_url = baseSiteIndex + std::string("/images/") + directory +std::string("/") + image;//http://simg3.gelbooru.com/images/16/b2/16b2851ba391157b418d9d6cb2a3b602.jpg
+        }
+
+        imagesAffichage[i].rating   = *strdup(root[i]["rating"].asString().c_str());
+        imagesAffichage[i].tagNumber = loadTags(root[i]["tags"].asString(), imagesAffichage[i].tags);
     }
-    else
-    {
-        outputInfo("INFO",
-                   std::string("Ouverture fichier XML : ") + std::string(outfilename),
-                   LEVEL_SEARCH);
-    }
-
-    /**TinyXML**/
-
-    /*Création d'un Handle pour la sécurité (si le noeud n'existe pas, cela évite de pointer un objet nul*/
-    tinyxml2::XMLHandle hdl(&xmlDoc);
-
-    errorbuf = lectureXMLGelbooru(hdl, imagesAffichage);
-
-    if(errorbuf)
-    {
-        return errorbuf;
-    }
-    else
-    {
-        return 0;
-    }
-
 }
 
-int lectureXMLGelbooru(tinyxml2::XMLHandle hdl, BooruImage images[MAX_PICTURE_NUMBER])
+int returnTagNumberGelbooru(Json::Value root)
 {
-    int i = 0;
-    tinyxml2::XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
-
-    /*Lecture du noeud et de ses attributs*/
-    if(!elem)
+    int tagIndex = 0;
+    while(root[tagIndex]["id"] == Json::intValue)
     {
-        outputInfo("ERROR",
-                   std::string("Erreur : Le noeud à atteindre n'existe pas"),
-                   LEVEL_SEARCH);
-        return 1000;
+        tagIndex++;
     }
+    return tagIndex;
+}
 
-    while(elem)
+int lectureTagsGelbooru(std::string input, std::string output[][3], Json::Value root)
+{
+    int tagIndex = 0;
+    int j = 0;
+
+    /*Indicateurs des colonnes*/
+
+    output[j][0] = "Tag Name";
+    output[j][1] = "Tag ID";
+    output[j][2] = "Tag Count";
+    j++;
+
+    /*Lecture des tags*/
+    while(root[tagIndex]["id"] == Json::intValue)
     {
-        images[i].score         = atoi(elem->Attribute("score"));
-        images[i].file_url      = std::string(elem->Attribute("file_url"));
-        images[i].sample_url    = std::string(elem->Attribute("sample_url"));
-        images[i].sample_width  = atoi(elem->Attribute("sample_width"));
-        images[i].sample_height = atoi(elem->Attribute("sample_height"));
-        images[i].preview_url   = std::string(elem->Attribute("preview_url"));
-        images[i].rating        = *strdup(elem->Attribute("rating"));
+        if(strncmp(root[tagIndex]["name"].asCString(), input.c_str(), input.size()) == 0)
+        {
+            output[j][0] = root[tagIndex]["name"].asString();
+            output[j][1] = root[tagIndex]["id"].asString();
+            output[j][2] = root[tagIndex]["count"].asString();
+            j++;
+        }
+        else
+        {
 
-        images[i].tagNumber     = loadTags(std::string(elem->Attribute("tags")), images[i].tags);
-
-        images[i].id            = atoi(elem->Attribute("id"));
-        images[i].height        = atoi(elem->Attribute("height"));
-        images[i].width         = atoi(elem->Attribute("width"));
-
-        images[i].author    = elem->Attribute("creator_id");
-
-        images[i].created_at    = std::string(elem->Attribute("created_at"));
-        images[i].source        = std::string(elem->Attribute("source"));         
-        images[i].preview_width = atoi(elem->Attribute("preview_width"));
-        images[i].preview_height = atoi(elem->Attribute("preview_height"));
-
-        images[i].file_size = 0;
-
-        /**
-          Unusued for now :
-          images[i].change        = atoi(elem->Attribute("change"));
-          images[i].has_children  = strdup(elem->Attribute("has_children"));
-          images[i].status        = std::string(elem->Attribute("status"));
-          images[i].has_notes     = strdup(elem->Attribute("has_notes"));
-          images[i].has_comments  = strdup(elem->Attribute("has_comments"));
-          images[i].parent_id     = atoi(elem->Attribute("parent_id"));
-          */
-
-
-        elem = elem->NextSiblingElement(); // iteration
-        i++;
+        }
+        tagIndex++;
     }
-    return 0;
+    return j;
 }

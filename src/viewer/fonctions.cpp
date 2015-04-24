@@ -113,7 +113,7 @@ void checkConfigFile()
     int errorbuf;
     int lastVersion[4];
     int localVersion[4];
-    bool newVersion = false;
+    bool newVersion = true;
     Json::Value root = loadJSONFile(CONF_FILE);
     Json::StyledWriter writer;
 
@@ -142,9 +142,9 @@ void checkConfigFile()
 
     for(int i=0;i<4;i++)
     {
-        if(lastVersion[i] > localVersion[i])
+        if(localVersion[i] >= lastVersion[i])
         {
-            newVersion = true;
+            newVersion = false;
         }
     }
 

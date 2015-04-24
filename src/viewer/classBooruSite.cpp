@@ -28,11 +28,11 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType,
         break;
     case GELBOORU_TYPE:
         show_index_url = base_url + "/index.php?page=post&s=view&id=";
-        search_url = base_url + "/index.php?page=dapi&s=post&q=index";
+        search_url = base_url + "/index.php?page=dapi&json=1&s=post&q=index";
         tag_url = base_url + "/index.php?page=dapi&s=tag&q=index&order=name&limit=0";
 
-        search_file_path = cache_path + "/search.xml";
-        tag_file_path = tag_file_path_base + ".xml";
+        search_file_path = cache_path + "/search.json";
+        tag_file_path = tag_file_path_base + ".json";
         site_type_string = "gelbooru";
         break;
     case MOEBOORU_TYPE:

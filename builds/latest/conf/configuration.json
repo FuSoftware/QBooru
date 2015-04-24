@@ -7,12 +7,12 @@
          "imageLimit" : 15,
          "index" : 0,
          "name" : "Gelbooru",
-         "search_file_path" : "cache/Gelbooru/search.xml",
-         "search_url" : "http://gelbooru.com/index.php?page=dapi&s=post&q=index",
+         "search_file_path" : "cache/Gelbooru/search.json",
+         "search_url" : "http://gelbooru.com/index.php?page=dapi&json=1&s=post&q=index",
          "show_index_url" : "http://gelbooru.com/index.php?page=post&s=view&id=",
          "siteTypeInt" : 1,
          "site_type_string" : "gelbooru",
-         "tag_file_path" : "conf/tagsGelbooru.xml",
+         "tag_file_path" : "conf/tagsGelbooru.json",
          "tag_url" : "/index.php?page=dapi&s=tag&q=index&order=name&limit=0"
       },
       {
@@ -52,12 +52,12 @@
          "imageLimit" : 15,
          "index" : 3,
          "name" : "Rule34",
-         "search_file_path" : "cache/Rule34/search.xml",
-         "search_url" : "http://rule34.xxx/index.php?page=dapi&s=post&q=index",
+         "search_file_path" : "cache/Rule34/search.json",
+         "search_url" : "http://rule34.xxx/index.php?page=dapi&json=1&s=post&q=index",
          "show_index_url" : "http://rule34.xxx/index.php?page=post&s=view&id=",
          "siteTypeInt" : 1,
          "site_type_string" : "gelbooru",
-         "tag_file_path" : "conf/tagsRule34.xml",
+         "tag_file_path" : "conf/tagsRule34.json",
          "tag_url" : "/index.php?page=dapi&s=tag&q=index&order=name&limit=0"
       },
       {
@@ -99,12 +99,12 @@
    "temp" : null,
    "versions" : {
       "updater" : {
-         "last" : "1.0.0",
-         "local" : "0.1.10"
+         "last" : "1.1.0.3",
+         "local" : "1.1.0.3"
       },
       "viewer" : {
-         "last" : "1.6.0",
-         "local" : "1.7.4"
+         "last" : "1.8.0.1",
+         "local" : "1.8.1.0"
       }
    }
 }

@@ -5,9 +5,10 @@
 #include "generic_booru_image.h"
 #include "constantes.h"
 
-#include "tinyxml2/tinyxml2.h"
+#include "json/json.h"
 
-int chargementImagesGelbooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath);
-int lectureXMLGelbooru(tinyxml2::XMLHandle hdl, BooruImage images[MAX_PICTURE_NUMBER]);
+void chargementImagesGelbooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath, std::string baseSiteIndex);
+int returnTagNumberGelbooru(Json::Value root);
+int lectureTagsGelbooru(std::string input, std::string output[][3], Json::Value root);
 
 #endif // FONCTIONSGELBOORU_H

@@ -36,11 +36,11 @@ void chargementImagesDanbooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], st
         imagesAffichage[i].height      = root[i]["image_height"].asInt();// Ok
 
         /*Search tab*/
-        imagesAffichage[i].preview_url             = baseSiteIndex + root[i]["preview_file_url"].asString(); //Ok
+        imagesAffichage[i].preview_url = baseSiteIndex + root[i]["preview_file_url"].asString(); //Ok
 
-        imagesAffichage[i].sample_url          = baseSiteIndex + root[i]["large_file_url"].asString(); //Ok
+        imagesAffichage[i].sample_url = baseSiteIndex + root[i]["large_file_url"].asString(); //Ok
 
-        imagesAffichage[i].rating   = *strdup(root[i]["rating"].asString().c_str()); //Ok
+        imagesAffichage[i].rating = *strdup(root[i]["rating"].asString().c_str()); //Ok
 
         imagesAffichage[i].tagNumber = loadTags(root[i]["tag_string"].asString(), imagesAffichage[i].tags); //Ok
     }
