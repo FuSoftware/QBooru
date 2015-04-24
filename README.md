@@ -18,7 +18,7 @@ At the moment, it supports 4 APIs :
   <li>Derpibooru</li>
 </ul>
 
-Searchs are done by the JSON or the XML API, depending on the site's API. Thumbnails are cached locally, and are re-used by the program if needed.
+Searchs are done by the JSON APIs. Thumbnails are cached locally, and are re-used by the program if needed.
 
 ##Interface
 The current interface allows users to chose how many pictures they want, within 3-5 rows and 5-8 columns.
