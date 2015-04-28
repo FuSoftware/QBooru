@@ -46,7 +46,6 @@ public slots:
     void buttonClicked();
     void on_tagSelected(QString tag);
     void downloadPicture();
-    void viewFullscreen();
     void showPreviousPicture();
     void showNextPicture();
     void startLoadingPicture();
@@ -73,7 +72,6 @@ private:
                 QVBoxLayout *layoutGroupBox;
                     QLabel *labelInfo[16];
 
-            QPushButton *pushButtonFullscreen;
             QPushButton *pushButtonDownload;
 
             QHBoxLayout *layoutSwitchPicture;

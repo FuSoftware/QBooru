@@ -2,7 +2,6 @@
 #include "../fonctions.h"
 #include "../constantes.h"
 #include "../widget.h"
-#include "../fonctionsSDL.h"
 #include "../classBooruSite.h"
 
 ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
@@ -42,8 +41,6 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
                         labelInfo[i] = new QLabel(this);
                         labelInfo[i]->setText("Some Text");
                     }
-
-            pushButtonFullscreen = new QPushButton("Download + Fullscreen");
             pushButtonDownload = new QPushButton("Download");
 
             layoutSwitchPicture = new QHBoxLayout;
@@ -82,7 +79,6 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
     layoutInfoTagsSeparator->addWidget(groupBoxInfo);
     layoutInfoTagsSeparator->addWidget(progressBar);
     layoutInfoTagsSeparator->addWidget(labelLoading);
-    layoutInfoTagsSeparator->addWidget(pushButtonFullscreen);
     layoutInfoTagsSeparator->addWidget(pushButtonDownload);
     layoutInfoTagsSeparator->addLayout(layoutSwitchPicture);
     layoutInfoTagsSeparator->addWidget(labelPage);
@@ -103,7 +99,6 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
     setLayout(layoutMain);
 
     connect(pushButtonDownload,SIGNAL(clicked()),this,SLOT(downloadPicture()));
-    connect(pushButtonFullscreen,SIGNAL(clicked()),this,SLOT(viewFullscreen()));
     connect(pushButtonSwitchMoins,SIGNAL(clicked()),this,SLOT(showPreviousPicture()));
     connect(pushButtonSwitchPlus,SIGNAL(clicked()),this,SLOT(showNextPicture()));
 
@@ -252,20 +247,6 @@ void ViewerTab::downloadPicture()
     labelLoading->setText("Downloading Picture (May take some time)");
     progressBar->setValue(0);
     fullImagePath = saveImageFullGeneric(Image,booru.getDownloadPath());
-    labelLoading->setText("Completed");
-    progressBar->setValue(100);
-}
-
-void ViewerTab::viewFullscreen()
-{
-    labelLoading->setText("Downloading Picture");
-    progressBar->setValue(0);
-    downloadPicture();
-
-    labelLoading->setText("Starting FullscreenViewer");
-    progressBar->setValue(50);
-    showImageFullScreenSDL(parentWidget,strdup(fullImagePath.toStdString().c_str()));
-
     labelLoading->setText("Completed");
     progressBar->setValue(100);
 }

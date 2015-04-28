@@ -12,7 +12,7 @@ TARGET = QBooru
 TEMPLATE = app
 RC_FILE = myapp.rc
 
-VERSION = 1.8.0.1
+VERSION = 1.10.0.0
 QMAKE_TARGET_COMPANY = Florent Uguet
 QMAKE_TARGET_PRODUCT = QBooru
 
@@ -24,8 +24,6 @@ SOURCES += main.cpp\
         widget.cpp \
     fonctions.cpp \
     fileutils.cpp \
-    fonctionsSDL.cpp \
-    sdlglutils.cpp \
     classBooruSite.cpp \
     json/json_reader.cpp \
     json/json_value.cpp \
@@ -37,7 +35,6 @@ SOURCES += main.cpp\
     Widget/clickableLabel.cpp \
     Widget/BooruSettingsWidgetClass.cpp \
     Widget/booruSettingsTabClass.cpp \
-    Widget/loadingWidget.cpp \
     BooruHeaders/danbooru_fonctions.cpp \
     BooruHeaders/danbooru_recherche.cpp \
     BooruHeaders/derpibooru_fonctions.cpp \
@@ -78,13 +75,10 @@ HEADERS  += widget.h \
     Widget/optionTabClass.h \
     Widget/searchTabClass.h \
     Widget/viewerTabClass.h \
-    fonctionsSDL.h \
-    sdlglutils.h \
     Widget/clickableLabel.h \
     classBooruSite.h \
     Widget/BooruSettingsWidgetClass.h \
     Widget/booruSettingsTabClass.h \
-    Widget/loadingWidget.h \
     Danbooru/fonctionsDanbooru.h \
     Danbooru/imagesDanbooru.h \
     Danbooru/rechercheDanbooru.h \
@@ -109,24 +103,11 @@ FORMS    +=
 
 win32:{
 LIBS += "E:/Qt/Qt5.4.1/5.4/mingw491_32/lib/libcurl.a" "E:/Qt/Qt5.4.1/5.4/mingw491_32/lib/libcurldll.a"
-#SDL
-INCLUDEPATH+=E:\lib\SDL-devel-1.2.15-mingw32\SDL-1.2.15\include
-LIBS += -LE:\lib\SDL-devel-1.2.15-mingw32\SDL-1.2.15\lib -llibSDL
-#SDL_Image
-INCLUDEPATH+=E:\lib\SDL_image-devel-1.2.12-VC\SDL_image-1.2.12\include
-LIBS += -LE:\lib\SDL_image-devel-1.2.12-VC/SDL_image-1.2.12/lib/x86 -lSDL_image
-#SDL_GFX
-INCLUDEPATH+=E:\lib\SDL_gfx\SDL_gfx\include
-LIBS += -LE:\lib\SDL_gfx\SDL_gfx\lib -lsdlgfx
 }
 
 linux:{
 
 LIBS += -L/lib -lcurl
-LIBS += -L/lib -lSDL
-LIBS += -L/lib -lSDL_image
-LIBS += -L/lib -lSDL_gfx
-LIBS += -L/lib -lGLU
 }
 
 OTHER_FILES += \

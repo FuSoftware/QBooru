@@ -18,7 +18,6 @@
 #include "Widget/searchTabClass.h"
 #include "Widget/viewerTabClass.h"
 #include "Widget/booruSettingsTabClass.h"
-#include "Widget/loadingWidget.h"
 
 #include "classBooruSite.h"
 
