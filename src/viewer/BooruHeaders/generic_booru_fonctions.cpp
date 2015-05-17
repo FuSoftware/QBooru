@@ -12,7 +12,7 @@
 #include "../json/json.h"
 
 #include "constantes.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "generic_booru_fonctions.h"
 
 QString cacheImageGeneric(BooruImage imageCache, std::string cachePath)

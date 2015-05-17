@@ -12,7 +12,7 @@
 #include "../json/json.h"
 
 #include "constantes.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "moebooru_fonctions.h"
 
 void chargementImagesMoebooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath)

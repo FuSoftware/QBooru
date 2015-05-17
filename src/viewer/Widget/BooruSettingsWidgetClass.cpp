@@ -6,25 +6,41 @@
 #include "../classBooruSite.h"
 #include "../json/json.h"
 #include "widget.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 
-BooruSettings::BooruSettings(BooruSettingsTab *parent, QString *text)
+BooruSettings::BooruSettings(BooruSettingsTab *parent)
 {
     layoutMain = new QVBoxLayout;
     parentWidget = parent;
+    Json::Value root = loadJSONFile(BOORU_LIST);
+    QString buffer;
+    int i=0;
 
     groupBoxMainSettings = new QGroupBox("Main Settings", this);
     layoutGroupBoxMainSettings = new QGridLayout;
 
+        labelPreset = new QLabel("Presets",this);
+        comboBoxPreset = new QComboBox(this);
+        layoutGroupBoxMainSettings->addWidget(labelPreset,0,0);
+        layoutGroupBoxMainSettings->addWidget(comboBoxPreset,0,1);
+
+        while(root["boorus"][i].isObject())
+        {
+            buffer = root["boorus"][i]["name"].asString().c_str();
+            buffer[0].toUpper();
+            comboBoxPreset->addItem(buffer);
+            i++;
+        }
+
         labelBooruName = new QLabel("Booru Name",this);
         lineEditBooruName = new QLineEdit(this);
-        layoutGroupBoxMainSettings->addWidget(labelBooruName,0,0);
-        layoutGroupBoxMainSettings->addWidget(lineEditBooruName,0,1);
+        layoutGroupBoxMainSettings->addWidget(labelBooruName,1,0);
+        layoutGroupBoxMainSettings->addWidget(lineEditBooruName,1,1);
 
         labelBooruURL = new QLabel("Booru Main URL",this);
         lineEditBooruURL = new QLineEdit(this);
-        layoutGroupBoxMainSettings->addWidget(labelBooruURL,1,0);
-        layoutGroupBoxMainSettings->addWidget(lineEditBooruURL,1,1);
+        layoutGroupBoxMainSettings->addWidget(labelBooruURL,2,0);
+        layoutGroupBoxMainSettings->addWidget(lineEditBooruURL,2,1);
 
         labelBooruType = new QLabel("Booru Type",this);
         comboBoxBooruType = new QComboBox(this);
@@ -32,8 +48,8 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent, QString *text)
         comboBoxBooruType->addItem("Gelbooru");
         comboBoxBooruType->addItem("Moebooru");
         comboBoxBooruType->addItem("Danbooru");
-        layoutGroupBoxMainSettings->addWidget(labelBooruType,2,0);
-        layoutGroupBoxMainSettings->addWidget(comboBoxBooruType,2,1);
+        layoutGroupBoxMainSettings->addWidget(labelBooruType,3,0);
+        layoutGroupBoxMainSettings->addWidget(comboBoxBooruType,3,1);
         comboBoxBooruType->setCurrentIndex(GELBOORU_TYPE);
 
     groupBoxOptionalSettings = new QGroupBox("Optional Settings", this);

@@ -1,5 +1,5 @@
 #include "viewerTabClass.h"
-#include "../fonctions.h"
+#include "../fonctions_all.h"
 #include "../constantes.h"
 #include "../widget.h"
 #include "../classBooruSite.h"

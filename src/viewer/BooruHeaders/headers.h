@@ -13,8 +13,8 @@
 #include "../BooruHeaders/moebooru_recherche.h"
 #include "../BooruHeaders/moebooru_fonctions.h"
 
-#include "../BooruHeaders/danbooru_recherche.h"
-#include "../BooruHeaders/danbooru_fonctions.h"
+#include "../BooruHeaders/danbooru2_recherche.h"
+#include "../BooruHeaders/danbooru2_fonctions.h"
 
 #endif // HEADERS_H
 

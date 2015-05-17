@@ -29,6 +29,8 @@
         #define UPDATER_MAIN_EXECUTABLE "/usr/share/qbooru/QBooruUpdater"
         #define LOADING_GIF "/usr/share/qbooru/conf/loader.gif"
 
+        #define BOORU_LIST "/usr/share/qbooru/conf/boorulist.json"
+
 #else
     /**Linux Release**/
 
@@ -45,6 +47,8 @@
 
         #define UPDATER_MAIN_EXECUTABLE "QBooruUpdater"
         #define LOADING_GIF "/conf/loader.gif"
+
+        #define BOORU_LIST "/conf/boorulist.json"
 #endif
 
 #endif // CONSTANTES_LINUX

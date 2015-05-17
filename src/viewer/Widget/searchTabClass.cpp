@@ -1,4 +1,4 @@
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "widget.h"
 #include "searchTabClass.h"
 #include "imageTabClass.h"
@@ -236,7 +236,7 @@ void SearchTab::loadSearch(int refreshTags)
             }
             break;
         case MOEBOORU_TYPE:
-        case DANBOORU_TYPE:
+        case DANBOORU2_TYPE:
             switch(searchRating->currentIndex())
             {
             case RATING_SAFE:
@@ -257,7 +257,7 @@ void SearchTab::loadSearch(int refreshTags)
     }
 
     progress = 0;
-    int state;
+    int state = 0;
 
     initialisationMiniatures();
 
@@ -279,8 +279,8 @@ void SearchTab::loadSearch(int refreshTags)
     case MOEBOORU_TYPE:
         state = setTagsMoebooru(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.getCachePath(), booru.getSearchUrl());
         break;
-    case DANBOORU_TYPE:
-        state = setTagsDanbooru(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.getCachePath(), booru.getSearchUrl());
+    case DANBOORU2_TYPE:
+        state = setTagsDanbooru2(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.getCachePath(), booru.getSearchUrl());
         break;
     }
 
@@ -307,8 +307,8 @@ void SearchTab::loadSearch(int refreshTags)
         case MOEBOORU_TYPE:
             chargementImagesMoebooru(images, booru.getSearchFilePath());
             break;
-        case DANBOORU_TYPE:
-            chargementImagesDanbooru(images, booru.getSearchFilePath(),booru.getBaseUrl());
+        case DANBOORU2_TYPE:
+            chargementImagesDanbooru2(images, booru.getSearchFilePath(),booru.getBaseUrl());
             break;
         }
 
@@ -351,13 +351,11 @@ void SearchTab::searchActionToggled(int sender)
     //2 = lineEdit Page Set
     //3 = pushButton Page Moins
     //4 = pushButton Page Plus
-    int refresh;
+    int refresh = 0;
 
     switch(sender)
     {
     case 0:
-        refresh = 1;
-        break;
     case 1:
         refresh = 1;
         break;
@@ -370,6 +368,9 @@ void SearchTab::searchActionToggled(int sender)
         break;
     case 4:
         on_pushButton_pagePlus_clicked();
+        refresh = 0;
+        break;
+    default:
         refresh = 0;
         break;
     }

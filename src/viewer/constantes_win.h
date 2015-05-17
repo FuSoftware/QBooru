@@ -3,6 +3,8 @@
  *
  * Contains all the absolute and relative paths for the program, if compiled on Windows.
  * It eases the Debug process by allowing the executable to run directly from Qt "Run" option, by having it read the files from any folder.
+ *
+ * To debug easily, just replace the paths in the "Windows Debug" section with your absolute paths to the file
  */
 
 #ifndef CONSTANTES_WIN
@@ -29,6 +31,8 @@
         #define UPDATER_MAIN_EXECUTABLE "E:/Qbooru/QBooru/QBooruUpdater.exe"
         #define LOADING_GIF "E:/Qbooru/QBooru/conf/loader.gif"
 
+        #define BOORU_LIST "E:/Qbooru/QBooru/conf/boorulist.json"
+
 #else
     /**Windows Release**/
 
@@ -45,6 +49,8 @@
 
         #define UPDATER_MAIN_EXECUTABLE "QBooruUpdater.exe"
         #define LOADING_GIF "/conf/loader.gif"
+
+        #define BOORU_LIST "/conf/boorulist.json"
 #endif
 #endif // CONSTANTES_WIN
 

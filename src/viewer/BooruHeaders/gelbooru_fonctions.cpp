@@ -9,7 +9,7 @@
 
 #include "json/json.h"
 
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "gelbooru_fonctions.h"
 #include "generic_booru_image.h"
 

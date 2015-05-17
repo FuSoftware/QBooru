@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "fileutils.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "constantes.h"
 
 /*!

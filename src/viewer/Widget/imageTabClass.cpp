@@ -1,7 +1,7 @@
 #include "searchTabClass.h"
 #include "imageTabClass.h"
 #include "constantes.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 
 #include <QWidget>
 #include <QVBoxLayout>

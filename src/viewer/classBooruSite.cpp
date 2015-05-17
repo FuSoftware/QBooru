@@ -1,5 +1,5 @@
 #include "classBooruSite.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 
 BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType, int booruIndex)
 {
@@ -44,7 +44,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType,
         tag_file_path = tag_file_path_base + ".json";
         site_type_string = "moebooru";
         break;
-    case DANBOORU_TYPE:
+    case DANBOORU2_TYPE:
         show_index_url = booruUrl + "/posts/";
         search_url = base_url + "/posts.json";
         tag_url = base_url + "/tag.json?limit=0";
@@ -99,7 +99,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, std::string do
         tag_file_path = tag_file_path_base + ".json";
         site_type_string = "moebooru";
         break;
-    case DANBOORU_TYPE:
+    case DANBOORU2_TYPE:
         show_index_url = booruUrl + "/posts/";
         search_url = base_url + "/posts.json";
         tag_url = base_url + "/tag.json?limit=0";
@@ -146,7 +146,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, std::string se
         tag_file_path = tag_file_path_base + ".json";
         site_type_string = "moebooru";
         break;
-    case DANBOORU_TYPE:
+    case DANBOORU2_TYPE:
         search_file_path = cache_path + "post.json";
         tag_file_path = tag_file_path_base + ".json";
         site_type_string = "danbooru";
@@ -335,7 +335,7 @@ void BooruSite::setSiteType(int type)
     case MOEBOORU_TYPE:
         site_type_string = "moebooru";
         break;
-    case DANBOORU_TYPE:
+    case DANBOORU2_TYPE:
         site_type_string = "danbooru";
         break;
     }

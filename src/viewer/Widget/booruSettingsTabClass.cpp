@@ -5,7 +5,7 @@
 #include "../classBooruSite.h"
 #include "../json/json.h"
 #include "widget.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 
 BooruSettingsTab::BooruSettingsTab(Widget *parent)
 {
@@ -14,8 +14,6 @@ BooruSettingsTab::BooruSettingsTab(Widget *parent)
 
     Json::Value root = loadJSONFile(CONF_FILE);
     parentWidget = parent;
-
-    QString *title2 = new QString("Booru settings");
 
     QLabel *label2 = new QLabel("<b>Edit Booru</b>", this);
     label2->setMaximumSize(label2->maximumWidth(),21);
@@ -28,7 +26,7 @@ BooruSettingsTab::BooruSettingsTab(Widget *parent)
         comboBoxBooru->addItem(QString(root["boorus"][i]["name"].asCString()));
     }
     comboBoxBooru->addItem("New Booru");
-    editBooruWidget = new BooruSettings(this,title2);
+    editBooruWidget = new BooruSettings(this);
 
     mainGridLayout->addWidget(label2,0,0);
 
@@ -74,10 +72,9 @@ void BooruSettingsTab::refreshActiveBooru(int index)
 void BooruSettingsTab::deleteBooru()
 {
     Json::Value root = loadJSONFile(CONF_FILE);
-    int i;
     int booru_number = root["settings"]["booru_number"].asInt();
 
-    for(i=selectedBooru ; i<booru_number ; i++)
+    for(int i=selectedBooru ; i<booru_number ; i++)
     {
         root["boorus"][i] = root["boorus"][i+1];
     }
@@ -87,7 +84,5 @@ void BooruSettingsTab::deleteBooru()
     root["settings"]["booru_number"] = booru_number-1;
 
     Json::StyledWriter writer;
-    std::string output = writer.write(root);
-
-    saveJSONFile(CONF_FILE,output);
+    saveJSONFile(CONF_FILE,writer.write(root));
 }

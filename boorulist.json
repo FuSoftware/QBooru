@@ -1,0 +1,42 @@
+{
+	"boorus":
+	[
+		{
+			 "base_url" : "http://gelbooru.com",
+			 "name" : "Gelbooru",
+			 "siteTypeInt" : 1,
+			 "site_type_string" : "gelbooru"
+		},
+		{
+			 "base_url" : "http://safebooru.org",
+			 "name" : "Safebooru",
+			 "siteTypeInt" : 1,
+			 "site_type_string" : "gelbooru"
+		},
+		{
+			 "base_url" : "http://yande.re",
+			 "name" : "Yandere",
+			 "siteTypeInt" : 2,
+			 "site_type_string" : "moebooru"
+		},
+		{
+			 "base_url" : "http://konachan.com",
+			 "name" : "Konachan",
+			 "siteTypeInt" : 2,
+			 "site_type_string" : "moebooru"
+		},
+		{
+			 "base_url" : "http://rule34.xxx",
+			 "name" : "Rule34",
+			 "siteTypeInt" : 1,
+			 "site_type_string" : "gelbooru"
+		},
+		{
+			 "base_url" : "http://danbooru.donmai.us",
+			 "name" : "Danbooru",
+			 "siteTypeInt" : 3,
+			 "site_type_string" : "danbooru2"
+		}
+      
+	]
+}

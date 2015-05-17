@@ -7,6 +7,8 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <iostream>
+
 #include <QtWidgets>
 #include <qtconcurrentrun.h>
 #include <QThread>
@@ -20,6 +22,8 @@
 #include "Widget/booruSettingsTabClass.h"
 
 #include "classBooruSite.h"
+#include "fonctions_all.h"
+#include "fileutils.h"
 
 class SearchTab;
 class ViewerTab;
@@ -33,7 +37,7 @@ class Widget : public QWidget
     Q_OBJECT
 
 public:
-    explicit Widget(QMessageBox *msgBox, QWidget *parent = 0);
+    explicit Widget(QWidget *parent = 0);
     ~Widget();
     void setupHosts(BooruSite boorus[], int index);
     void loadTag(QString tag, int imageHostInt);

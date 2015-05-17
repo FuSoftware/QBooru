@@ -8,6 +8,8 @@ QT       += core gui webkitwidgets network concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QMAKE_CXXFLAGS += -Wno-write-strings
+
 TARGET = QBooru
 TEMPLATE = app
 RC_FILE = myapp.rc
@@ -22,7 +24,6 @@ INSTALLS += target
 
 SOURCES += main.cpp\
         widget.cpp \
-    fonctions.cpp \
     fileutils.cpp \
     classBooruSite.cpp \
     json/json_reader.cpp \
@@ -35,8 +36,8 @@ SOURCES += main.cpp\
     Widget/clickableLabel.cpp \
     Widget/BooruSettingsWidgetClass.cpp \
     Widget/booruSettingsTabClass.cpp \
-    BooruHeaders/danbooru_fonctions.cpp \
-    BooruHeaders/danbooru_recherche.cpp \
+    BooruHeaders/danbooru2_fonctions.cpp \
+    BooruHeaders/danbooru2_recherche.cpp \
     BooruHeaders/derpibooru_fonctions.cpp \
     BooruHeaders/derpibooru_recherche.cpp \
     BooruHeaders/gelbooru_fonctions.cpp \
@@ -47,10 +48,15 @@ SOURCES += main.cpp\
     Workers/image_loading_thread.cpp \
     Workers/viewer_loading_thread.cpp \
     BooruHeaders/generic_booru_image.cpp \
-    BooruHeaders/generic_booru_fonctions.cpp
+    BooruHeaders/generic_booru_fonctions.cpp \
+    fonctions/fonctions.cpp \
+    fonctions/fonctions_config.cpp \
+    fonctions/fonctions_conversion.cpp \
+    fonctions/fonctions_json.cpp \
+    fonctions/fonctions_qt.cpp \
 
 HEADERS  += widget.h \
-    fonctions.h \
+    fonctions_all.h \
     constantes.h \
     fileutils.h \
     json/assertions.h \
@@ -82,8 +88,6 @@ HEADERS  += widget.h \
     Danbooru/fonctionsDanbooru.h \
     Danbooru/imagesDanbooru.h \
     Danbooru/rechercheDanbooru.h \
-    BooruHeaders/danbooru_fonctions.h \
-    BooruHeaders/danbooru_recherche.h \
     BooruHeaders/derpibooru_fonctions.h \
     BooruHeaders/derpibooru_recherche.h \
     BooruHeaders/gelbooru_fonctions.h \
@@ -97,7 +101,14 @@ HEADERS  += widget.h \
     BooruHeaders/generic_booru_fonctions.h \
     constantes_win.h \
     constantes_linux.h \
-    BooruHeaders/headers.h
+    BooruHeaders/headers.h \
+    fonctions/fonctions.h \
+    fonctions/fonctions_config.h \
+    fonctions/fonctions_conversion.h \
+    fonctions/fonctions_json.h \
+    fonctions/fonctions_qt.h \
+    BooruHeaders/danbooru2_fonctions.h \
+    BooruHeaders/danbooru2_recherche.h
 
 FORMS    +=
 

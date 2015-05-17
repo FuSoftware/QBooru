@@ -1,5 +1,5 @@
 #include "optionTabClass.h"
-#include "../fonctions.h"
+#include "../fonctions_all.h"
 #include "../constantes.h"
 #include "../fileutils.h"
 #include "../json/json.h"
@@ -178,9 +178,7 @@ OptionTab::~OptionTab()
 void OptionTab::resetBoorusSettings()
 {
     Json::Value root = loadJSONFile(CONF_FILE);
-    Json::StyledWriter writer;
-    root = resetBooruSites(root);
-    saveJSONFile(CONF_FILE,writer.write(root));
+    resetBooruSites(root);
 
     parentWidget->refresh();
 }

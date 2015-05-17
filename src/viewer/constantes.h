@@ -23,11 +23,12 @@
  * Set this to 0 to change to the relative paths for the program (Release)
  * Set this to 1 to change to the absolute paths for the program (Debug)
  */
-#define DEBUG 0
+
+#define DEBUG 1
 
 #define CURL_STATICLIB
 #define APP_NAME "QBooru Viewer"
-#define APP_VERSION "1.10.1.0"
+#define APP_VERSION "1.10.3.0"
 #define TAG_NUMBER    512 //Max number of tags to show in the Viewer
 #define MAX_BOORU_NUMBER 64 //Max number of Boorus to load in the main widget
 #define MAX_PICTURE_NUMBER 64 //Max number of pictures/page
@@ -51,6 +52,7 @@ enum HostType
   DERPIBOORU_TYPE = 0,
   GELBOORU_TYPE,
   MOEBOORU_TYPE,
+  DANBOORU2_TYPE,
   DANBOORU_TYPE
 };
 

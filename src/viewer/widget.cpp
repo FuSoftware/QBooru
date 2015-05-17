@@ -1,14 +1,7 @@
-#include <iostream>
 #include "widget.h"
-#include "json/json.h"
-#include "fonctions.h"
-#include "fileutils.h"
 
-#include "classBooruSite.h"
-
-Widget::Widget(QMessageBox* msgBox, QWidget *parent) : QWidget(parent)
+Widget::Widget(QWidget *parent) : QWidget(parent)
 {
-    LoadingWidget *loadingWidget;
     Json::Value root = loadJSONFile(CONF_FILE);
     int i;
     int booruIndexMax = root["settings"]["booru_number"].asInt();

@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "danbooru_recherche.h"
-#include "fonctions.h"
-#include "danbooru_fonctions.h"
+#include "danbooru2_recherche.h"
+#include "fonctions_all.h"
+#include "danbooru2_fonctions.h"
 
-int setTagsDanbooru(std::string recherche, std::string page, int image_count, std::string cachePath, std::string searchIndex)
+int setTagsDanbooru2(std::string recherche, std::string page, int image_count, std::string cachePath, std::string searchIndex)
 {
         int operationState;
         std::string urlString;
@@ -19,17 +19,16 @@ int setTagsDanbooru(std::string recherche, std::string page, int image_count, st
         urlString += ("&tags=" + recherche);
         urlString += ("&page="+page);
 
-        operationState = rechercheTagsDanbooru(stringToCString(urlString), stringToCString(cachePath), stringToCString(searchIndex));
+        operationState = rechercheTagsDanbooru2(stringToCString(urlString), stringToCString(cachePath), stringToCString(searchIndex));
 
         return operationState;
 }
 
-int rechercheTagsDanbooru(char* url, char* cachePath, char* searchIndex)
+int rechercheTagsDanbooru2(char* url, char* cachePath, char* searchIndex)
 {
     /*Définition des variables*/
     int cacheState;
     char *outfilename;
-    unsigned int i = 0;
     QString stringUrl = "";
     QString stringOutFilename = "";
     char *completeUrl;

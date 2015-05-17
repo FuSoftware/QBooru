@@ -7,7 +7,7 @@
 #include <QFile>
 
 #include "derpibooru_recherche.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "derpibooru_fonctions.h"
 
 

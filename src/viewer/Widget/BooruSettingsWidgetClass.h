@@ -13,7 +13,7 @@ class BooruSettings : public QWidget
     Q_OBJECT
 
 public:
-    BooruSettings(BooruSettingsTab *parent = 0, QString *text = 0);
+    BooruSettings(BooruSettingsTab *parent = 0);
     ~BooruSettings();
 
     /*Objets publics*/
@@ -34,6 +34,8 @@ private:
     QGroupBox *groupBoxMainSettings;
     QGridLayout *layoutGroupBoxMainSettings;
 
+        QLabel *labelPreset;
+        QComboBox *comboBoxPreset;
         QLabel *labelBooruName;
         QLineEdit *lineEditBooruName;
         QLabel *labelBooruURL;

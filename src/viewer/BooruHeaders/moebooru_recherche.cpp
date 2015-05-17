@@ -6,7 +6,7 @@
 #include <QFile>
 
 #include "moebooru_recherche.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "moebooru_fonctions.h"
 
 int setTagsMoebooru(std::string recherche, std::string page, int image_count, std::string cachePath, std::string searchIndex)

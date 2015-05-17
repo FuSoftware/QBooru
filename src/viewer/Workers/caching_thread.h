@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include "../fonctions.h"
+#include "../fonctions_all.h"
 
 class SearchTab;
 class CachingWorker : public QObject

@@ -1,5 +1,4 @@
 #include "widget.h"
-#include "fonctions.h"
 #include "classBooruSite.h"
 #include <QApplication>
 #include <QIcon>
@@ -10,7 +9,7 @@
 #include <iomanip>
 #include <QMessageBox>
 
-#include "fonctions.h"
+#include "fonctions_all.h"
 
 #include "Widget/imageTabClass.h"
 #include "Widget/optionTabClass.h"
@@ -38,11 +37,8 @@ int main(int argc, char *argv[])
     QIcon icone;
     icone.addFile(ICON_PATH);
 
-
-    QMessageBox* msgBox = new QMessageBox();
-
     outputInfo("INFO",std::string("Generating Widget"),LEVEL_TOP_WIDGET);
-    Widget w(msgBox);
+    Widget w;
 
     w.setWindowTitle(QString(APP_NAME) + QString(" ") + QString(OS_ID) + QString(" ") + QString(APP_VERSION));
     outputInfo("INFO",std::string("Showing Widget"),LEVEL_TOP_WIDGET);

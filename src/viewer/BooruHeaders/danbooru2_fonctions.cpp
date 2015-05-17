@@ -11,11 +11,11 @@
 #include "../json/json.h"
 
 #include "constantes.h"
-#include "fonctions.h"
-#include "danbooru_fonctions.h"
+#include "fonctions_all.h"
+#include "danbooru2_fonctions.h"
 #include "generic_booru_image.h"
 
-void chargementImagesDanbooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath, std::string baseSiteIndex)
+void chargementImagesDanbooru2(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath, std::string baseSiteIndex)
 {
     int i;
     outputInfo("DEBUG",searchFilePath,LEVEL_TOP_WIDGET);
@@ -47,7 +47,7 @@ void chargementImagesDanbooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], st
 }
 
 
-int returnTagNumberDanbooru(Json::Value root)
+int returnTagNumberDanbooru2(Json::Value root)
 {
     int tagIndex = 0;
     while(root[tagIndex]["id"] == Json::intValue)
@@ -57,7 +57,7 @@ int returnTagNumberDanbooru(Json::Value root)
     return tagIndex;
 }
 
-int lectureTagsDanbooru(std::string input, std::string output[][3], Json::Value root)
+int lectureTagsDanbooru2(std::string input, std::string output[][3], Json::Value root)
 {
     int tagIndex = 0;
     int j = 0;

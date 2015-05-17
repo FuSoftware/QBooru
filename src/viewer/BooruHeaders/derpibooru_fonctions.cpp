@@ -5,7 +5,7 @@
 
 #include "../json/json.h"
 
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "derpibooru_fonctions.h"
 
 void chargementImagesDerpibooru(BooruImage imagesAffichage[MAX_PICTURE_NUMBER], std::string searchFilePath)

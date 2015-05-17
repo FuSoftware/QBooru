@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "gelbooru_recherche.h"
-#include "fonctions.h"
+#include "fonctions_all.h"
 #include "gelbooru_fonctions.h"
 
 int setTagsGelbooru(std::string recherche, int page, int image_count, std::string searchFile, std::string fileUrl)
