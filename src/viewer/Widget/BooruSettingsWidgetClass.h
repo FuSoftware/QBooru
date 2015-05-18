@@ -22,6 +22,7 @@ public:
 public slots:
     void editBooru();
     void loadBooru(int index);
+    void loadPreset(int index);
 
 private:
 
@@ -34,7 +35,7 @@ private:
     QGroupBox *groupBoxMainSettings;
     QGridLayout *layoutGroupBoxMainSettings;
 
-        QLabel *labelPreset;
+        QCheckBox *checkBoxPreset;
         QComboBox *comboBoxPreset;
         QLabel *labelBooruName;
         QLineEdit *lineEditBooruName;

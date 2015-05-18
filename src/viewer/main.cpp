@@ -30,6 +30,8 @@ int main(int argc, char *argv[])
 
     cachingFile(UPDATER_URL, UPDATER_MAIN_EXECUTABLE, false, false);
 
+    cachingFile(BOORU_LIST_URL, BOORU_LIST, false, false);
+
     cachingFile(CONF_FILE_URL, CONF_FILE, false, true);
     setAppVersionJSON();
     checkConfigFile();

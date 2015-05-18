@@ -19,10 +19,13 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
     groupBoxMainSettings = new QGroupBox("Main Settings", this);
     layoutGroupBoxMainSettings = new QGridLayout;
 
-        labelPreset = new QLabel("Presets",this);
+        checkBoxPreset = new QCheckBox("Presets",this);
+        checkBoxPreset->setChecked(false);
+
         comboBoxPreset = new QComboBox(this);
-        layoutGroupBoxMainSettings->addWidget(labelPreset,0,0);
-        layoutGroupBoxMainSettings->addWidget(comboBoxPreset,0,1);
+        comboBoxPreset->setDisabled(true);
+        layoutGroupBoxMainSettings->addWidget(checkBoxPreset,0,2);
+        layoutGroupBoxMainSettings->addWidget(comboBoxPreset,0,3);
 
         while(root["boorus"][i].isObject())
         {
@@ -34,13 +37,13 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
 
         labelBooruName = new QLabel("Booru Name",this);
         lineEditBooruName = new QLineEdit(this);
-        layoutGroupBoxMainSettings->addWidget(labelBooruName,1,0);
-        layoutGroupBoxMainSettings->addWidget(lineEditBooruName,1,1);
+        layoutGroupBoxMainSettings->addWidget(labelBooruName,0,0);
+        layoutGroupBoxMainSettings->addWidget(lineEditBooruName,0,1);
 
         labelBooruURL = new QLabel("Booru Main URL",this);
         lineEditBooruURL = new QLineEdit(this);
-        layoutGroupBoxMainSettings->addWidget(labelBooruURL,2,0);
-        layoutGroupBoxMainSettings->addWidget(lineEditBooruURL,2,1);
+        layoutGroupBoxMainSettings->addWidget(labelBooruURL,1,0);
+        layoutGroupBoxMainSettings->addWidget(lineEditBooruURL,1,1);
 
         labelBooruType = new QLabel("Booru Type",this);
         comboBoxBooruType = new QComboBox(this);
@@ -48,8 +51,8 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
         comboBoxBooruType->addItem("Gelbooru");
         comboBoxBooruType->addItem("Moebooru");
         comboBoxBooruType->addItem("Danbooru");
-        layoutGroupBoxMainSettings->addWidget(labelBooruType,3,0);
-        layoutGroupBoxMainSettings->addWidget(comboBoxBooruType,3,1);
+        layoutGroupBoxMainSettings->addWidget(labelBooruType,2,0);
+        layoutGroupBoxMainSettings->addWidget(comboBoxBooruType,2,1);
         comboBoxBooruType->setCurrentIndex(GELBOORU_TYPE);
 
     groupBoxOptionalSettings = new QGroupBox("Optional Settings", this);
@@ -92,6 +95,9 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
 
      saveButton = new QPushButton("Save");
 
+     connect(comboBoxPreset,SIGNAL(currentIndexChanged(int)),this,SLOT(loadPreset(int)));
+     connect(checkBoxPreset,SIGNAL(clicked(bool)),comboBoxPreset,SLOT(setEnabled(bool)));
+
      layoutMain->addWidget(saveButton);
 
      setLayout(layoutMain);
@@ -105,6 +111,9 @@ BooruSettings::~BooruSettings()
 
 void BooruSettings::editBooru()
 {
+    /*!
+     Saves an edited booru into your config file, replacing its previous configuration
+     */
     BooruSite *booru;
     int index = parentWidget->comboBoxBooru->currentIndex();
 
@@ -153,6 +162,11 @@ void BooruSettings::editBooru()
 
 void BooruSettings::loadBooru(int index)
 {
+    /*!
+     Loads a saved Booru into the Widget, allowing for edits
+
+     \param index of the booru to load
+     */
     Json::Value root = loadJSONFile(CONF_FILE);
 
     if(index < root["settings"]["booru_number"].asInt())
@@ -171,4 +185,20 @@ void BooruSettings::loadBooru(int index)
 
         lineEditBooruTagsUrl->setText(QString(root["boorus"][index]["tag_url"].asCString()));
     }
+}
+
+void BooruSettings::loadPreset(int index)
+{
+    /*!
+     Loads a preset into the Widget, allowing for edits and save
+
+     \param index of the booru to load
+     */
+    Json::Value root = loadJSONFile(BOORU_LIST);
+
+    lineEditBooruName->setText(QString(root["boorus"][index]["name"].asCString()));
+
+    lineEditBooruURL->setText(QString(root["boorus"][index]["base_url"].asCString()));
+
+    comboBoxBooruType->setCurrentIndex(root["boorus"][index]["siteTypeInt"].asInt());
 }

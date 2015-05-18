@@ -50,7 +50,7 @@
         #define UPDATER_MAIN_EXECUTABLE "QBooruUpdater.exe"
         #define LOADING_GIF "/conf/loader.gif"
 
-        #define BOORU_LIST "/conf/boorulist.json"
+        #define BOORU_LIST "conf/boorulist.json"
 #endif
 #endif // CONSTANTES_WIN
 
