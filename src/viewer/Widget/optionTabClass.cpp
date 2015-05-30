@@ -197,7 +197,7 @@ void OptionTab::deleteCache()
 
     Json::Value root = loadJSONFile(CONF_FILE);
 
-    for(i=0;i<root["boorus"][i]["imageLimit"].asInt();i++)
+    for(i=0;i<root["boorus"][i].isObject();i++)
     {
         checkFolder(root["boorus"][i]["cache_path"].asString());
         checkFolder(root["boorus"][i]["donwload_path"].asString());

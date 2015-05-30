@@ -1,4 +1,3 @@
-#include "searchTabClass.h"
 #include "imageTabClass.h"
 #include "constantes.h"
 #include "fonctions_all.h"

@@ -137,6 +137,7 @@ int loadTags(std::string taglist, std::string tags[TAG_NUMBER])
 
 char *downloadPath()
 {
+    /*
     std::string downloadPath;
     #ifdef _WIN32
         char* usrName;
@@ -151,8 +152,9 @@ char *downloadPath()
         downloadPath = "/home/Pictures/Qbooru/";
         return strdup(downloadPath.c_str());
     #endif
+    */
 
-    //return linux paths
+    return "downloads/";
 }
 
 size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream)

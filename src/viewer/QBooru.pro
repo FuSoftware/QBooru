@@ -48,7 +48,6 @@ SOURCES += main.cpp\
     Workers/image_loading_thread.cpp \
     Workers/viewer_loading_thread.cpp \
     BooruHeaders/generic_booru_image.cpp \
-    BooruHeaders/generic_booru_fonctions.cpp \
     fonctions/fonctions.cpp \
     fonctions/fonctions_config.cpp \
     fonctions/fonctions_conversion.cpp \
@@ -98,7 +97,6 @@ HEADERS  += widget.h \
     Workers/image_loading_thread.h \
     Workers/viewer_loading_thread.h \
     BooruHeaders/generic_booru_image.h \
-    BooruHeaders/generic_booru_fonctions.h \
     constantes_win.h \
     constantes_linux.h \
     BooruHeaders/headers.h \

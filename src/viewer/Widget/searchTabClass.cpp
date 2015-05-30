@@ -489,6 +489,8 @@ void SearchTab::startLoadingPicture(int i)
 {
     if(isLoading[i] == false)
     {
+        images[i].setBooru(booru);
+
         thread_pool_loading[i] = new QThread;
         loading_worker[i] = new SearchTabLoadingWorker(this,i);
 

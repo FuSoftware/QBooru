@@ -13,9 +13,6 @@
 #include "classBooruSite.h"
 #include "constantes.h"
 
-#include "widget.h"
-#include "classBooruSite.h"
-
 int msleep(unsigned long milisec);
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss

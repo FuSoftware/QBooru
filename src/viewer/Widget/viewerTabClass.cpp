@@ -246,7 +246,7 @@ void ViewerTab::downloadPicture()
 {
     labelLoading->setText("Downloading Picture (May take some time)");
     progressBar->setValue(0);
-    fullImagePath = saveImageFullGeneric(Image,booru.getDownloadPath());
+    Image.download_full();
     labelLoading->setText("Completed");
     progressBar->setValue(100);
 }
@@ -331,6 +331,17 @@ bool ViewerTab::eventFilter(QObject *object, QEvent *event)
 
 void ViewerTab::startLoadingPicture()
 {
+    if(0)
+    {
+        this->pushButtonDownload->setEnabled(false);
+        this->pushButtonDownload->setText("Already downloaded");
+    }
+    else
+    {
+        this->pushButtonDownload->setEnabled(true);
+        this->pushButtonDownload->setText("Download");
+    }
+
     if(!isLoading)
     {
         picture_thread = new QThread;

@@ -2,7 +2,6 @@
 #define HEADERS_H
 
 #include "../BooruHeaders/generic_booru_image.h"
-#include "../BooruHeaders/generic_booru_fonctions.h"
 
 #include "../BooruHeaders/derpibooru_recherche.h"
 #include "../BooruHeaders/derpibooru_fonctions.h"

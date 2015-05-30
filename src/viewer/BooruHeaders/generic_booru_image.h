@@ -4,11 +4,35 @@
 #include <iostream>
 #include "constantes.h"
 
+#include "../fonctions/fonctions.h"
+#include "../fonctions/fonctions_json.h"
+
+#include "../classBooruSite.h"
+
+
 class BooruImage
 {
 public :
 
     /*Fonctions*/
+    BooruImage();
+    BooruImage(int booru_index);
+    BooruImage(BooruSite booru);
+    ~BooruImage();
+
+    void setBooru(int booru_index);
+    void setBooru(BooruSite booru);
+    void loadPaths();
+
+    void download_thumb();
+    void download_medium();
+    void download_full();
+
+    std::string getThumbPath();
+    std::string getMediumPath();
+    std::string getFullPath();
+
+    BooruSite getBooru();
 
     /*Header*/
     int booru_type;
@@ -47,6 +71,16 @@ public :
     char rating;
 
     int tagNumber;
+
+private:
+
+    BooruSite booru;
+
+    /*Paths*/
+    std::string thumb_path;
+    std::string medium_path;
+    std::string full_path;
+
 };
 
 #endif // GENERIC_BOORU_IMAGE_H

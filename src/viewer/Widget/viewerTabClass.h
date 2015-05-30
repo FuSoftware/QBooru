@@ -4,6 +4,9 @@
 #include <QtWidgets>
 
 #include "constantes.h"
+
+#include "BooruHeaders/generic_booru_image.h"
+
 #include "../widget.h"
 #include "../BooruHeaders/headers.h"
 #include "../classBooruSite.h"

@@ -154,6 +154,16 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, std::string se
     }
 }
 
+BooruSite::BooruSite(int index)
+{
+    loadFromJSON(index);
+}
+
+BooruSite::BooruSite(std::string name)
+{
+    loadFromJSON(name);
+}
+
 BooruSite::BooruSite()
 {
 
@@ -211,6 +221,32 @@ void BooruSite::saveBooruSite()
     std::string output = writer.write(root);
 
     saveJSONFile(CONF_FILE, output);
+}
+
+void BooruSite::loadFromJSON(int index)
+{
+    Json::Value root = loadJSONFile(CONF_FILE);
+
+                 name = root["boorus"][index]["name"].asString();
+     site_type_string = root["boorus"][index]["site_type_string"].asString();
+
+              base_url = root["boorus"][index]["base_url"].asString();
+            search_url = root["boorus"][index]["search_url"].asString();
+               tag_url = root["boorus"][index]["tag_url"].asString();
+        show_index_url = root["boorus"][index]["show_index_url"].asString();
+
+           cache_path = root["boorus"][index]["cache_path"].asString();
+        download_path = root["boorus"][index]["download_path"].asString();
+     search_file_path = root["boorus"][index]["search_file_path"].asString();
+        tag_file_path = root["boorus"][index]["tag_file_path"].asString();
+
+    siteTypeInt = root["boorus"][index]["siteTypeInt"].asInt();
+    this->index = index;
+}
+
+void BooruSite::loadFromJSON(std::string name)
+{
+
 }
 
 /*Getters*/
@@ -340,7 +376,6 @@ void BooruSite::setSiteType(int type)
         break;
     }
 }
-
 
 void BooruSite::setIndex(int i)
 {

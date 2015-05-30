@@ -13,9 +13,14 @@ public:
     BooruSite(string booruName, string booruUrl, int booruType, int booruIndex);
     BooruSite(string booruName, string booruUrl, string downloadPath, int booruType, int booruIndex);
     BooruSite(string booruName, string booruUrl, string searchUrl, string tagUrl, string postIndexUrl, string downloadPath, int booruType, int booruIndex);
+    BooruSite(int index);
+    BooruSite(std::string name);
     BooruSite();
     ~BooruSite();
     void saveBooruSite();
+
+    void loadFromJSON(int index);
+    void loadFromJSON(std::string name);
 
     /*Getters*/
     string getName();
