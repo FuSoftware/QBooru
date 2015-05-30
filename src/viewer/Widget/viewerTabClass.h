@@ -33,6 +33,8 @@ public:
     bool eventFilter(QObject *object, QEvent *event);
     void setKeyboard();
 
+    void checkIfDownloaded();
+
     /*Public objects*/
     BooruImage Image;
 

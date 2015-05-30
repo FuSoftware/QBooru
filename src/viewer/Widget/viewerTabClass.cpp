@@ -331,16 +331,7 @@ bool ViewerTab::eventFilter(QObject *object, QEvent *event)
 
 void ViewerTab::startLoadingPicture()
 {
-    if(0)
-    {
-        this->pushButtonDownload->setEnabled(false);
-        this->pushButtonDownload->setText("Already downloaded");
-    }
-    else
-    {
-        this->pushButtonDownload->setEnabled(true);
-        this->pushButtonDownload->setText("Download");
-    }
+    checkIfDownloaded();
 
     if(!isLoading)
     {
@@ -364,11 +355,27 @@ void ViewerTab::imageLoaded()
 {
     progressBar->setValue(100);
     labelLoading->setText("Completed");
+
+    checkIfDownloaded();
 }
 
 void ViewerTab::setLoadingState(bool state)
 {
     isLoading = state;
+}
+
+void ViewerTab::checkIfDownloaded()
+{
+    if(fexists(this->Image.getFullPath().c_str()))
+    {
+        this->pushButtonDownload->setEnabled(false);
+        this->pushButtonDownload->setText("Already downloaded");
+    }
+    else
+    {
+        this->pushButtonDownload->setEnabled(true);
+        this->pushButtonDownload->setText("Download");
+    }
 }
 
 

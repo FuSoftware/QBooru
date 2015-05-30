@@ -22,6 +22,7 @@ public :
 
     void setBooru(int booru_index);
     void setBooru(BooruSite booru);
+    void loadData(int picture_index);
     void loadPaths();
 
     void download_thumb();

@@ -36,14 +36,6 @@ SOURCES += main.cpp\
     Widget/clickableLabel.cpp \
     Widget/BooruSettingsWidgetClass.cpp \
     Widget/booruSettingsTabClass.cpp \
-    BooruHeaders/danbooru2_fonctions.cpp \
-    BooruHeaders/danbooru2_recherche.cpp \
-    BooruHeaders/derpibooru_fonctions.cpp \
-    BooruHeaders/derpibooru_recherche.cpp \
-    BooruHeaders/gelbooru_fonctions.cpp \
-    BooruHeaders/gelbooru_recherche.cpp \
-    BooruHeaders/moebooru_fonctions.cpp \
-    BooruHeaders/moebooru_recherche.cpp \
     Workers/caching_thread.cpp \
     Workers/image_loading_thread.cpp \
     Workers/viewer_loading_thread.cpp \
@@ -53,6 +45,7 @@ SOURCES += main.cpp\
     fonctions/fonctions_conversion.cpp \
     fonctions/fonctions_json.cpp \
     fonctions/fonctions_qt.cpp \
+    BooruHeaders/search_functions.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -87,12 +80,6 @@ HEADERS  += widget.h \
     Danbooru/fonctionsDanbooru.h \
     Danbooru/imagesDanbooru.h \
     Danbooru/rechercheDanbooru.h \
-    BooruHeaders/derpibooru_fonctions.h \
-    BooruHeaders/derpibooru_recherche.h \
-    BooruHeaders/gelbooru_fonctions.h \
-    BooruHeaders/gelbooru_recherche.h \
-    BooruHeaders/moebooru_fonctions.h \
-    BooruHeaders/moebooru_recherche.h \
     Workers/caching_thread.h \
     Workers/image_loading_thread.h \
     Workers/viewer_loading_thread.h \
@@ -105,8 +92,7 @@ HEADERS  += widget.h \
     fonctions/fonctions_conversion.h \
     fonctions/fonctions_json.h \
     fonctions/fonctions_qt.h \
-    BooruHeaders/danbooru2_fonctions.h \
-    BooruHeaders/danbooru2_recherche.h
+    BooruHeaders/search_functions.h
 
 FORMS    +=
 

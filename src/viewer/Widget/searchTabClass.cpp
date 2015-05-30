@@ -60,6 +60,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
         layoutImageTabs = new QGridLayout;
             for(i=0;i<picture_number;i++)
             { 
+                images[i].setBooru(this->booru);
                 imageTabs[i] = new ImageTab(this, booru.getSiteTypeInt());
                 buttonMapper->setMapping(imageTabs[i]->imageThumbnail, i);
                 connect(imageTabs[i]->imageThumbnail, SIGNAL(clicked()), buttonMapper , SLOT(map()));
@@ -296,20 +297,9 @@ void SearchTab::loadSearch(int refreshTags)
         parentWidget->viewerTab->labelLoading->setText("Loading pictures");
         parentWidget->viewerTab->progressBar->setValue(progress);
 
-        switch(booru.getSiteTypeInt())
+        for(int i=0;i<picture_number;i++)
         {
-        case DERPIBOORU_TYPE:
-            chargementImagesDerpibooru(images, booru.getSearchFilePath());
-            break;
-        case GELBOORU_TYPE:
-            chargementImagesGelbooru(images, booru.getSearchFilePath(), booru.getBaseUrl());
-            break;
-        case MOEBOORU_TYPE:
-            chargementImagesMoebooru(images, booru.getSearchFilePath());
-            break;
-        case DANBOORU2_TYPE:
-            chargementImagesDanbooru2(images, booru.getSearchFilePath(),booru.getBaseUrl());
-            break;
+            images[i].loadData(i);
         }
 
         progress +=20;//Progress = 40
