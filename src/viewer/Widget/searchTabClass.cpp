@@ -13,6 +13,11 @@ SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
     picture_columns = root["settings"]["picture_columns"].asInt();
 
     booru = site;
+
+    booru_search_engine.setBooru(booru);
+    booru_search_engine.setImageCount(picture_number);
+
+
     recherche = 0;
     derpibooruAPIKey = root["settings"]["api_key_derpibooru"].asString();
     int i=0;
@@ -200,90 +205,26 @@ void SearchTab::loadSearch(int refreshTags)
     recherche = 1;
     QString tags;
     QString pathFile =  QString(CONFPATH)+QString("derpibooruDefault.png");
-    int i = 0;
+    progress = 0;
+    int state = 0;
 
     if(refreshTags == 1)
     {
         tags = lineEditTags->text();
-
-        switch(booru.getSiteTypeInt())
-        {
-        case DERPIBOORU_TYPE:
-            switch(searchRating->currentIndex())
-            {
-            case RATING_SAFE:
-                tags += ",safe";
-                break;
-            case RATING_QUESTIONNABLE:
-                tags += ",questionable";
-                break;
-            case RATING_EXPLICIT:
-                tags += ",explicit" ;
-                break;
-            }
-            break;
-        case GELBOORU_TYPE:
-            switch(searchRating->currentIndex())
-            {
-            case RATING_SAFE:
-                tags += " rating:safe";
-                break;
-            case RATING_QUESTIONNABLE:
-                tags += " rating:questionable";
-                break;
-            case RATING_EXPLICIT:
-                tags += " rating:explicit" ;
-                break;
-            }
-            break;
-        case MOEBOORU_TYPE:
-        case DANBOORU2_TYPE:
-            switch(searchRating->currentIndex())
-            {
-            case RATING_SAFE:
-                tags += " rating:s";
-                break;
-            case RATING_QUESTIONNABLE:
-                tags += " rating:q";
-                break;
-            case RATING_EXPLICIT:
-                tags += " rating:e" ;
-                break;
-            }
-        }
+        booru_search_engine.setRating(searchRating->currentIndex());
     }
     else
     {
         tags = tagsSearched;
     }
 
-    progress = 0;
-    int state = 0;
-
     initialisationMiniatures();
 
-    labelSearchStatus->setText("Loading search page");
-    progressBarSearch->setValue(progress);
-    parentWidget->viewerTab->labelLoading->setText("Loading search page");
-    parentWidget->viewerTab->progressBar->setValue(progress);
+    updateSearchStatus(progress, "Loading search page");
 
     /*Tags*/
 
-    switch(booru.getSiteTypeInt())
-    {
-    case DERPIBOORU_TYPE:
-        state = setTagsDerpibooru(tags.toStdString(), lineEditPageSet->text().toStdString(), derpibooruAPIKey, booru.getCachePath(), booru.getSearchUrl());
-        break;
-    case GELBOORU_TYPE:
-        state = setTagsGelbooru(tags.toStdString(), lineEditPageSet->text().toInt(), picture_number, booru.getSearchFilePath(), booru.getSearchUrl());
-        break;
-    case MOEBOORU_TYPE:
-        state = setTagsMoebooru(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.getCachePath(), booru.getSearchUrl());
-        break;
-    case DANBOORU2_TYPE:
-        state = setTagsDanbooru2(tags.toStdString(), lineEditPageSet->text().toStdString(), picture_number, booru.getCachePath(), booru.getSearchUrl());
-        break;
-    }
+    booru_search_engine.search(tags.toStdString(),lineEditPageSet->text().toInt());
 
     /*Chargement*/
 
@@ -292,25 +233,20 @@ void SearchTab::loadSearch(int refreshTags)
         loaded_pictures = 0;
 
         progress +=20;//Progress = 20
-        progressBarSearch->setValue(progress);
-        labelSearchStatus->setText("Loading pictures");
-        parentWidget->viewerTab->labelLoading->setText("Loading pictures");
-        parentWidget->viewerTab->progressBar->setValue(progress);
+        updateSearchStatus(progress, "Loading pictures");
 
         for(int i=0;i<picture_number;i++)
         {
             images[i].loadData(i);
+            progress += 20/picture_number ;
         }
 
-        progress +=20;//Progress = 40
-        progressBarSearch->setValue(progress);
-        labelSearchStatus->setText("Loading thumbnails");
-        parentWidget->viewerTab->labelLoading->setText("Loading thumbnails");
-        parentWidget->viewerTab->progressBar->setValue(progress);
+        //Progress = 40
+        updateSearchStatus(progress, "Loading thumbnails");
 
         loaded_pictures = 0;
 
-        for(i=0;i<picture_number;i++)
+        for(int i=0;i<picture_number;i++)
         {
             if(images[i].id != 0)
             {
@@ -506,4 +442,12 @@ void SearchTab::image_loaded(int index)
     parentWidget->viewerTab->labelLoading->setText(QString("Loaded thumbnails ") + QString::number(loaded_pictures) + QString("/") + QString::number(picture_number));
     //delete loading_worker[i];
     //delete thread_pool_loading[i];
+}
+
+void SearchTab::updateSearchStatus(int progress, QString text)
+{
+    progressBarSearch->setValue(progress);
+    parentWidget->viewerTab->progressBar->setValue(progress);
+    labelSearchStatus->setText(text);
+    parentWidget->viewerTab->labelLoading->setText(text);
 }

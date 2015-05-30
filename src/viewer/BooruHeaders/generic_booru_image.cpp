@@ -141,11 +141,8 @@ void BooruImage::loadPaths()
 
     /*Full path*/
     fileName = full_url;
-    outputInfo("DEBUG",full_url,LEVEL_TOP_WIDGET);
     format = fileName.substr(fileName.find_last_of(".") + 1);
-    outputInfo("DEBUG",format,LEVEL_TOP_WIDGET);
     full_path = booru.getDownloadPath() + intToString(id) + "_full." + format;
-    outputInfo("DEBUG",full_path,LEVEL_TOP_WIDGET);
 }
 
 void BooruImage::download_thumb()

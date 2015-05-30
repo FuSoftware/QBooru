@@ -45,7 +45,7 @@ SOURCES += main.cpp\
     fonctions/fonctions_conversion.cpp \
     fonctions/fonctions_json.cpp \
     fonctions/fonctions_qt.cpp \
-    BooruHeaders/search_functions.cpp
+    BooruHeaders/booru_search_engine.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -92,7 +92,7 @@ HEADERS  += widget.h \
     fonctions/fonctions_conversion.h \
     fonctions/fonctions_json.h \
     fonctions/fonctions_qt.h \
-    BooruHeaders/search_functions.h
+    BooruHeaders/booru_search_engine.h
 
 FORMS    +=
 

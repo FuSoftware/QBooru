@@ -36,9 +36,12 @@ public:
     void checkPageButtonStatus();
     void setRating(const char* rating);
 
+    void updateSearchStatus(int progress, QString text);
+
     /*Objets*/
     BooruImage images[64];
     BooruSite booru;
+    BooruSearchEngine booru_search_engine;
 
     QVBoxLayout *layoutSearchStatus;
         QLineEdit *lineEditTags;
