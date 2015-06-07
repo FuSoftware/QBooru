@@ -15,19 +15,19 @@
 #if DEBUG
 /**Windows Debug**/
 
-        #define CACHE_PATH  "E:/QBooru/QBooru/cache/"
-        #define CONFPATH     "E:/QBooru/QBooru/conf/"
-        #define CONF_FILE    "E:/QBooru/QBooru/conf/configuration.json"
-        #define LOG_FILE    "E:/QBooru/QBooru/programLog.log"
-        #define ICON_PATH "E:/QBooru/QBooru/conf/defaultDerpibooru.png"
+        #define CACHE_PATH  "E:/My Programs/Builds/QBooru/cache/"
+        #define CONFPATH     "E:/My Programs/Builds/QBooru/conf/"
+        #define CONF_FILE    "E:/My Programs/Builds/QBooru/conf/configuration.json"
+        #define LOG_FILE    "E:/My Programs/Builds/QBooru/programLog.log"
+        #define ICON_PATH "E:/My Programs/Builds/QBooru/conf/defaultDerpibooru.png"
 
-        #define CACHE_PATH_DERPIBOORU    "E:/QBooru/QBooru/cache/derpibooru/"
+        #define CACHE_PATH_DERPIBOORU    "E:/My Programs/Builds/QBooru/cache/derpibooru/"
 
-        #define CHANGELOG_FILE "E:/QBooru/QBooru/conf/changelog.html"
-        #define LAST_VERSION_FILE "E:/QBooru/QBooru/conf/lastVersion.json"
+        #define CHANGELOG_FILE "E:/My Programs/Builds/QBooru/conf/changelog.html"
+        #define LAST_VERSION_FILE "E:/My Programs/Builds/QBooru/conf/lastVersion.json"
 
-        #define VIEWER_MAIN_EXECUTABLE "E:/QBooru/QBooru/QBooru.exe"
-        #define LOADING_GIF "E:/QBooru/QBooru/conf/loader.gif"
+        #define VIEWER_MAIN_EXECUTABLE "E:/My Programs/Builds/QBooru/QBooru.exe"
+        #define LOADING_GIF "E:/My Programs/Builds/QBooru/conf/loader.gif"
 
 #else
     /**Windows Release**/

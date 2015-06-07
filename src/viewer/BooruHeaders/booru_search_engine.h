@@ -40,6 +40,7 @@ private:
 
     std::string derpibooru_api_key;
     int page;
+    int rating_id;
 };
 
 #endif // BOORUSEARCHENGINE_H

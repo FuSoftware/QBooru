@@ -27,6 +27,11 @@ void BooruSearchEngine::generateUrlExtension()
     search_extension = "";
     size_t index = 0;
 
+    if(rating_id != RATING_ALL)
+    {
+        tags += rating_extension;
+    }
+
     std::replace(tags.begin(), tags.end(), ' ', '+');
 
     switch(booru.getSiteTypeInt())
@@ -94,6 +99,7 @@ void BooruSearchEngine::search(std::string tags, int page)
 void BooruSearchEngine::setRating(int rating_id)
 {
     rating_extension = "";
+    this->rating_id = rating_id;
 
     switch(booru.getSiteTypeInt())
     {
