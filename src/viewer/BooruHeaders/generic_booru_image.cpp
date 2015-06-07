@@ -35,7 +35,6 @@ void BooruImage::setBooru(BooruSite booru)
 void BooruImage::loadData(int picture_index)
 {
     Json::Value root = loadJSONFile(stringToCString(booru.getSearchFilePath().c_str())); // will contains the root value after parsing
-    outputInfo("DEBUG",booru.getSearchFilePath(),LEVEL_TOP_WIDGET);
 
     std::string image;
     std::string directory;
@@ -62,7 +61,7 @@ void BooruImage::loadData(int picture_index)
         author           = root[picture_index]["owner"].asString();
         score            = root[picture_index]["score"].asInt();
         file_size        = 0;
-        file_url    =  booru.getBaseUrl() + std::string("/images/") + directory +std::string("/") + image;
+        full_url    =  booru.getBaseUrl() + std::string("/images/") + directory +std::string("/") + image;
         width       =  root[picture_index]["width"].asInt();
         height      =  root[picture_index]["height"].asInt();
         preview_url = booru.getBaseUrl() + std::string("/thumbnails/") + directory +std::string("/thumbnail_") + image.substr(0,image.find_last_of('.')) + std::string(".jpg"); //http://gelbooru.com/thumbnails/16/b2/thumbnail_16b2851ba391157b418d9d6cb2a3b602.jpg
@@ -84,7 +83,7 @@ void BooruImage::loadData(int picture_index)
         source           = strdup(root["posts"][picture_index]["source"].asString().c_str());
         score            = root["posts"][picture_index]["score"].asInt();
         file_size        = root["posts"][picture_index]["file_size"].asInt();
-        file_url    = root["posts"][picture_index]["file_url"].asString();
+        full_url    = root["posts"][picture_index]["file_url"].asString();//File url
         width       = root["posts"][picture_index]["width"].asInt();
         height      = root["posts"][picture_index]["height"].asInt();
         preview_url             = root["posts"][picture_index]["preview_url"].asString();
@@ -96,10 +95,10 @@ void BooruImage::loadData(int picture_index)
         sample_height       = root["posts"][picture_index]["sample_height"].asInt();
         sample_width        = root["posts"][picture_index]["sample_width"].asInt();
         sample_file_size    = root["posts"][picture_index]["sample_file_size"].asInt();
-        full_url          = root["posts"][picture_index]["jpeg_url"].asString();
-        full_height       = root["posts"][picture_index]["jpeg_height"].asInt();
-        full_width        = root["posts"][picture_index]["jpeg_width"].asInt();
-        full_file_size    = root["posts"][picture_index]["jpeg_file_size"].asInt();
+        //full_url          = root["posts"][picture_index]["jpeg_url"].asString();
+        //full_height       = root["posts"][picture_index]["jpeg_height"].asInt();
+        //full_width        = root["posts"][picture_index]["jpeg_width"].asInt();
+        //full_file_size    = root["posts"][picture_index]["jpeg_file_size"].asInt();
         rating   = *strdup(root["posts"][picture_index]["rating"].asString().c_str());
         tagNumber = loadTags(root["posts"][picture_index]["tags"].asString(), tags);
         break;
@@ -110,7 +109,7 @@ void BooruImage::loadData(int picture_index)
         source           = root[picture_index]["source"].asString();//Ok
         score            = root[picture_index]["score"].asInt();//Ok
         file_size        = root[picture_index]["file_size"].asInt();//Ok
-        file_url    = booru.getBaseUrl() + root[ picture_index]["file_url"].asString();//Ok
+        full_url    = booru.getBaseUrl() + root[ picture_index]["file_url"].asString();//Ok
         width       = root[picture_index]["image_width"].asInt(); //Ok
         height      = root[picture_index]["image_height"].asInt();// Ok
         preview_url = booru.getBaseUrl() + root[ picture_index]["preview_file_url"].asString(); //Ok
@@ -136,7 +135,6 @@ void BooruImage::loadPaths()
     /*Medium Path*/
     fileName = sample_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
-
     medium_path = booru.getCachePath() + intToString(id)+ "." + "_medium" + format;
 
     /*Full path*/
