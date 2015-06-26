@@ -41,11 +41,11 @@ SOURCES += main.cpp\
     Workers/viewer_loading_thread.cpp \
     BooruHeaders/generic_booru_image.cpp \
     fonctions/fonctions.cpp \
-    fonctions/fonctions_config.cpp \
     fonctions/fonctions_conversion.cpp \
     fonctions/fonctions_json.cpp \
     fonctions/fonctions_qt.cpp \
-    BooruHeaders/booru_search_engine.cpp
+    BooruHeaders/booru_search_engine.cpp \
+    config_file.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -88,11 +88,11 @@ HEADERS  += widget.h \
     constantes_linux.h \
     BooruHeaders/headers.h \
     fonctions/fonctions.h \
-    fonctions/fonctions_config.h \
     fonctions/fonctions_conversion.h \
     fonctions/fonctions_json.h \
     fonctions/fonctions_qt.h \
-    BooruHeaders/booru_search_engine.h
+    BooruHeaders/booru_search_engine.h \
+    config_file.h
 
 FORMS    +=
 

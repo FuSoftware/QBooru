@@ -4,6 +4,7 @@
 #include <QtWidgets>
 
 #include "imageTabClass.h"
+#include "../config_file.h"
 
 #include "../BooruHeaders/headers.h"
 
@@ -37,6 +38,8 @@ public:
     void setRating(const char* rating);
 
     void updateSearchStatus(int progress, QString text);
+    ConfigFile *getConfigFile();
+
 
     /*Objets*/
     BooruImage images[64];
@@ -73,6 +76,8 @@ public slots:
     void image_loaded(int index);
 
 private:
+    ConfigFile *conf_file;
+
     int loaded_pictures;
     int recherche;
     int progress;

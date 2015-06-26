@@ -8,7 +8,6 @@
 #define FONCTIONS_ALL_H_INCLUDED
 
 #include "fonctions/fonctions.h"
-#include "fonctions/fonctions_config.h"
 #include "fonctions/fonctions_conversion.h"
 #include "fonctions/fonctions_json.h"
 #include "fonctions/fonctions_qt.h"

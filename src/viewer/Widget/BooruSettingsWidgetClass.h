@@ -26,7 +26,7 @@ public slots:
 
 private:
 
-
+    ConfigFile *conf_file;
     QSpacerItem *spacer;
     BooruSettingsTab *parentWidget;
 

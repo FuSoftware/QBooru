@@ -19,6 +19,7 @@ public:
     /*Objets publics*/
     QComboBox *comboBoxBooru;
     int selectedBooru;
+    ConfigFile *getConfigFile();
 
 public slots:
     void deleteBooru();
@@ -26,6 +27,7 @@ public slots:
 
 
 private:
+    ConfigFile *conf_file;
 
     QSpacerItem *spacer;
     Widget *parentWidget;

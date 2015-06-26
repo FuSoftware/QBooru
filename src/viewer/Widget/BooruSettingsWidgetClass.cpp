@@ -10,9 +10,10 @@
 
 BooruSettings::BooruSettings(BooruSettingsTab *parent)
 {
+    conf_file = parent->getConfigFile();
+
     layoutMain = new QVBoxLayout;
     parentWidget = parent;
-    Json::Value root = loadJSONFile(BOORU_LIST);
     QString buffer;
     int i=0;
 
@@ -27,9 +28,9 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
         layoutGroupBoxMainSettings->addWidget(checkBoxPreset,0,2);
         layoutGroupBoxMainSettings->addWidget(comboBoxPreset,0,3);
 
-        while(root["boorus"][i].isObject())
+        while(i < conf_file->getBoorus().size())
         {
-            buffer = root["boorus"][i]["name"].asString().c_str();
+            buffer = conf_file->getBooru(i).getName().c_str();
             buffer[0].toUpper();
             comboBoxPreset->addItem(buffer);
             i++;
@@ -156,7 +157,8 @@ void BooruSettings::editBooru()
     }
 
 
-    booru->saveBooruSite();
+    conf_file->getBoorus().at(i) = booru;
+    //booru->saveBooruSite();
     delete booru;
 }
 
@@ -167,23 +169,22 @@ void BooruSettings::loadBooru(int index)
 
      \param index of the booru to load
      */
-    Json::Value root = loadJSONFile(CONF_FILE);
 
-    if(index < root["settings"]["booru_number"].asInt())
+    if(index < conf_file->getBooruNumber())
     {
-        lineEditBooruName->setText(QString(root["boorus"][index]["name"].asCString()));
+        lineEditBooruName->setText(QString(conf_file->getBooru(i).getName().c_str()));
 
-        lineEditBooruURL->setText(QString(root["boorus"][index]["base_url"].asCString()));
+        lineEditBooruURL->setText(QString(conf_file->getBooru(i).getBaseUrl().c_str()));
 
-        comboBoxBooruType->setCurrentIndex(root["boorus"][index]["siteTypeInt"].asInt());
+        comboBoxBooruType->setCurrentIndex(conf_file->getBooru(i).getIndex());
 
-        lineEditBooruDownloadPath->setText(QString(root["boorus"][index]["download_path"].asCString()));
+        lineEditBooruDownloadPath->setText(QString(conf_file->getBooru(i).getDownloadPath().c_str()));
 
-        lineEditBooruSearchUrl->setText(QString(root["boorus"][index]["search_url"].asCString()));
+        lineEditBooruSearchUrl->setText(QString(conf_file->getBooru(i).getSearchUrl().c_str()));
 
-        lineEditBooruShowIndexUrl->setText(QString(root["boorus"][index]["show_index_url"].asCString()));
+        lineEditBooruShowIndexUrl->setText(QString(conf_file->getBooru(i).getShowIndexUrl().c_str()));
 
-        lineEditBooruTagsUrl->setText(QString(root["boorus"][index]["tag_url"].asCString()));
+        lineEditBooruTagsUrl->setText(QString(conf_file->getBooru(i).getTagUrl().c_str()));
     }
 }
 

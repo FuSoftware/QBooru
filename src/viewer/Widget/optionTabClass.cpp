@@ -11,9 +11,7 @@
 
 OptionTab::OptionTab(Widget *parent) : QWidget(parent)
 {
-    Json::Value root;
-    Json::StyledWriter writer;
-    root = loadJSONFile(CONF_FILE);
+    conf_file = parent->getConfigFile();
 
     for(int i=0;i<LAYOUT_NUMBER_OPTIONS;i++)
     {
@@ -42,13 +40,13 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
 
             pushButtonTags = new QPushButton("Refresh Tags",this);
             labelTags = new QLabel("Last refresh :",this);
-
+/*
         QVBoxLayout *layoutDownloadPath2 = new QVBoxLayout;
             pushButtonResetAllDownloadPath = new QPushButton("Reset all download paths",this);
-            lineEditDownloadPath = new QLineEdit(QString(root["paths"]["default_download_path"].asString().c_str()),this);
+            lineEditDownloadPath = new QLineEdit(QString(root["paths"]["default_download_path"].asString().c_str()),this);*/
 
         checkBoxLoadingStartup = new QCheckBox("Load on Startup",this);
-        checkBoxLoadingStartup->setChecked(root["settings"]["load_on_startup"].asBool());
+        checkBoxLoadingStartup->setChecked(conf_file->isLoadingOnStartup());
 
         searchRating = new QComboBox;
         searchRating->addItem("All");
@@ -57,7 +55,7 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
         searchRating->addItem("Explicit");
         searchRating->setMaximumWidth(100);
 
-        searchRating->setCurrentIndex(root["settings"]["preferred_rating"].asInt());
+        searchRating->setCurrentIndex(conf_file->getPreferredRating());
 
         labelDefaultRating = new QLabel("Default Rating");
         labelDefaultRating->setStyleSheet("qproperty-alignment: AlignCenter;");
@@ -65,9 +63,9 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
         labelDefaultBooru->setStyleSheet("qproperty-alignment: AlignCenter;");
 
         defaultBooru = new QComboBox;
-        for(int i=0;i<root["settings"]["booru_number"].asInt();i++)
+        for(int i=0;i<conf_file->getBooruNumber();i++)
         {
-           defaultBooru->addItem(root["boorus"][i]["name"].asCString());
+           defaultBooru->addItem(conf_file->getBooru(i).getName().c_str());
         }
         defaultBooru->setMaximumWidth(100);
 
@@ -87,8 +85,8 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
             layout2->addLayout(layoutImages[i]);
         }
 
-        nbImages[0]->setCurrentIndex(root["settings"]["picture_columns"].asInt());
-        nbImages[1]->setCurrentIndex(root["settings"]["picture_rows"].asInt());
+        nbImages[0]->setCurrentIndex(conf_file->getPictureColumns());
+        nbImages[1]->setCurrentIndex(conf_file->getPictureRow());
 
         textBrowserChangelog = new QTextBrowser(this);
         pushButtonSave = new QPushButton("Save Options",this);
@@ -112,8 +110,8 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
 
     layoutDownloadPath2->addWidget(pushButtonResetAllDownloadPath);
 
-    horizontalLayouts[2]->addLayout(layoutDownloadPath2);
-    horizontalLayouts[2]->addWidget(lineEditDownloadPath);
+    //horizontalLayouts[2]->addLayout(layoutDownloadPath2);
+    //horizontalLayouts[2]->addWidget(lineEditDownloadPath);
 
     horizontalLayouts[4]->addWidget(credits);
     groupBoxCredits->setLayout(horizontalLayouts[4]);
@@ -135,7 +133,10 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
 
     for(int i=0;i<4;i++)
     {
-       layoutGroupBox->addLayout(horizontalLayouts[i]) ;
+        if(i!=2)
+        {
+            layoutGroupBox->addLayout(horizontalLayouts[i]) ;
+        }
     }
     groupBox->setLayout(layoutGroupBox);
 
@@ -160,8 +161,8 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
     refreshCacheSize();
     refreshTagTime();
 
-    searchRating->setCurrentIndex(root["settings"]["preferred_rating"].asInt());
-    defaultBooru->setCurrentIndex(root["settings"]["preferred_booru"].asInt());
+    searchRating->setCurrentIndex(conf_file->getPreferredRating());
+    defaultBooru->setCurrentIndex(conf_file->getPreferredBooru());
 }
 
 OptionTab::~OptionTab()
@@ -177,8 +178,7 @@ OptionTab::~OptionTab()
 
 void OptionTab::resetBoorusSettings()
 {
-    Json::Value root = loadJSONFile(CONF_FILE);
-    resetBooruSites(root);
+    conf_file.
 
     parentWidget->refresh();
 }
@@ -195,12 +195,10 @@ void OptionTab::deleteCache()
         refreshCacheSize();
     }
 
-    Json::Value root = loadJSONFile(CONF_FILE);
-
-    for(i=0;i<root["boorus"][i].isObject();i++)
+    for(i=0;i<conf_file->getBooruNumber();i++)
     {
-        checkFolder(root["boorus"][i]["cache_path"].asString());
-        checkFolder(root["boorus"][i]["donwload_path"].asString());
+        checkFolder(conf_file->getBooru(i).getCachePath());
+        checkFolder(conf_file->getBooru(i).getDownloadPath());
     }
 }
 
@@ -241,67 +239,57 @@ void OptionTab::runUpdater()
 void OptionTab::refreshTagLists()
 {
     int i;
-    Json::Value root;
-    Json::StyledWriter writer;
-    root = loadJSONFile(CONF_FILE);
 
-    for(i=0;i<root["settings"]["index"].asInt();i++)
+    for(i=0;i<conf_file->getBooruNumber();i++)
     {
-        cachingFile(strdup(root["boorus"][i]["tag"].asCString()), strdup(root["boorus"][i]["tag_file_path"].asCString()),false, false);
+        cachingFile(strdup(conf_file->getBooru(i).getTagUrl().c_str()), strdup(conf_file->getBooru(i).getTagFilePath().c_str()),false, false);
     }
 
     refreshTagTime();
 
     int currentTime = time(NULL);
-    root["settings"]["last_tag_refresh"] =  currentTime;
-
-    saveJSONFile(CONF_FILE, writer.write(root));
+    //root["settings"]["last_tag_refresh"] =  currentTime;
 }
 
 void OptionTab::refreshTagTime()
 {
+    /*
     Json::Value root;
     root = loadJSONFile(CONF_FILE);
 
     int currentTime = time(NULL);
     int previousTime = root["settings"]["last_tag_refresh"].asInt();
     labelTags->setText(QString(returnTimeStringConvert(currentTime-previousTime).c_str()));
+    */
 }
 
 void OptionTab::resetBooruDownloadPath()
 {
     int i;
-    Json::Value root;
-    Json::StyledWriter writer;
-    root = loadJSONFile(CONF_FILE);
 
-    BooruSite boorus[root["settings"]["booru_number"].asInt()];
-    loadBooruSites(boorus,root["settings"]["booru_number"].asInt());
+    std::vector<BooruSite> boorus = conf_file->getBoorus();
 
-    root["paths"]["default_download_path"] = lineEditDownloadPath->text().toStdString();
-    for(i=0;i<root["settings"]["booru_number"].asInt();i++)
+    conf_file->setDownloadPath(lineEditDownloadPath->text().toStdString());
+    for(i=0;i<conf_file->getBooruNumber();i++)
     {
-        boorus[i].setDownloadPath(lineEditDownloadPath->text().toStdString() + boorus[i].getName());
-        boorus[i].saveBooruSite();
+        boorus.at(i).setDownloadPath(lineEditDownloadPath->text().toStdString() + boorus[i].getName());
+        boorus.at(i).saveBooruSite();
     }
 
-    saveJSONFile(CONF_FILE, writer.write(root));
+    conf_file->boorus = boorus;
+    conf_file->saveFile();
 }
 
 void OptionTab::saveOptions()
 {
-    Json::Value root;
-    Json::StyledWriter writer;
-    root = loadJSONFile(CONF_FILE);
+    conf_file->setDownloadPath(ineEditDownloadPath->text().toStdString());
+    conf_file->setLoadingOnStartup(checkBoxLoadingStartup->isChecked());
+    conf_file->setPreferredRating(searchRating->currentIndex());
+    conf_file->setPreferredBooru(defaultBooru->currentIndex());
+    conf_file->setPictureRow(nbImages[1]->currentText().toInt());
+    conf_file->setPictureColumns(nbImages[0]->currentText().toInt());
 
-    root["paths"]["default_download_path"] = lineEditDownloadPath->text().toStdString();
-    root["settings"]["load_on_startup"] = checkBoxLoadingStartup->isChecked();
-    root["settings"]["preferred_rating"] = searchRating->currentIndex();
-    root["settings"]["preferred_booru"] = defaultBooru->currentIndex();
-    root["settings"]["picture_rows"] = nbImages[1]->currentText().toInt();
-    root["settings"]["picture_columns"] = nbImages[0]->currentText().toInt();
-
-    saveJSONFile(CONF_FILE, writer.write(root));
+    conf_file->saveFile();
 
     QMessageBox::information(this, "Info", "Configuration saved");
 }

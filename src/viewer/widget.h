@@ -24,6 +24,7 @@
 #include "classBooruSite.h"
 #include "fonctions_all.h"
 #include "fileutils.h"
+#include "config_file.h"
 
 class SearchTab;
 class ViewerTab;
@@ -39,9 +40,11 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-    void setupHosts(BooruSite boorus[], int index);
+    void setupHosts(std::vector<BooruSite> boorus, int index);
     void loadTag(QString tag, int imageHostInt);
     void setTab(int tab);
+
+    ConfigFile *getConfigFile();
 
     /*Public Objects*/
     int booruNumber;
@@ -64,6 +67,8 @@ private:
     QString hostNames[16];
 
     QThread *thread[16];
+
+    ConfigFile *conf_file;
 };
 
 #endif // WIDGET_H

@@ -9,10 +9,11 @@
 
 BooruSettingsTab::BooruSettingsTab(Widget *parent)
 {
+    conf_file = parent->getConfigFile();
+
     selectedBooru = 0;
     mainGridLayout = new QGridLayout;
 
-    Json::Value root = loadJSONFile(CONF_FILE);
     parentWidget = parent;
 
     QLabel *label2 = new QLabel("<b>Edit Booru</b>", this);
@@ -21,9 +22,9 @@ BooruSettingsTab::BooruSettingsTab(Widget *parent)
 
     comboBoxBooru = new QComboBox(this);
 
-    for(int i=0; i < root["settings"]["booru_number"].asInt(); i++)
+    for(int i=0; i < conf_file->getBooruNumber(); i++)
     {
-        comboBoxBooru->addItem(QString(root["boorus"][i]["name"].asCString()));
+        comboBoxBooru->addItem(QString(conf_file->getBooru(i).getName().c_str()));
     }
     comboBoxBooru->addItem("New Booru");
     editBooruWidget = new BooruSettings(this);
@@ -71,18 +72,19 @@ void BooruSettingsTab::refreshActiveBooru(int index)
 
 void BooruSettingsTab::deleteBooru()
 {
-    Json::Value root = loadJSONFile(CONF_FILE);
-    int booru_number = root["settings"]["booru_number"].asInt();
+    int booru_number = conf_file->getBooruNumber();
 
     for(int i=selectedBooru ; i<booru_number ; i++)
     {
-        root["boorus"][i] = root["boorus"][i+1];
+        conf_file->getBoorus().at(i) = conf_file->getBoorus().at(i+1);
     }
 
-    root["boorus"][booru_number].clear();
+    conf_file->getBoorus().erase(booru_number);
+    conf_file->setBooruNumber(booru_number-1);
+    conf_file->saveFile();
+}
 
-    root["settings"]["booru_number"] = booru_number-1;
-
-    Json::StyledWriter writer;
-    saveJSONFile(CONF_FILE,writer.write(root));
+ConfigFile *BooruSettingsTab::getConfigFile()
+{
+    return conf_file;
 }

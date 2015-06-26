@@ -2,12 +2,12 @@
 
 Widget::Widget(QWidget *parent) : QWidget(parent)
 {
-    Json::Value root = loadJSONFile(CONF_FILE);
+    conf_file = new ConfigFile(true);
     int i;
-    int booruIndexMax = root["settings"]["booru_number"].asInt();
+    int booruIndexMax = conf_file->getBooruNumber();
 
-    BooruSite boorus[booruIndexMax];
-    loadBooruSites(boorus,booruIndexMax);
+    std::vector<BooruSite> boorus;
+    boorus = conf_file->getBoorus();
 
     mainLayout = new QVBoxLayout;
 
@@ -34,7 +34,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
     show();
 
-    resize(root["settings"]["window_w"].asInt(), root["settings"]["window_h"].asInt());
+    resize(conf_file->getWindowW(), conf_file->getWindowH());
 
     searchtabs[0]->checkPageButtonStatus();
 
@@ -43,7 +43,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     /*Chargement initial*/
     for(i=0;i<booruIndexMax;i++)
     {
-        if(root["settings"]["load_on_startup"].asBool())
+        if(conf_file->isLoadingOnStartup())
         {
             thread[i] = new QThread;
             connect(thread[i], SIGNAL(started()), searchtabs[i], SLOT(newSearch()));
@@ -52,17 +52,11 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
         }
     }
 
-    tabWidgetMain->setCurrentIndex(root["settings"]["preferred_booru"].asInt());
+    tabWidgetMain->setCurrentIndex(conf_file->getPreferredBooru());
 }
 
 Widget::~Widget()
 {
-    Json::Value root = loadJSONFile(CONF_FILE);
-    Json::StyledWriter writer;
-    root["settings"]["window_h"] = height();
-    root["settings"]["window_w"] = width();
-    saveJSONFile(CONF_FILE, writer.write(root));
-
     outputInfo("INFO",
                "Deleting Widget",
                LEVEL_TOP_WIDGET);
@@ -73,11 +67,10 @@ Widget::~Widget()
 void Widget::refresh()
 {
     int i;
-    Json::Value root = loadJSONFile(CONF_FILE);
-    int booruIndexMax = root["settings"]["booru_number"].asInt();
+    int booruIndexMax = conf_file->getBooruNumber();
 
-    BooruSite boorus[booruIndexMax];
-    loadBooruSites(boorus,booruIndexMax);
+    std::vector<BooruSite> boorus;
+    boorus = conf_file->getBoorus();
 
     delete tabWidgetMain;
 
@@ -87,7 +80,7 @@ void Widget::refresh()
 
     for(i=0;i<booruIndexMax;i++)
     {
-        searchtabs[i] = new SearchTab(this, boorus[i]);
+        searchtabs[i] = new SearchTab(this, boorus.at(i));
         tabWidgetMain->addTab(searchtabs[i],hostNames[i]);
     }
 
@@ -102,11 +95,11 @@ void Widget::refresh()
     tabWidgetMain->setCurrentIndex(booruIndexMax+2);
 }
 
-void Widget::setupHosts(BooruSite boorus[], int index)
+void Widget::setupHosts(std::vector<BooruSite> boorus, int index)
 {    
     for(int i=0;i<index;i++)
     {
-        hostNames[i] = QString(boorus[i].getName().c_str());
+        hostNames[i] = QString(boorus.at(i).getName().c_str());
     }
 }
 
@@ -117,8 +110,7 @@ void Widget::loadTag(QString tag, int imageHostInt)
 
 void Widget::on_tab_changed(int tabIndex)
 {
-    Json::Value root = loadJSONFile(CONF_FILE);
-    int viewerIndex = root["settings"]["booru_number"].asInt();
+    int viewerIndex = conf_file->getBooruNumber();
 
     if(tabIndex < viewerIndex) //SearchPages
     {
@@ -140,3 +132,7 @@ void Widget::setTab(int tab)
     tabWidgetMain->setCurrentIndex(tab);
 }
 
+ConfigFile *Widget::getConfigFile()
+{
+    return conf_file;
+}

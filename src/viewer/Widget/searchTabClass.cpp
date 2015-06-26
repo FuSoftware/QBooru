@@ -7,10 +7,11 @@
 
 SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
 {
-    Json::Value root = loadJSONFile(CONF_FILE);
-    picture_number = root["settings"]["picture_number"].asInt();
-    picture_rows = root["settings"]["picture_rows"].asInt();
-    picture_columns = root["settings"]["picture_columns"].asInt();
+    conf_file = parent->getConfigFile();
+
+    picture_number = conf_file->getPictureNumber();
+    picture_rows = conf_file->getPictureRow();
+    picture_columns = conf_file->getPictureColumns();
 
     booru = site;
 
@@ -19,7 +20,6 @@ SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
 
 
     recherche = 0;
-    derpibooruAPIKey = root["settings"]["api_key_derpibooru"].asString();
     int i=0;
     int j=0;
     int k=0;
@@ -151,7 +151,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
     }
     checkPageButtonStatus();
 
-    searchRating->setCurrentIndex(root["settings"]["preferred_rating"].asInt());
+    searchRating->setCurrentIndex(conf_file->getPreferredRating());
 }
 
 SearchTab::~SearchTab()
@@ -450,4 +450,9 @@ void SearchTab::updateSearchStatus(int progress, QString text)
     parentWidget->viewerTab->progressBar->setValue(progress);
     labelSearchStatus->setText(text);
     parentWidget->viewerTab->labelLoading->setText(text);
+}
+
+ConfigFile *SearchTab::getConfigFile()
+{
+    return this->conf_file;
 }

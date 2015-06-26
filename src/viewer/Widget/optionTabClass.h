@@ -29,6 +29,9 @@ public slots:
     void saveOptions();
 
 private:
+
+    ConfigFile *conf_file;
+
     QHBoxLayout *horizontalLayouts[LAYOUT_NUMBER_OPTIONS];
 
     QSpacerItem *spacer;

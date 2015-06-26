@@ -30,6 +30,7 @@ public:
     QMovie *loadingAnimation;
 
 private:
+    ConfigFile *conf_file;
     SearchTab *parentWidget;
 
     QString thumbnailPath;

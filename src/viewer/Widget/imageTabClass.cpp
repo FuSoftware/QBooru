@@ -10,9 +10,11 @@
 
 ImageTab::ImageTab(SearchTab *parent, int imageHostInt) : QWidget(parent)
 {
-    Json::Value root = loadJSONFile(CONF_FILE);
-    int image_width =  parent->width() / root["settings"]["picture_columns"].asInt();
-    int image_height = parent->height() / root["settings"]["picture_rows"].asInt();
+    conf_file = parent->getConfigFile();
+
+    setParent(parent);
+    int image_width =  parent->width() / conf_file->getPictureColumns();
+    int image_height = parent->height() / conf_file->getPictureRow();
 
 
     imageHost = imageHostInt;
@@ -57,6 +59,8 @@ void ImageTab::setLoading()
 
 void ImageTab::loadPicture(QString imagePath, QString comment)
 {
+    this->updateGeometry();
+
     int espacement_h = 3;
     int espacement_w = 3;
     thumbnailPath = imagePath;
@@ -76,8 +80,11 @@ void ImageTab::loadPicture(QString imagePath, QString comment)
     imageSize.setWidth(width/parentWidget->picture_columns - (parentWidget->picture_columns * espacement_w));
     imageSize.setHeight(height/parentWidget->picture_rows -(parentWidget->picture_rows * espacement_h));
 
-    imageThumbnail->setPixmap(pixmap.scaled(imageSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    imageThumbnail->setPixmap(pixmap.scaled(this->height()-imageDescription->minimumHeight(),this->width(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     imageDescription->setText(commentString);
+
+    this->updateGeometry();
+    imageThumbnail->setPixmap(pixmap.scaled(this->height()-imageDescription->minimumHeight(),this->width(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 void ImageTab::resizeEvent(QResizeEvent * event)

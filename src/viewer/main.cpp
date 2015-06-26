@@ -16,6 +16,8 @@
 #include "Widget/searchTabClass.h"
 #include "Widget/viewerTabClass.h"
 
+#include "config_file.h"
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -33,8 +35,8 @@ int main(int argc, char *argv[])
     cachingFile(BOORU_LIST_URL, BOORU_LIST, false, false);
 
     cachingFile(CONF_FILE_URL, CONF_FILE, false, true);
-    setAppVersionJSON();
-    checkConfigFile();
+
+    ConfigFile confFile(false);
 
     QIcon icone;
     icone.addFile(ICON_PATH);
