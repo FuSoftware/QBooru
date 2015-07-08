@@ -5,12 +5,12 @@ BooruSearchEngine::BooruSearchEngine()
 
 }
 
-BooruSearchEngine::BooruSearchEngine(BooruSite booru)
+BooruSearchEngine::BooruSearchEngine(BooruSite* booru)
 {
     setBooru(booru);
 }
 
-BooruSearchEngine::BooruSearchEngine(BooruSite booru, std::string tags, int page)
+BooruSearchEngine::BooruSearchEngine(BooruSite* booru, std::string tags, int page)
 {
     setBooru(booru);
     setTags(tags);
@@ -34,7 +34,7 @@ void BooruSearchEngine::generateUrlExtension()
 
     std::replace(tags.begin(), tags.end(), ' ', '+');
 
-    switch(booru.getSiteTypeInt())
+    switch(booru->getSiteTypeInt())
     {
     case DERPIBOORU_TYPE:
         while (true){index = tags.find(",", index);if (index == string::npos) break;tags.replace(index, 1, "%2C");}
@@ -70,8 +70,8 @@ void BooruSearchEngine::generateUrlExtension()
 
 void BooruSearchEngine::search()
 {
-    search_url = booru.getSearchUrl() + search_extension;
-    cachingFile(strdup(search_url.c_str()), strdup(booru.getSearchFilePath().c_str()),true,false);
+    search_url = booru->getSearchUrl() + search_extension;
+    cachingFile(strdup(search_url.c_str()), strdup(booru->getSearchFilePath().c_str()),true,false);
 }
 
 void BooruSearchEngine::search(std::string tags)
@@ -101,7 +101,7 @@ void BooruSearchEngine::setRating(int rating_id)
     rating_extension = "";
     this->rating_id = rating_id;
 
-    switch(booru.getSiteTypeInt())
+    switch(booru->getSiteTypeInt())
     {
     case DERPIBOORU_TYPE:
         switch(rating_id)
@@ -148,7 +148,7 @@ void BooruSearchEngine::setRating(int rating_id)
     }
 }
 
-void BooruSearchEngine::setBooru(BooruSite booru)
+void BooruSearchEngine::setBooru(BooruSite *booru)
 {
     this->booru = booru;
 }

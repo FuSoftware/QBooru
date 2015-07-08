@@ -10,7 +10,7 @@ BooruImage::BooruImage(int booru_index)
     setBooru(booru_index);
 }
 
-BooruImage::BooruImage(BooruSite booru)
+BooruImage::BooruImage(BooruSite* booru)
 {
     setBooru(booru);
 }
@@ -22,11 +22,11 @@ BooruImage::~BooruImage()
 
 void BooruImage::setBooru(int booru_index)
 {
-    booru = BooruSite(booru_index);
+    booru = new BooruSite(booru_index);
     loadPaths();
 }
 
-void BooruImage::setBooru(BooruSite booru)
+void BooruImage::setBooru(BooruSite* booru)
 {
     this->booru = booru;
     loadPaths();
@@ -34,12 +34,12 @@ void BooruImage::setBooru(BooruSite booru)
 
 void BooruImage::loadData(int picture_index)
 {
-    Json::Value root = loadJSONFile(stringToCString(booru.getSearchFilePath().c_str())); // will contains the root value after parsing
+    Json::Value root = loadJSONFile(stringToCString(booru->getSearchFilePath().c_str())); // will contains the root value after parsing
 
     std::string image;
     std::string directory;
 
-    switch(booru.getSiteTypeInt())
+    switch(booru->getSiteTypeInt())
     {
     case DERPIBOORU_TYPE:
         id        = root["search"][picture_index]["id_number"].asInt();
@@ -61,17 +61,17 @@ void BooruImage::loadData(int picture_index)
         author           = root[picture_index]["owner"].asString();
         score            = root[picture_index]["score"].asInt();
         file_size        = 0;
-        full_url    =  booru.getBaseUrl() + std::string("/images/") + directory +std::string("/") + image;
+        full_url    =  booru->getBaseUrl() + std::string("/images/") + directory +std::string("/") + image;
         width       =  root[picture_index]["width"].asInt();
         height      =  root[picture_index]["height"].asInt();
-        preview_url = booru.getBaseUrl() + std::string("/thumbnails/") + directory +std::string("/thumbnail_") + image.substr(0,image.find_last_of('.')) + std::string(".jpg"); //http://gelbooru.com/thumbnails/16/b2/thumbnail_16b2851ba391157b418d9d6cb2a3b602.jpg
+        preview_url = booru->getBaseUrl() + std::string("/thumbnails/") + directory +std::string("/thumbnail_") + image.substr(0,image.find_last_of('.')) + std::string(".jpg"); //http://gelbooru.com/thumbnails/16/b2/thumbnail_16b2851ba391157b418d9d6cb2a3b602.jpg
         if(root[picture_index]["sample"].asBool())
         {
-            sample_url = booru.getBaseUrl() + std::string("/samples/") + directory +std::string("/sample_") + image.substr(0,image.find_last_of('.')) + std::string(".jpg");//http://simg3.gelbooru.com/samples/16/24/sample_1624d72ba640bb22adb6820dbac88f01.jpg
+            sample_url = booru->getBaseUrl() + std::string("/samples/") + directory +std::string("/sample_") + image.substr(0,image.find_last_of('.')) + std::string(".jpg");//http://simg3.gelbooru.com/samples/16/24/sample_1624d72ba640bb22adb6820dbac88f01.jpg
         }
         else
         {
-            sample_url = booru.getBaseUrl() + std::string("/images/") + directory +std::string("/") + image;//http://simg3.gelbooru.com/images/16/b2/16b2851ba391157b418d9d6cb2a3b602.jpg
+            sample_url = booru->getBaseUrl() + std::string("/images/") + directory +std::string("/") + image;//http://simg3.gelbooru.com/images/16/b2/16b2851ba391157b418d9d6cb2a3b602.jpg
         }
         rating   = *strdup(root[picture_index]["rating"].asString().c_str());
         tagNumber = loadTags(root[picture_index]["tags"].asString(), tags);
@@ -109,11 +109,11 @@ void BooruImage::loadData(int picture_index)
         source           = root[picture_index]["source"].asString();//Ok
         score            = root[picture_index]["score"].asInt();//Ok
         file_size        = root[picture_index]["file_size"].asInt();//Ok
-        full_url    = booru.getBaseUrl() + root[ picture_index]["file_url"].asString();//Ok
+        full_url    = booru->getBaseUrl() + root[ picture_index]["file_url"].asString();//Ok
         width       = root[picture_index]["image_width"].asInt(); //Ok
         height      = root[picture_index]["image_height"].asInt();// Ok
-        preview_url = booru.getBaseUrl() + root[ picture_index]["preview_file_url"].asString(); //Ok
-        sample_url = booru.getBaseUrl() + root[ picture_index]["large_file_url"].asString(); //Ok
+        preview_url = booru->getBaseUrl() + root[ picture_index]["preview_file_url"].asString(); //Ok
+        sample_url = booru->getBaseUrl() + root[ picture_index]["large_file_url"].asString(); //Ok
         rating = *strdup(root[ picture_index]["rating"].asString().c_str()); //Ok
         tagNumber = loadTags(root[picture_index]["tag_string"].asString(), tags); //Ok
         break;
@@ -130,17 +130,17 @@ void BooruImage::loadPaths()
     /*Thumb path*/
     fileName = preview_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
-    thumb_path = booru.getCachePath() + intToString(id) + "." + format;
+    thumb_path = booru->getCachePath() + intToString(id) + "." + format;
 
     /*Medium Path*/
     fileName = sample_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
-    medium_path = booru.getCachePath() + intToString(id)+ "." + "_medium" + format;
+    medium_path = booru->getCachePath() + intToString(id)+ "." + "_medium" + format;
 
     /*Full path*/
     fileName = full_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
-    full_path = booru.getDownloadPath() + intToString(id) + "_full." + format;
+    full_path = booru->getDownloadPath() + intToString(id) + "_full." + format;
 }
 
 void BooruImage::download_thumb()
@@ -173,7 +173,7 @@ std::string BooruImage::getFullPath()
     return full_path;
 }
 
-BooruSite BooruImage::getBooru()
+BooruSite* BooruImage::getBooru()
 {
     return booru;
 }

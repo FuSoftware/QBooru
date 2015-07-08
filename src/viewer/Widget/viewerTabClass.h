@@ -25,7 +25,7 @@ public:
 
     void loadLabelsTags(std::string tagsArray[TAG_NUMBER], int tagNumber);
 
-    void loadPicture(int imageHostInt, int tabIndex, int index, int pageIndexInt, BooruSite booruSite);
+    void loadPicture(int imageHostInt, int tabIndex, int index, int pageIndexInt, BooruSite* booruSite);
     void loadPicture();
 
     void setLoadingState(bool state);
@@ -38,7 +38,7 @@ public:
     /*Public objects*/
     BooruImage Image;
 
-    BooruSite booru;
+    BooruSite* booru;
 
     QLabel *labelLoading;
     QLabel *labelImage;

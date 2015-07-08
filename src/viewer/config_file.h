@@ -1,6 +1,8 @@
 #ifndef CONFIGFILE_H
 #define CONFIGFILE_H
 
+#define LAST_CONF_FILE_VERSION 1
+
 #include "fonctions_all.h"
 #include "classBooruSite.h"
 
@@ -13,20 +15,25 @@ public:
     ~ConfigFile();
 
     void loadFromPath(std::string path, bool loadOnly);
+    void checkFile();
     void saveFile();
     void checkSoftwareVersions();
+
+    void loadBooruSites();
+    void resetBooruSites();
 
     void checkPreferredRating();
     void checkPreferredBooru();
     void checkLoadOnStartup();
+    void checkDownloadPath();
     void checkWindowSize();
     void checkPictureGrid();
     void checkBoorusIntegrity();
     void ordonnerBoorus();
 
     void setDownloadPath(std::string downloadPath);
-    void setBoorus(std::vector<BooruSite> boorus);
-    void setBooru(BooruSite booru, int i);
+    void setBoorus(std::vector<BooruSite*> boorus);
+    void setBooru(BooruSite *booru, int i);
     void setBooruNumber(int number);
     void setLoadingOnStartup(bool ok);
     void setPictureRow(int n);
@@ -37,8 +44,10 @@ public:
     void setWindowH(int h);
     void setWindowW(int w);
 
-    std::vector<BooruSite> getBoorus();
-    BooruSite getBooru(int i);
+    void getVersion(char* versionChar, int versionInt[4]);
+
+    std::vector<BooruSite*> getBoorus();
+    BooruSite *getBooru(int i);
     int getBooruNumber();
     bool isLoadingOnStartup();
     int getPictureRow();
@@ -59,7 +68,7 @@ private:
 
     int config_file_version;
 
-    std::vector<BooruSite> boorus;
+    std::vector<BooruSite*> boorus;
 
     std::string default_download_path;
 

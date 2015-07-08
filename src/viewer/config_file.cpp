@@ -18,7 +18,7 @@ ConfigFile::~ConfigFile()
 
 void ConfigFile::loadFromPath(std::string path, bool loadOnly)
 {
-    root = loadJSONFile(path.c_str());
+    root = loadJSONFile(strdup(path.c_str()));
 
     checkFile();
 
@@ -36,13 +36,15 @@ void ConfigFile::saveFile()
     Json::Value newRoot;
     Json::StyledWriter writer;
 
-    for(int i=0;i<this->booru_number;i++)
+    outputInfo("DEBUG",std::string("Saving Boorus"),LEVEL_TOP_WIDGET);
+    for(int i=0;i<boorus.size();i++)
     {
-        newRoot["boorus"][i] = boorus.at(i);
+        newRoot = boorus.at(i)->saveBooruSite(newRoot);
     }
 
     newRoot["paths"]["default_download_path"] = default_download_path;
 
+    outputInfo("DEBUG",std::string("Saving Settings"),LEVEL_TOP_WIDGET);
     newRoot["settings"]["config_file_version"] = config_file_version;
     newRoot["settings"]["api_key_derpibooru"] = api_key_derpibooru;
     newRoot["settings"]["booru_number"] = booru_number;
@@ -56,12 +58,13 @@ void ConfigFile::saveFile()
     newRoot["settings"]["window_h"] = window_h;
     newRoot["settings"]["window_w"] = window_w;
 
+    outputInfo("DEBUG",std::string("Saving Versions"),LEVEL_TOP_WIDGET);
     newRoot["versions"]["updater"]["local"] = version_updater_local_str;
     newRoot["versions"]["updater"]["last"] = version_updater_last_str;
     newRoot["versions"]["viewer"]["local"] = version_viewer_local_str;
     newRoot["versions"]["viewer"]["last"] = version_viewer_last_str;
 
-    saveJSONFile(file_path.c_str(),writer.write(root));
+    saveJSONFile(strdup(file_path.c_str()),writer.write(root));
 }
 
 void ConfigFile::checkSoftwareVersions()
@@ -148,23 +151,22 @@ void ConfigFile::checkFile()
 
     /*Checks the data and loads it*/
 
+    outputInfo("DEBUG",std::string("Checking Boorus"),LEVEL_TOP_WIDGET);
+
     this->checkBoorusIntegrity();
 
     this->api_key_derpibooru = root["settings"]["api_key_derpibooru"].asString();
 
-    if(config_file_version <= 1)
-    {
-        checkPreferredRating();
 
-        checkWindowSize();
-        checkPictureGrid();
-    }
+    outputInfo("DEBUG",std::string("Checking Config File"),LEVEL_TOP_WIDGET);
+    checkPreferredRating();
+    checkWindowSize();
+    checkPictureGrid();
+    checkDownloadPath();
+    checkLoadOnStartup();
 
-    if(root["paths"]["default_download_path"] == Json::nullValue) root["paths"]["default_download_path"] == downloadPath();
-    root = saveAndLoad(root,CONF_FILE);
-
-    if(root["settings"]["load_on_startup"] == Json::nullValue) root["settings"]["load_on_startup"] = false;
-    root = saveAndLoad(root,CONF_FILE);
+    this->config_file_version = LAST_CONF_FILE_VERSION;
+    //this->saveFile();
 }
 
 void ConfigFile::checkPreferredRating()
@@ -207,7 +209,26 @@ void ConfigFile::checkPreferredBooru()
 
 void ConfigFile::checkLoadOnStartup()
 {
+    if(root["settings"]["load_on_startup"].isBool())
+    {
+        this->load_on_startup = root["settings"]["load_on_startup"].asBool();
+    }
+    else
+    {
+        this->load_on_startup = false;
+    }
+}
 
+void ConfigFile::checkDownloadPath()
+{
+    if(root["paths"]["default_download_path"].isString())
+    {
+        this->default_download_path = root["paths"]["default_download_path"].asString();
+    }
+    else
+    {
+        this->default_download_path = "downloads/";
+    }
 }
 
 void ConfigFile::checkWindowSize()
@@ -315,7 +336,7 @@ void ConfigFile::checkBoorusIntegrity()
 
     if(this->booru_number < 1)
     {
-        resetBooruSites(root);
+        resetBooruSites();
         outputInfo("INFO",std::string("Boorus Reset"),LEVEL_TOP_WIDGET);
     }
 }
@@ -346,62 +367,67 @@ void ConfigFile::ordonnerBoorus()
 
 void ConfigFile::loadBooruSites()
 {
-    BooruSite sites[this->booru_number];
+    BooruSite* site;
     int i = 0;
-    while(i < this->booru_number)
+    while(root["boorus"][i].isObject())
     {
-        sites[i].setName(root["boorus"][i]["name"].asString());
-        outputInfo("INFO",
-                   std::string("Loading ") + sites[i].getName(),
-                   LEVEL_TOP_WIDGET);
+        site = new BooruSite(root["boorus"][i]);
 
-        sites[i].setBaseUrl(        root["boorus"][i]["base_url"].asString());
-        sites[i].setSearchUrl(      root["boorus"][i]["search_url"].asString());
-        sites[i].setTagUrl(         root["boorus"][i]["tag_url"].asString());
+        checkFolder(site->getCachePath());
+        checkFolder(site->getDownloadPath());
 
-        sites[i].setCachePath(      root["boorus"][i]["cache_path"].asString());
-        sites[i].setDownloadPath(   root["boorus"][i]["download_path"].asString());
-        sites[i].setSearchFilePath( root["boorus"][i]["search_file_path"].asString());
-        sites[i].setTagFilePath(    root["boorus"][i]["tag_file_path"].asString());
-
-        sites[i].setSiteType(       root["boorus"][i]["siteTypeInt"].asInt());
-
-        sites[i].setShowIndexUrl(   root["boorus"][i]["show_index_url"].asString());
-
-        sites[i].setIndex(          root["boorus"][i]["index"].asInt());
-
-        checkFolder(sites[i].getCachePath());
-        checkFolder(sites[i].getDownloadPath());
-
-        boorus.push_back(sites[i]);
+        boorus.push_back(site);
 
         i++;
+        //delete site;
     }
 }
 
 void ConfigFile::resetBooruSites()
 {
-    BooruSite Gelbooru("Gelbooru","http://gelbooru.com",GELBOORU_TYPE,1);
-    BooruSite Yandere("Yandere","http://yande.re",MOEBOORU_TYPE,2);
-    BooruSite Konachan("Konachan","http://konachan.com",MOEBOORU_TYPE,3);
-    BooruSite Danbooru("Danbooru", "http://danbooru.donmai.us", DANBOORU2_TYPE,4);
-
-    boorus.push_back(Gelbooru);
-    boorus.push_back(Yandere);
-    boorus.push_back(Konachan);
-    boorus.push_back(Danbooru);
+    boorus.push_back(new BooruSite("Gelbooru","http://gelbooru.com",GELBOORU_TYPE,1));
+    boorus.push_back(new BooruSite("Yandere","http://yande.re",MOEBOORU_TYPE,2));
+    boorus.push_back(new BooruSite("Konachan","http://konachan.com",MOEBOORU_TYPE,3));
+    boorus.push_back(new BooruSite("Danbooru", "http://danbooru.donmai.us", DANBOORU2_TYPE,4));
 
     this->booru_number = 4;
 }
 
 /*Getters*/
 
-std::vector<BooruSite> ConfigFile::getBoorus()
+void ConfigFile::getVersion(char* versionChar, int versionInt[4])
+{
+    unsigned int i = 0;
+    int j = 0;
+    char lettre;
+    std::string mot = "";
+
+    for(i=0;i<strlen(versionChar);i++)
+    {
+        lettre = *(versionChar+i);
+
+        if(lettre == '.')
+        {
+            versionInt[j] = atoi(mot.c_str());
+            j++;
+            mot = "";
+        }
+        else
+        {
+            mot += lettre;
+        }
+    }
+    versionInt[j] = atoi(mot.c_str());
+    j++;
+    mot = "";
+}
+
+std::vector<BooruSite *> ConfigFile::getBoorus()
 {
     return boorus;
 }
 
-BooruSite ConfigFile::getBooru(int i)
+BooruSite* ConfigFile::getBooru(int i)
 {
     return boorus.at(i);
 }
@@ -429,7 +455,7 @@ int ConfigFile::getPictureNumber()
 }
 int ConfigFile::getPreferredBooru()
 {
-    return this->preferred_booru
+    return this->preferred_booru;
 }
 int ConfigFile::getPreferredRating()
 {
@@ -454,13 +480,13 @@ void ConfigFile::setDownloadPath(std::string downloadPath)
     this->default_download_path = downloadPath;
 }
 
-void ConfigFile::setBoorus(std::vector<BooruSite> boorus)
+void ConfigFile::setBoorus(std::vector<BooruSite*> boorus)
 {
     this->boorus = boorus;
     this->booru_number = boorus.size();
 }
 
-void ConfigFile::setBooru(BooruSite booru, int i)
+void ConfigFile::setBooru(BooruSite *booru, int i)
 {
     this->boorus.at(i) = booru;
 }

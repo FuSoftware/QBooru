@@ -40,7 +40,7 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-    void setupHosts(std::vector<BooruSite> boorus, int index);
+    void setupHosts(std::vector<BooruSite*> boorus, int index);
     void loadTag(QString tag, int imageHostInt);
     void setTab(int tab);
 

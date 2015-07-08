@@ -24,7 +24,7 @@ BooruSettingsTab::BooruSettingsTab(Widget *parent)
 
     for(int i=0; i < conf_file->getBooruNumber(); i++)
     {
-        comboBoxBooru->addItem(QString(conf_file->getBooru(i).getName().c_str()));
+        comboBoxBooru->addItem(QString(conf_file->getBooru(i)->getName().c_str()));
     }
     comboBoxBooru->addItem("New Booru");
     editBooruWidget = new BooruSettings(this);
@@ -79,7 +79,7 @@ void BooruSettingsTab::deleteBooru()
         conf_file->getBoorus().at(i) = conf_file->getBoorus().at(i+1);
     }
 
-    conf_file->getBoorus().erase(booru_number);
+    conf_file->getBoorus().erase(conf_file->getBoorus().begin()+booru_number);
     conf_file->setBooruNumber(booru_number-1);
     conf_file->saveFile();
 }

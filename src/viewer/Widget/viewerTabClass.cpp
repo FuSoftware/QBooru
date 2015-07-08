@@ -151,11 +151,11 @@ void ViewerTab::buttonClicked()
 
 void ViewerTab::on_tagSelected(QString tag)
 {
-    parentWidget->loadTag(tag, booru.getIndex());
-    parentWidget->setTab(booru.getIndex());
+    parentWidget->loadTag(tag, booru->getIndex());
+    parentWidget->setTab(booru->getIndex());
 }
 
-void ViewerTab::loadPicture(int imageHostInt, int tabIndex, int index, int pageIndexInt, BooruSite booruSite)
+void ViewerTab::loadPicture(int imageHostInt, int tabIndex, int index, int pageIndexInt, BooruSite *booruSite)
 {
     //std:: cout << imageHostInt << tabIndex << index << pageIndexInt << booruSite.name << std::endl;
     booru = booruSite;
@@ -177,7 +177,7 @@ void ViewerTab::loadPicture(int imageHostInt, int tabIndex, int index, int pageI
     loadPicture();
     progressBar->setValue(50);
     labelLoading->setText("Loading tags");
-    if(booru.getSiteTypeInt() != DERPIBOORU_TYPE)
+    if(booru->getSiteTypeInt() != DERPIBOORU_TYPE)
     {
         loadLabelsTags(Image.tags,Image.tagNumber);
     }
@@ -197,8 +197,8 @@ void ViewerTab::loadPicture()
 
     date = Image.created_at;
 
-    infos[0] = QString("Booru : ") + QString(booru.getName().c_str()); //Booru
-    infos[1] = QString(booru.getName().c_str()) + QString(" URL : ") + QString("<a href=\"") + QString(booru.getShowIndexUrl().c_str()) + QString::number(Image.id) + QString("\">") + QString("Link") + QString("</a>");
+    infos[0] = QString("Booru : ") + QString(booru->getName().c_str()); //Booru
+    infos[1] = QString(booru->getName().c_str()) + QString(" URL : ") + QString("<a href=\"") + QString(booru->getShowIndexUrl().c_str()) + QString::number(Image.id) + QString("\">") + QString("Link") + QString("</a>");
     infos[2] = QString("Source URL : ") + QString("<a href=\"") + QString(Image.source.c_str()) + QString("\">") + QString("Link") + QString("</a>");
 
     infos[3] = QString("Image ID : ") + QString::number(Image.id); //ID
@@ -257,15 +257,15 @@ void ViewerTab::showNextPicture()
     {
         imageIndex = 0;
 
-        parentWidget->searchtabs[booru.getIndex()]->on_pushButton_pagePlus_clicked();
-        parentWidget->searchtabs[booru.getIndex()]->loadSearch(0);
-        parentWidget->searchtabs[booru.getIndex()]->setViewer(imageIndex);
+        parentWidget->searchtabs[booru->getIndex()]->on_pushButton_pagePlus_clicked();
+        parentWidget->searchtabs[booru->getIndex()]->loadSearch(0);
+        parentWidget->searchtabs[booru->getIndex()]->setViewer(imageIndex);
     }
     else
     {
         labelLoading->setText("Caching Picture");
         imageIndex +=1;
-        parentWidget->searchtabs[booru.getIndex()]->setViewer(imageIndex);
+        parentWidget->searchtabs[booru->getIndex()]->setViewer(imageIndex);
     }
 
     if(imageIndex > 0 || pageIndex >= 1)
@@ -280,15 +280,15 @@ void ViewerTab::showPreviousPicture()
     {
         imageIndex = 14;
 
-        parentWidget->searchtabs[booru.getIndex()]->on_pushButton_pageMoins_clicked();
-        parentWidget->searchtabs[booru.getIndex()]->loadSearch(0);
-        parentWidget->searchtabs[booru.getIndex()]->setViewer(imageIndex);
+        parentWidget->searchtabs[booru->getIndex()]->on_pushButton_pageMoins_clicked();
+        parentWidget->searchtabs[booru->getIndex()]->loadSearch(0);
+        parentWidget->searchtabs[booru->getIndex()]->setViewer(imageIndex);
     }
     else if(imageIndex>0)
     {
         labelLoading->setText("Caching Picture");
         imageIndex--;
-        parentWidget->searchtabs[booru.getIndex()]->setViewer(imageIndex);
+        parentWidget->searchtabs[booru->getIndex()]->setViewer(imageIndex);
     }
 
 

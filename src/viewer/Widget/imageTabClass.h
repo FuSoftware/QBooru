@@ -12,6 +12,8 @@
 #include "clickableLabel.h"
 #include "searchTabClass.h"
 
+#include "../config_file.h"
+
 class SearchTab;
 
 class ImageTab : public QWidget

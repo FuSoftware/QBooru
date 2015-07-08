@@ -8,8 +8,8 @@ class BooruSearchEngine
 {
 public:
     BooruSearchEngine();
-    BooruSearchEngine(BooruSite booru);
-    BooruSearchEngine(BooruSite booru, std::string tags, int page);
+    BooruSearchEngine(BooruSite* booru);
+    BooruSearchEngine(BooruSite* booru, std::string tags, int page);
     ~BooruSearchEngine();
 
     void generateUrlExtension();
@@ -21,14 +21,14 @@ public:
 
     void setRating(int rating_id);
 
-    void setBooru(BooruSite booru);
+    void setBooru(BooruSite* booru);
     void setTags(std::string tags);
     void setImageCount(int count);
     void setPage(int page);
     void setApiKey(std::string key);
 
 private:
-    BooruSite booru;
+    BooruSite* booru;
 
     int image_count;
 

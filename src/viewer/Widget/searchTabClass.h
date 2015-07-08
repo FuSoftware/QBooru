@@ -23,7 +23,7 @@ class SearchTab : public QWidget
     Q_OBJECT
 
 public:
-    SearchTab(Widget *parent, BooruSite site);
+    SearchTab(Widget *parent, BooruSite *site);
     ~SearchTab();
 
     void initialisationMiniatures();
@@ -43,7 +43,7 @@ public:
 
     /*Objets*/
     BooruImage images[64];
-    BooruSite booru;
+    BooruSite* booru;
     BooruSearchEngine booru_search_engine;
 
     QVBoxLayout *layoutSearchStatus;

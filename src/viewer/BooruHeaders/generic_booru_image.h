@@ -17,11 +17,11 @@ public :
     /*Fonctions*/
     BooruImage();
     BooruImage(int booru_index);
-    BooruImage(BooruSite booru);
+    BooruImage(BooruSite *booru);
     ~BooruImage();
 
     void setBooru(int booru_index);
-    void setBooru(BooruSite booru);
+    void setBooru(BooruSite* booru);
     void loadData(int picture_index);
     void loadPaths();
 
@@ -33,7 +33,7 @@ public :
     std::string getMediumPath();
     std::string getFullPath();
 
-    BooruSite getBooru();
+    BooruSite* getBooru();
 
     /*Header*/
     int booru_type;
@@ -75,7 +75,7 @@ public :
 
 private:
 
-    BooruSite booru;
+    BooruSite* booru;
 
     /*Paths*/
     std::string thumb_path;

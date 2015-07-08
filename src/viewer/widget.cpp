@@ -6,7 +6,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     int i;
     int booruIndexMax = conf_file->getBooruNumber();
 
-    std::vector<BooruSite> boorus;
+    std::vector<BooruSite*> boorus;
     boorus = conf_file->getBoorus();
 
     mainLayout = new QVBoxLayout;
@@ -18,7 +18,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     for(i=0;i<booruIndexMax;i++)
     {
-        searchtabs[i] = new SearchTab(this, boorus[i]);
+        searchtabs[i] = new SearchTab(this, boorus.at(i));
         tabWidgetMain->addTab(searchtabs[i],hostNames[i]);
     }
 
@@ -69,7 +69,7 @@ void Widget::refresh()
     int i;
     int booruIndexMax = conf_file->getBooruNumber();
 
-    std::vector<BooruSite> boorus;
+    std::vector<BooruSite*> boorus;
     boorus = conf_file->getBoorus();
 
     delete tabWidgetMain;
@@ -95,11 +95,11 @@ void Widget::refresh()
     tabWidgetMain->setCurrentIndex(booruIndexMax+2);
 }
 
-void Widget::setupHosts(std::vector<BooruSite> boorus, int index)
+void Widget::setupHosts(std::vector<BooruSite*> boorus, int index)
 {    
     for(int i=0;i<index;i++)
     {
-        hostNames[i] = QString(boorus.at(i).getName().c_str());
+        hostNames[i] = QString(boorus.at(i)->getName().c_str());
     }
 }
 

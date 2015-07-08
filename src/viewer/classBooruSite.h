@@ -14,13 +14,14 @@ public:
     BooruSite(string booruName, string booruUrl, string downloadPath, int booruType, int booruIndex);
     BooruSite(string booruName, string booruUrl, string searchUrl, string tagUrl, string postIndexUrl, string downloadPath, int booruType, int booruIndex);
     BooruSite(int index);
-    BooruSite(std::string name);
+    BooruSite(Json::Value booru_root);
     BooruSite();
     ~BooruSite();
-    void saveBooruSite();
+
+    Json::Value saveBooruSite(Json::Value root);
 
     void loadFromJSON(int index);
-    void loadFromJSON(std::string name);
+    void loadFromJSON(Json::Value booru_root);
 
     /*Getters*/
     string getName();

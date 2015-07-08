@@ -65,7 +65,7 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
         defaultBooru = new QComboBox;
         for(int i=0;i<conf_file->getBooruNumber();i++)
         {
-           defaultBooru->addItem(conf_file->getBooru(i).getName().c_str());
+           defaultBooru->addItem(conf_file->getBooru(i)->getName().c_str());
         }
         defaultBooru->setMaximumWidth(100);
 
@@ -108,7 +108,7 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
     horizontalLayouts[3]->addLayout(layout2);
     horizontalLayouts[3]->addStretch(1);
 
-    layoutDownloadPath2->addWidget(pushButtonResetAllDownloadPath);
+    //layoutDownloadPath2->addWidget(pushButtonResetAllDownloadPath);
 
     //horizontalLayouts[2]->addLayout(layoutDownloadPath2);
     //horizontalLayouts[2]->addWidget(lineEditDownloadPath);
@@ -178,7 +178,7 @@ OptionTab::~OptionTab()
 
 void OptionTab::resetBoorusSettings()
 {
-    conf_file.
+    //conf_file->
 
     parentWidget->refresh();
 }
@@ -197,8 +197,8 @@ void OptionTab::deleteCache()
 
     for(i=0;i<conf_file->getBooruNumber();i++)
     {
-        checkFolder(conf_file->getBooru(i).getCachePath());
-        checkFolder(conf_file->getBooru(i).getDownloadPath());
+        checkFolder(conf_file->getBooru(i)->getCachePath());
+        checkFolder(conf_file->getBooru(i)->getDownloadPath());
     }
 }
 
@@ -242,7 +242,7 @@ void OptionTab::refreshTagLists()
 
     for(i=0;i<conf_file->getBooruNumber();i++)
     {
-        cachingFile(strdup(conf_file->getBooru(i).getTagUrl().c_str()), strdup(conf_file->getBooru(i).getTagFilePath().c_str()),false, false);
+        cachingFile(strdup(conf_file->getBooru(i)->getTagUrl().c_str()), strdup(conf_file->getBooru(i)->getTagFilePath().c_str()),false, false);
     }
 
     refreshTagTime();
@@ -267,22 +267,23 @@ void OptionTab::resetBooruDownloadPath()
 {
     int i;
 
-    std::vector<BooruSite> boorus = conf_file->getBoorus();
+    std::vector<BooruSite*> boorus = conf_file->getBoorus();
 
     conf_file->setDownloadPath(lineEditDownloadPath->text().toStdString());
+    conf_file->resetBooruSites();
+
     for(i=0;i<conf_file->getBooruNumber();i++)
     {
-        boorus.at(i).setDownloadPath(lineEditDownloadPath->text().toStdString() + boorus[i].getName());
-        boorus.at(i).saveBooruSite();
+        boorus.at(i)->setDownloadPath(lineEditDownloadPath->text().toStdString() + boorus.at(i)->getName());
     }
 
-    conf_file->boorus = boorus;
+    conf_file->setBoorus(boorus);
     conf_file->saveFile();
 }
 
 void OptionTab::saveOptions()
 {
-    conf_file->setDownloadPath(ineEditDownloadPath->text().toStdString());
+    conf_file->setDownloadPath(lineEditDownloadPath->text().toStdString());
     conf_file->setLoadingOnStartup(checkBoxLoadingStartup->isChecked());
     conf_file->setPreferredRating(searchRating->currentIndex());
     conf_file->setPreferredBooru(defaultBooru->currentIndex());

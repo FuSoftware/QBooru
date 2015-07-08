@@ -159,7 +159,7 @@ BooruSite::BooruSite(int index)
     loadFromJSON(index);
 }
 
-BooruSite::BooruSite(std::string name)
+BooruSite::BooruSite(Json::Value booru_root)
 {
     loadFromJSON(name);
 }
@@ -174,11 +174,12 @@ BooruSite::~BooruSite()
 
 }
 
-void BooruSite::saveBooruSite()
+Json::Value BooruSite::saveBooruSite(Json::Value root)
 {
     outputInfo("INFO",std::string("Saving ") + name,LEVEL_TOP_WIDGET);
-    Json::Value root = loadJSONFile(CONF_FILE);
+    //Json::Value root = loadJSONFile(CONF_FILE);
 
+    /*
     std::cout << name << " parameters : " << std::endl <<
                 site_type_string << std::endl <<
                 base_url << std::endl <<
@@ -189,10 +190,7 @@ void BooruSite::saveBooruSite()
                  search_file_path<< std::endl <<
                  tag_file_path<< std::endl <<
                  siteTypeInt<< std::endl <<
-                 index<< std::endl;
-
-
-    Json::StyledWriter writer;
+                 index<< std::endl;*/
 
     root["boorus"][index] = root["boorus"][index-1];
 
@@ -218,9 +216,7 @@ void BooruSite::saveBooruSite()
         root["settings"]["booru_number"] = index+1;
     }
 
-    std::string output = writer.write(root);
-
-    saveJSONFile(CONF_FILE, output);
+    return root;
 }
 
 void BooruSite::loadFromJSON(int index)
@@ -244,9 +240,28 @@ void BooruSite::loadFromJSON(int index)
     this->index = index;
 }
 
-void BooruSite::loadFromJSON(std::string name)
-{
+void BooruSite::loadFromJSON(Json::Value booru_root)
+{  
+            name = booru_root["name"].asString();
+            outputInfo("INFO",
+                       std::string("Loading from JSON ") + this->getName(),
+                       LEVEL_TOP_WIDGET);
 
+        site_type_string = booru_root["site_type_string"].asString();
+
+              base_url = booru_root["base_url"].asString();
+            search_url = booru_root["search_url"].asString();
+               tag_url = booru_root["tag_url"].asString();
+        show_index_url = booru_root["show_index_url"].asString();
+
+              cache_path = booru_root["cache_path"].asString();
+           download_path = booru_root["download_path"].asString();
+        search_file_path = booru_root["search_file_path"].asString();
+           tag_file_path = booru_root["tag_file_path"].asString();
+
+        siteTypeInt = booru_root["siteTypeInt"].asInt();
+
+            index = booru_root["index"].asInt();
 }
 
 /*Getters*/

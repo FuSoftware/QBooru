@@ -5,7 +5,7 @@
 
 #include "../classBooruSite.h"
 
-SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
+SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
 {
     conf_file = parent->getConfigFile();
 
@@ -66,7 +66,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite site) : QWidget(parent)
             for(i=0;i<picture_number;i++)
             { 
                 images[i].setBooru(this->booru);
-                imageTabs[i] = new ImageTab(this, booru.getSiteTypeInt());
+                imageTabs[i] = new ImageTab(this, booru->getSiteTypeInt());
                 buttonMapper->setMapping(imageTabs[i]->imageThumbnail, i);
                 connect(imageTabs[i]->imageThumbnail, SIGNAL(clicked()), buttonMapper , SLOT(map()));
 
@@ -343,7 +343,7 @@ void SearchTab::on_pushButton_pageMoins_clicked()
 
 void SearchTab::setViewer(int sender)
 {
-    parentWidget->viewerTab->loadPicture(booru.getSiteTypeInt(), booru.getIndex(), sender, lineEditPageSet->text().toInt(), booru);
+    parentWidget->viewerTab->loadPicture(booru->getSiteTypeInt(), booru->getIndex(), sender, lineEditPageSet->text().toInt(), booru);
 }
 
 void SearchTab::checkPageButtonStatus()

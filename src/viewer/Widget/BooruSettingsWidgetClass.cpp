@@ -30,7 +30,7 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
 
         while(i < conf_file->getBoorus().size())
         {
-            buffer = conf_file->getBooru(i).getName().c_str();
+            buffer = conf_file->getBooru(i)->getName().c_str();
             buffer[0].toUpper();
             comboBoxPreset->addItem(buffer);
             i++;
@@ -157,8 +157,8 @@ void BooruSettings::editBooru()
     }
 
 
-    conf_file->getBoorus().at(i) = booru;
-    //booru->saveBooruSite();
+    conf_file->setBooru(booru, index);
+    conf_file->saveFile();
     delete booru;
 }
 
@@ -172,19 +172,19 @@ void BooruSettings::loadBooru(int index)
 
     if(index < conf_file->getBooruNumber())
     {
-        lineEditBooruName->setText(QString(conf_file->getBooru(i).getName().c_str()));
+        lineEditBooruName->setText(QString(conf_file->getBooru(index)->getName().c_str()));
 
-        lineEditBooruURL->setText(QString(conf_file->getBooru(i).getBaseUrl().c_str()));
+        lineEditBooruURL->setText(QString(conf_file->getBooru(index)->getBaseUrl().c_str()));
 
-        comboBoxBooruType->setCurrentIndex(conf_file->getBooru(i).getIndex());
+        comboBoxBooruType->setCurrentIndex(conf_file->getBooru(index)->getIndex());
 
-        lineEditBooruDownloadPath->setText(QString(conf_file->getBooru(i).getDownloadPath().c_str()));
+        lineEditBooruDownloadPath->setText(QString(conf_file->getBooru(index)->getDownloadPath().c_str()));
 
-        lineEditBooruSearchUrl->setText(QString(conf_file->getBooru(i).getSearchUrl().c_str()));
+        lineEditBooruSearchUrl->setText(QString(conf_file->getBooru(index)->getSearchUrl().c_str()));
 
-        lineEditBooruShowIndexUrl->setText(QString(conf_file->getBooru(i).getShowIndexUrl().c_str()));
+        lineEditBooruShowIndexUrl->setText(QString(conf_file->getBooru(index)->getShowIndexUrl().c_str()));
 
-        lineEditBooruTagsUrl->setText(QString(conf_file->getBooru(i).getTagUrl().c_str()));
+        lineEditBooruTagsUrl->setText(QString(conf_file->getBooru(index)->getTagUrl().c_str()));
     }
 }
 
