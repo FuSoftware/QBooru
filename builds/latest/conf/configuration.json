@@ -4,7 +4,6 @@
          "base_url" : "http://gelbooru.com",
          "cache_path" : "cache/Gelbooru/",
          "download_path" : "downloads/Gelbooru/",
-         "imageLimit" : 15,
          "index" : 0,
          "name" : "Gelbooru",
          "search_file_path" : "cache/Gelbooru/search.json",
@@ -19,7 +18,6 @@
          "base_url" : "http://yande.re",
          "cache_path" : "cache/Yandere/",
          "download_path" : "downloads/Yandere/",
-         "imageLimit" : 15,
          "index" : 1,
          "name" : "Yandere",
          "search_file_path" : "cache/Yandere/post.json",
@@ -34,7 +32,6 @@
          "base_url" : "http://konachan.com",
          "cache_path" : "cache/Konachan/",
          "download_path" : "downloads/Konachan/",
-         "imageLimit" : 15,
          "index" : 2,
          "name" : "Konachan",
          "search_file_path" : "cache/Konachan/post.json",
@@ -49,7 +46,6 @@
          "base_url" : "http://rule34.xxx",
          "cache_path" : "cache/Rule34/",
          "download_path" : "downloads/Rule34/",
-         "imageLimit" : 15,
          "index" : 3,
          "name" : "Rule34",
          "search_file_path" : "cache/Rule34/search.json",
@@ -64,7 +60,6 @@
          "base_url" : "http://danbooru.donmai.us",
          "cache_path" : "cache/Danbooru/",
          "download_path" : "downloads/Danbooru",
-         "imageLimit" : 15,
          "index" : 4,
          "name" : "Danbooru",
          "search_file_path" : "cache/Danbooru/posts.json",
@@ -74,19 +69,16 @@
          "site_type_string" : "danbooru",
          "tag_file_path" : "conf/tagsDanbooru.json",
          "tag_url" : "http://danbooru.donmai.us/tag.json?limit=0"
-      },
-      0,
-      null
+      }
    ],
    "paths" : {
-      "default_download_path" : "",
-      "download" : "",
-      "downloadDefaut" : ""
+      "default_download_path" : ""
    },
    "settings" : {
       "api_key_derpibooru" : "",
       "booru_number" : 5,
-      "last_tag_refresh" : 1413756607,
+      "config_file_version" : 1,
+      "last_tag_refresh" : 0,
       "load_on_startup" : false,
       "picture_columns" : 5,
       "picture_number" : 15,
@@ -96,15 +88,14 @@
       "window_h" : 768,
       "window_w" : 1024
    },
-   "temp" : null,
    "versions" : {
       "updater" : {
          "last" : "1.1.0.3",
          "local" : "1.1.0.3"
       },
       "viewer" : {
-         "last" : "1.9.0.0",
-         "local" : "1.10.0.0"
+         "last" : "1.10.0.0",
+         "local" : "1.11.0.0"
       }
    }
 }
