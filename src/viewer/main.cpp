@@ -41,11 +41,11 @@ int main(int argc, char *argv[])
     QIcon icone;
     icone.addFile(ICON_PATH);
 
-    outputInfo("INFO",std::string("Generating Widget"),LEVEL_TOP_WIDGET);
+    outputInfo(L_INFO,std::string("Generating Widget"));
     Widget w;
 
     w.setWindowTitle(QString(APP_NAME) + QString(" ") + QString(OS_ID) + QString(" ") + QString(APP_VERSION));
-    outputInfo("INFO",std::string("Showing Widget"),LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,std::string("Showing Widget"));
     w.show();
 
     int ret = a->exec();

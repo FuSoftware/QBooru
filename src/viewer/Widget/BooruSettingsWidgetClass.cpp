@@ -107,7 +107,7 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
 
 BooruSettings::~BooruSettings()
 {
-    clearLayout(layoutMain);
+    //clearLayout(layoutMain);
 }
 
 void BooruSettings::editBooru()
@@ -176,7 +176,7 @@ void BooruSettings::loadBooru(int index)
 
         lineEditBooruURL->setText(QString(conf_file->getBooru(index)->getBaseUrl().c_str()));
 
-        comboBoxBooruType->setCurrentIndex(conf_file->getBooru(index)->getIndex());
+        comboBoxBooruType->setCurrentIndex(conf_file->getBooru(index)->getSiteTypeInt());
 
         lineEditBooruDownloadPath->setText(QString(conf_file->getBooru(index)->getDownloadPath().c_str()));
 

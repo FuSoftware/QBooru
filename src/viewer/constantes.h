@@ -24,7 +24,7 @@
  * Set this to 1 to change to the absolute paths for the program (Debug)
  */
 
-#define DEBUG 1
+#define DEBUG 0
 
 #define CURL_STATICLIB
 #define APP_NAME "QBooru Viewer"
@@ -41,11 +41,10 @@
 
 enum InfoLevel
 {
-    LEVEL_CACHING = 1,
-    LEVEL_SEARCH,
-    LEVEL_FOLDER_MANIP,
-    LEVEL_UPDATER,
-    LEVEL_TOP_WIDGET
+    L_DEBUG = 0,
+    L_INFO,
+    L_WARNING,
+    L_ERROR
 };
 
 enum HostType

@@ -10,6 +10,6 @@
 
 Json::Value saveAndLoad(Json::Value root, char* file);
 Json::Value loadJSONFile(char* filePath);
-void saveJSONFile(char* filePath, std::string data);
+void saveJSONFile(Json::Value root, char* filePath);
 
 #endif

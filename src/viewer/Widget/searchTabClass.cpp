@@ -156,12 +156,14 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
 
 SearchTab::~SearchTab()
 {
+    /*
     int i;
     for(i=0;i<picture_number;i++)
     {
         delete imageTabs[i];
     }
     clearLayoutSecond(layoutMain);
+    */
 }
 
 void SearchTab::setLoadingState(int i, bool state)
@@ -174,7 +176,7 @@ void SearchTab::initialisationMiniatures()
     int i = 0;
     QString pathFile, uploader;
 
-    pathFile = QString(CONFPATH)+QString("derpibooruDefault.png");
+    pathFile = QString(CONF_PATH)+QString("derpibooruDefault.png");
 
     if(recherche)
     {
@@ -204,7 +206,7 @@ void SearchTab::loadSearch(int refreshTags)
 {
     recherche = 1;
     QString tags;
-    QString pathFile =  QString(CONFPATH)+QString("derpibooruDefault.png");
+    QString pathFile =  QString(CONF_PATH)+QString("derpibooruDefault.png");
     progress = 0;
     int state = 0;
 
@@ -261,7 +263,7 @@ void SearchTab::loadSearch(int refreshTags)
                 isAffiched[i] = false;
             }
         }
-        outputInfo("INFO","Search completed",LEVEL_SEARCH);
+        outputInfo(L_INFO,"Search completed");
     }
     else
     {
@@ -408,7 +410,6 @@ bool SearchTab::eventFilter(QObject *object, QEvent *event)
 void SearchTab::newSearch()
 {
     loadSearch(1);
-    outputInfo("INFO","Thread Started",LEVEL_TOP_WIDGET);
 }
 
 void SearchTab::startLoadingPicture(int i)

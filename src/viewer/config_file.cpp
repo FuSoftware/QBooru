@@ -7,7 +7,6 @@ ConfigFile::ConfigFile(bool loadOnly)
 
 ConfigFile::ConfigFile(std::string path, bool loadOnly)
 {
-    file_path = path;
     this->loadFromPath(path, loadOnly);
 }
 
@@ -18,6 +17,7 @@ ConfigFile::~ConfigFile()
 
 void ConfigFile::loadFromPath(std::string path, bool loadOnly)
 {
+    file_path = path;
     root = loadJSONFile(strdup(path.c_str()));
 
     checkFile();
@@ -25,6 +25,10 @@ void ConfigFile::loadFromPath(std::string path, bool loadOnly)
     if(!loadOnly)
     {
         checkSoftwareVersions();
+    }
+    else
+    {
+        loadSoftwareVersion();
     }
 
     loadBooruSites();
@@ -34,17 +38,18 @@ void ConfigFile::loadFromPath(std::string path, bool loadOnly)
 void ConfigFile::saveFile()
 {
     Json::Value newRoot;
-    Json::StyledWriter writer;
 
-    outputInfo("DEBUG",std::string("Saving Boorus"),LEVEL_TOP_WIDGET);
-    for(int i=0;i<boorus.size();i++)
+    int i=0;
+
+    outputInfo(L_DEBUG,std::string("Saving Boorus"));
+    for(i=0;i<boorus.size();i++)
     {
         newRoot = boorus.at(i)->saveBooruSite(newRoot);
     }
 
     newRoot["paths"]["default_download_path"] = default_download_path;
 
-    outputInfo("DEBUG",std::string("Saving Settings"),LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,std::string("Saving Settings"));
     newRoot["settings"]["config_file_version"] = config_file_version;
     newRoot["settings"]["api_key_derpibooru"] = api_key_derpibooru;
     newRoot["settings"]["booru_number"] = booru_number;
@@ -58,13 +63,22 @@ void ConfigFile::saveFile()
     newRoot["settings"]["window_h"] = window_h;
     newRoot["settings"]["window_w"] = window_w;
 
-    outputInfo("DEBUG",std::string("Saving Versions"),LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,std::string("Saving Versions"));
     newRoot["versions"]["updater"]["local"] = version_updater_local_str;
     newRoot["versions"]["updater"]["last"] = version_updater_last_str;
     newRoot["versions"]["viewer"]["local"] = version_viewer_local_str;
     newRoot["versions"]["viewer"]["last"] = version_viewer_last_str;
 
-    saveJSONFile(strdup(file_path.c_str()),writer.write(root));
+    outputInfo(L_DEBUG,std::string("Saving File"));
+    saveJSONFile(newRoot,strdup(file_path.c_str()));
+}
+
+void ConfigFile::loadSoftwareVersion()
+{
+    version_updater_last_str = root["versions"]["updater"]["last"].asString();
+    version_updater_local_str = root["versions"]["updater"]["local"].asString();
+    version_viewer_last_str = root["versions"]["viewer"]["last"].asString();
+    version_viewer_local_str = root["versions"]["viewer"]["local"].asString();
 }
 
 void ConfigFile::checkSoftwareVersions()
@@ -77,27 +91,23 @@ void ConfigFile::checkSoftwareVersions()
 
     Json::Value rootVersions = loadJSONFile(LAST_VERSION_FILE);
 
-    if(errorbuf == 0)
-    {
-        outputInfo("INFO",std::string("Last versions cached"),LEVEL_TOP_WIDGET);
-    }
-    else
+    if(errorbuf != 0)
     {
         std::stringstream ss;
         ss << errorbuf;
-        outputInfo("ERROR",std::string("Error ") + ss.str(),LEVEL_TOP_WIDGET);
+        std::string error = std::string("Error ") + ss.str();
+        outputInfo(L_ERROR,error);
+        throw std::runtime_error(error);
     }
+
+    outputInfo(L_INFO,std::string("Last versions cached"));
 
     root["versions"]["updater"]["last"] = rootVersions["updater"].asCString();
     root["versions"]["updater"]["local"] = rootVersions["updater"].asCString(); // Since it updates on its own, this is set to avoid errors
 
     root["versions"]["viewer"]["last"] = rootVersions["viewer"].asCString();
 
-    version_updater_last_str = root["versions"]["updater"]["last"].asString();
-    version_updater_local_str = root["versions"]["updater"]["local"].asString();
-    version_viewer_last_str = root["versions"]["viewer"]["last"].asString();
-    version_viewer_local_str = root["versions"]["viewer"]["local"].asString();
-
+    loadSoftwareVersion();
 
     /*Checks current and last version*/
     getVersion(strdup(root["versions"]["updater"]["local"].asCString()),version_updater_local);
@@ -129,7 +139,7 @@ void ConfigFile::checkSoftwareVersions()
     }
     else
     {
-        outputInfo("INFO",std::string("You have the latest version"),LEVEL_TOP_WIDGET);
+        outputInfo(L_INFO,std::string("You have the latest version"));
     }
 }
 
@@ -151,14 +161,14 @@ void ConfigFile::checkFile()
 
     /*Checks the data and loads it*/
 
-    outputInfo("DEBUG",std::string("Checking Boorus"),LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,std::string("Checking Boorus"));
 
     this->checkBoorusIntegrity();
 
     this->api_key_derpibooru = root["settings"]["api_key_derpibooru"].asString();
 
 
-    outputInfo("DEBUG",std::string("Checking Config File"),LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,std::string("Checking Config File"));
     checkPreferredRating();
     checkWindowSize();
     checkPictureGrid();
@@ -337,7 +347,7 @@ void ConfigFile::checkBoorusIntegrity()
     if(this->booru_number < 1)
     {
         resetBooruSites();
-        outputInfo("INFO",std::string("Boorus Reset"),LEVEL_TOP_WIDGET);
+        outputInfo(L_DEBUG,std::string("Boorus Reset"));
     }
 }
 
@@ -371,6 +381,7 @@ void ConfigFile::loadBooruSites()
     int i = 0;
     while(root["boorus"][i].isObject())
     {
+        if(root["boorus"][i].isInt() || root["boorus"][i] == Json::nullValue){break;}
         site = new BooruSite(root["boorus"][i]);
 
         checkFolder(site->getCachePath());

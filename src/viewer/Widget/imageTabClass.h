@@ -25,7 +25,6 @@ public:
     ~ImageTab();
     void loadPicture(QString imagePath, QString comment);
     void resizeEvent(QResizeEvent * event);
-    void setLoading();
 
     /*Objets publics*/
     ClickableLabel *imageThumbnail;

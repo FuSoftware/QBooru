@@ -22,11 +22,8 @@ BooruSettingsTab::BooruSettingsTab(Widget *parent)
 
     comboBoxBooru = new QComboBox(this);
 
-    for(int i=0; i < conf_file->getBooruNumber(); i++)
-    {
-        comboBoxBooru->addItem(QString(conf_file->getBooru(i)->getName().c_str()));
-    }
-    comboBoxBooru->addItem("New Booru");
+    loadBoorus();
+
     editBooruWidget = new BooruSettings(this);
 
     mainGridLayout->addWidget(label2,0,0);
@@ -62,12 +59,24 @@ BooruSettingsTab::BooruSettingsTab(Widget *parent)
 
 BooruSettingsTab::~BooruSettingsTab()
 {
-    clearLayout(mainGridLayout);
+    //clearLayout(mainGridLayout);
 }
 
 void BooruSettingsTab::refreshActiveBooru(int index)
 {
     selectedBooru = index;
+}
+
+void BooruSettingsTab::loadBoorus()
+{
+    comboBoxBooru->clear();
+
+    for(int i=0; i < conf_file->getBooruNumber(); i++)
+    {
+        comboBoxBooru->addItem(QString(conf_file->getBooru(i)->getName().c_str()));
+    }
+
+    comboBoxBooru->addItem("New Booru");
 }
 
 void BooruSettingsTab::deleteBooru()

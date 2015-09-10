@@ -17,7 +17,7 @@ int msleep(unsigned long milisec);
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
 const std::string currentDateTime();
-void outputInfo(std::string type, std::string data, int level);
+void outputInfo(int type, std::string data);
 
 std::string returnTimeStringConvert(int time);
 

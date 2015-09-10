@@ -5,6 +5,7 @@
 
 #include "fonctions_all.h"
 #include "classBooruSite.h"
+#include <stdexcept>
 
 
 class ConfigFile
@@ -17,6 +18,7 @@ public:
     void loadFromPath(std::string path, bool loadOnly);
     void checkFile();
     void saveFile();
+    void loadSoftwareVersion();
     void checkSoftwareVersions();
 
     void loadBooruSites();

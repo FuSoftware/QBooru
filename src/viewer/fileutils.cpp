@@ -21,22 +21,26 @@ bool FileUtils::removeDir(const QString &dirName)
     QDir dir(dirName);
     QString absoluteDirName;
     absoluteDirName = dir.absolutePath();
-    outputInfo("INFO",
-               std::string("Removing : ") + dir.absolutePath().toStdString(),
-               LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,
+               std::string("Removing : ") + dir.absolutePath().toStdString());
 
     QDir dir2(absoluteDirName);
 
-    if (dir2.exists(absoluteDirName)) {
-        Q_FOREACH(QFileInfo info, dir2.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
-            if (info.isDir()) {
+    if (dir2.exists(absoluteDirName))
+    {
+        Q_FOREACH(QFileInfo info, dir2.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst))
+        {
+            if (info.isDir())
+            {
                 result = removeDir(info.filePath());
             }
-            else {
+            else
+            {
                 result = QFile::remove(info.filePath());
             }
 
-            if (!result) {
+            if (!result)
+            {
                 return result;
             }
         }

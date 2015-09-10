@@ -104,7 +104,6 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
     horizontalLayouts[3]->addWidget(checkBoxLoadingStartup);
     horizontalLayouts[3]->addLayout(layoutMiscs[0]);
     horizontalLayouts[3]->addLayout(layoutMiscs[1]);
-    horizontalLayouts[3]->addLayout(layoutMiscs[1]);
     horizontalLayouts[3]->addLayout(layout2);
     horizontalLayouts[3]->addStretch(1);
 
@@ -155,7 +154,7 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
     connect(pushButtonUpdater, SIGNAL(clicked()), this, SLOT(runUpdater()));
     connect(pushButtonTags, SIGNAL(clicked()), this, SLOT(refreshTagLists()));
     connect(pushButtonSave, SIGNAL(clicked()), this, SLOT(saveOptions()));
-    connect(pushButtonResetAllDownloadPath, SIGNAL(clicked()), this, SLOT(resetBooruDownloadPath()));
+    //connect(pushButtonResetAllDownloadPath, SIGNAL(clicked()), this, SLOT(resetBooruDownloadPath()));
     connect(pushButtonRefreshCacheSize, SIGNAL(clicked()),this,SLOT(refreshCacheSize()));
 
     refreshCacheSize();
@@ -167,6 +166,7 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
 
 OptionTab::~OptionTab()
 {
+    /*
     for(int i=0;i<LAYOUT_NUMBER_OPTIONS;i++)
     {
         delete horizontalLayouts[i];
@@ -174,6 +174,7 @@ OptionTab::~OptionTab()
 
     clearLayoutSecond(layoutGroupBox);
     clearLayoutSecond(layoutMain);
+    */
 }
 
 void OptionTab::resetBoorusSettings()

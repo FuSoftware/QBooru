@@ -16,7 +16,7 @@
 /**Linux Debug**/
 
         #define CACHE_PATH  "/usr/share/qbooru/cache/"
-        #define CONFPATH     "/usr/share/qbooru/conf/"
+        #define CONF_PATH     "/usr/share/qbooru/conf/"
         #define CONF_FILE    "/usr/share/qbooru/conf/configuration.json"
         #define LOG_FILE    "/usr/share/qbooru/programLog.log"
         #define ICON_PATH "/usr/share/qbooru/conf/defaultDerpibooru.png"
@@ -35,7 +35,7 @@
     /**Linux Release**/
 
         #define CACHE_PATH  "cache/"
-        #define CONFPATH     "conf/"
+        #define CONF_PATH     "conf/"
         #define CONF_FILE    "conf/configuration.json"
         #define LOG_FILE    "programLog.log"
         #define ICON_PATH "conf/icon.ico"

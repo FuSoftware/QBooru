@@ -3,7 +3,7 @@
 
 BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType, int booruIndex)
 {
-    outputInfo("INFO",std::string("Setting up type 1: ") + booruName,LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,std::string("Setting up type 1: ") + booruName);
     index = booruIndex;
     std::string tag_file_path_base;
 
@@ -12,7 +12,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType,
 
     cache_path = CACHE_PATH + booruName + "/";
     download_path = std::string(downloadPath()) + booruName;
-    tag_file_path_base = tag_file_path = CONFPATH + std::string("tags") + booruName;
+    tag_file_path_base = tag_file_path = CONF_PATH + std::string("tags") + booruName;
 
     siteTypeInt = booruType;
 
@@ -58,7 +58,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType,
 
 BooruSite::BooruSite(std::string booruName, std::string booruUrl, std::string downloadPath, int booruType, int booruIndex)
 {
-    outputInfo("INFO",std::string("Setting up type 2: ") + booruName,LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,std::string("Setting up type 2: ") + booruName);
     index = booruIndex;
     std::string tag_file_path_base;
 
@@ -67,7 +67,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, std::string do
 
     cache_path = CACHE_PATH + booruName + "/";
     download_path = downloadPath;
-    tag_file_path_base = tag_file_path = CONFPATH + std::string("tags") + booruName;
+    tag_file_path_base = tag_file_path = CONF_PATH + std::string("tags") + booruName;
 
     siteTypeInt = booruType;
 
@@ -113,7 +113,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, std::string do
 
 BooruSite::BooruSite(std::string booruName, std::string booruUrl, std::string searchUrl, std::string tagUrl, std::string postIndexUrl, std::string downloadPath, int booruType,  int booruIndex)
 {
-    outputInfo("INFO",std::string("Setting up type 3: ") + booruName,LEVEL_TOP_WIDGET);
+    outputInfo(L_DEBUG,std::string("Setting up type 3: ") + booruName);
     index = booruIndex;
     std::string tag_file_path_base;
 
@@ -122,7 +122,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, std::string se
 
     cache_path = CACHE_PATH + booruName + "/";
     download_path = downloadPath;
-    tag_file_path_base = tag_file_path = CONFPATH + std::string("tags") + booruName;
+    tag_file_path_base = tag_file_path = CONF_PATH + std::string("tags") + booruName;
 
     siteTypeInt = booruType;
     search_url = searchUrl;
@@ -161,7 +161,7 @@ BooruSite::BooruSite(int index)
 
 BooruSite::BooruSite(Json::Value booru_root)
 {
-    loadFromJSON(name);
+    loadFromJSON(booru_root);
 }
 
 BooruSite::BooruSite()
@@ -176,7 +176,7 @@ BooruSite::~BooruSite()
 
 Json::Value BooruSite::saveBooruSite(Json::Value root)
 {
-    outputInfo("INFO",std::string("Saving ") + name,LEVEL_TOP_WIDGET);
+    outputInfo(L_INFO,std::string("Saving ") + name);
     //Json::Value root = loadJSONFile(CONF_FILE);
 
     /*
@@ -191,8 +191,6 @@ Json::Value BooruSite::saveBooruSite(Json::Value root)
                  tag_file_path<< std::endl <<
                  siteTypeInt<< std::endl <<
                  index<< std::endl;*/
-
-    root["boorus"][index] = root["boorus"][index-1];
 
     root["boorus"][index]["name"] = name;
 
@@ -243,9 +241,8 @@ void BooruSite::loadFromJSON(int index)
 void BooruSite::loadFromJSON(Json::Value booru_root)
 {  
             name = booru_root["name"].asString();
-            outputInfo("INFO",
-                       std::string("Loading from JSON ") + this->getName(),
-                       LEVEL_TOP_WIDGET);
+            outputInfo(L_DEBUG,
+                       std::string("Loading from JSON ") + this->getName());
 
         site_type_string = booru_root["site_type_string"].asString();
 

@@ -24,6 +24,7 @@ public:
 public slots:
     void deleteBooru();
     void refreshActiveBooru(int index);
+    void loadBoorus();
 
 
 private:
@@ -34,7 +35,6 @@ private:
 
     QGridLayout *mainGridLayout;
 
-    BooruSettings *addBooruWidget;
     BooruSettings *editBooruWidget;
 
     QPushButton *pushbuttonDeleteBooru;

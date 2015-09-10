@@ -46,15 +46,7 @@ ImageTab::ImageTab(SearchTab *parent, int imageHostInt) : QWidget(parent)
 
 ImageTab::~ImageTab()
 {
-    clearLayoutSecond(layout);
-}
-
-void ImageTab::setLoading()
-{
-    loadingAnimation = new QMovie(LOADING_GIF);
-    imageThumbnail->setMovie(loadingAnimation);
-    loadingAnimation->start();
-    //delete loadingAnimation;
+    //clearLayoutSecond(layout);
 }
 
 void ImageTab::loadPicture(QString imagePath, QString comment)
@@ -77,8 +69,8 @@ void ImageTab::loadPicture(QString imagePath, QString comment)
     if(height < 768){height = 768;}
     if(width < 1024){width = 1024;}
 
-    imageSize.setWidth(width/parentWidget->picture_columns - (parentWidget->picture_columns * espacement_w));
-    imageSize.setHeight(height/parentWidget->picture_rows -(parentWidget->picture_rows * espacement_h));
+    imageSize.setWidth(parentWidget->width() / conf_file->getPictureColumns());
+    imageSize.setHeight(parentWidget->height() / conf_file->getPictureRow());
 
     imageThumbnail->setPixmap(pixmap.scaled(this->height()-imageDescription->minimumHeight(),this->width(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     imageDescription->setText(commentString);

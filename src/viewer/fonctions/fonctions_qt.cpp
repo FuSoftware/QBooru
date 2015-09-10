@@ -10,7 +10,7 @@ void checkFolder(std::string path)
 
 void runUpdaterFunction()
 {
-    outputInfo("INFO","Running Updater",LEVEL_UPDATER);
+    outputInfo(L_INFO,"Running Updater");
 
     QString path = QString(UPDATER_MAIN_EXECUTABLE);
 
@@ -21,8 +21,8 @@ void runUpdaterFunction()
 
     while(Process->waitForFinished(3000))
 
-    outputInfo("INFO",Process->program().toStdString() + std::string(" Running"),LEVEL_UPDATER);
-    outputInfo("INFO",Process->errorString().toStdString(),LEVEL_UPDATER);
+    outputInfo(L_INFO,Process->program().toStdString() + std::string(" Running"));
+    outputInfo(L_INFO,Process->errorString().toStdString());
     exit(0);
 }
 
@@ -35,9 +35,7 @@ void criticalCURLError(QWidget *parent, int error)
 
     errorString = QString("cUrl error : ") + QString::number(error);
 
-    outputInfo("ERROR",
-               errorString.toStdString(),
-               LEVEL_TOP_WIDGET);
+    outputInfo(L_ERROR,errorString.toStdString());
 
     //parent->show();
     //QMessageBox::critical(parent, titre, errorString);
@@ -61,9 +59,7 @@ void criticalProgramError(QWidget *parent, int error)
         break;
     }
 
-    outputInfo("ERROR",
-               errorString.toStdString(),
-               LEVEL_TOP_WIDGET);
+    outputInfo(L_ERROR,errorString.toStdString());
 
     parent->show();
     QMessageBox::critical(parent, titre, errorString);

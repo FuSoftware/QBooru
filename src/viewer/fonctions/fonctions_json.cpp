@@ -6,8 +6,7 @@ Json::Value saveAndLoad(Json::Value root, char* file)
      * Saves the specified Json::Value to a file.
      * Loads the file and returns it's Json::Value root
      * */
-    Json::StyledWriter writer;
-    saveJSONFile(file, writer.write(root));
+    saveJSONFile(root,file);
     root = loadJSONFile(file);
     return root;
 }
@@ -21,9 +20,8 @@ Json::Value loadJSONFile(char* filePath)
     if ( !parsingSuccessful )
     {
         // report to the user the failure and their locations in the document.
-        outputInfo("JSON ERROR",
-                   reader.getFormattedErrorMessages(),
-                   LEVEL_TOP_WIDGET);
+        outputInfo(L_ERROR,
+                   reader.getFormattedErrorMessages());
         return Json::nullValue;
     }
 
@@ -32,10 +30,11 @@ Json::Value loadJSONFile(char* filePath)
     return root;
 }
 
-void saveJSONFile(char* filePath, std::string data)
+void saveJSONFile(Json::Value root,char* filePath)
 {
+    Json::StyledWriter writer;
     std::ofstream mFile;
     mFile.open(filePath);
-    mFile << data;
+    mFile << writer.write(root);
     mFile.close();
 }

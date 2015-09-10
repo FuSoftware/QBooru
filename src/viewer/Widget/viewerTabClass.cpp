@@ -106,7 +106,7 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
 
 ViewerTab::~ViewerTab()
 {
-    clearLayoutSecond(layoutMain);
+    //clearLayoutSecond(layoutMain);
 }
 
 void ViewerTab::loadLabelsTags(std::string tagsArray[TAG_NUMBER], int tagNumber)

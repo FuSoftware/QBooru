@@ -57,11 +57,9 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
 Widget::~Widget()
 {
-    outputInfo("INFO",
-               "Deleting Widget",
-               LEVEL_TOP_WIDGET);
+    outputInfo(L_INFO,"Deleting Widget");
 
-    clearLayoutSecond(mainLayout);
+    //clearLayoutSecond(mainLayout);
 }
 
 void Widget::refresh()

@@ -26,22 +26,42 @@ const std::string currentDateTime()
     return buf;
 }
 
-void outputInfo(std::string type, std::string data, int level)
+void outputInfo(int type, std::string data)
 {
     /*
      * Outputs formatted messages  :
      * [TYPE][DATE]|-->DATA
      * */
-    std::cout << "[" << type << "]"
-              << "[" << currentDateTime() << "]"
-              << "|";
 
-    for(int i=0;i<level;i++)
+    std::string type_string;
+    int level;
+
+    switch(type)
     {
-        std::cout <<"-";
+    case L_DEBUG:
+        type_string = "DEBUG";
+        level = 2;
+        break;
+    case L_INFO:
+        type_string = "INFO";
+        level = 3;
+        break;
+    case L_WARNING:
+        type_string = "WARNING";
+        level = 0;
+        break;
+    case L_ERROR:
+        type_string = "ERROR";
+        level = 2;
+        break;
     }
 
-    std::cout << "> " << data << std::endl;
+    std::cout << "[" << type_string << "]";
+
+    for(int i=0;i<level;i++){std::cout << " ";}
+
+    std::cout << "[" << currentDateTime() << "]"
+              << "|--> " << data << std::endl;
 }
 
 std::string returnTimeStringConvert(int time)
@@ -180,9 +200,7 @@ int cachingFile(char *url, char outfilename[4096], bool output, bool check_file_
     {
         if(output)
         {
-            outputInfo("INFO",
-                               std::string(std::string("Caching : ")+std::string(url)),
-                               LEVEL_CACHING);
+            outputInfo(L_DEBUG,std::string(std::string("Caching : ")+std::string(url)));
         }
 
         curl = curl_easy_init();
@@ -204,18 +222,14 @@ int cachingFile(char *url, char outfilename[4096], bool output, bool check_file_
 
             if(buf != 0)
             {
-                outputInfo("ERROR",
-                           std::string(std::string("cUrl error : ")+intToString(buf)),
-                           LEVEL_CACHING);
+                outputInfo(L_ERROR,std::string(std::string("cUrl error : ")+intToString(buf)));
             }
 
             return res;
         }
         else
         {
-            outputInfo("ERROR",
-                       std::string(std::string("cUrl init error ")),
-                       LEVEL_CACHING);
+            outputInfo(L_ERROR,std::string(std::string("cUrl init error ")));
             return -1;
         }
     }

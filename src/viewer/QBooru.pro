@@ -14,7 +14,7 @@ TARGET = QBooru
 TEMPLATE = app
 RC_FILE = myapp.rc
 
-VERSION = 1.10.0.0
+VERSION = 1.11.0.0
 QMAKE_TARGET_COMPANY = Florent Uguet
 QMAKE_TARGET_PRODUCT = QBooru
 
@@ -97,7 +97,7 @@ HEADERS  += widget.h \
 FORMS    +=
 
 win32:{
-LIBS += "E:/Qt/Qt5.4.1/5.4/mingw491_32/lib/libcurl.a" "E:/Qt/Qt5.4.1/5.4/mingw491_32/lib/libcurldll.a"
+LIBS += "F:/Qt/Qt5.5.0/5.5/mingw492_32/lib/libcurl.a" "F:/Qt/Qt5.5.0/5.5/mingw492_32/lib/libcurldll.a"
 }
 
 linux:{

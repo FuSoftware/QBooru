@@ -12,32 +12,33 @@
 
 #include "constantes.h"
 
-#define OS_ID "Windows"
-
 #if DEBUG
 /**Windows Debug**/
 
-        #define CACHE_PATH  "E:/My Programs/Builds/QBooru/cache/"
-        #define CONFPATH     "E:/My Programs/Builds/QBooru/conf/"
-        #define CONF_FILE    "E:/My Programs/Builds/QBooru/conf/configuration.json"
-        #define LOG_FILE    "E:/My Programs/Builds/QBooru/programLog.log"
-        #define ICON_PATH "E:/My Programs/Builds/QBooru/conf/defaultDerpibooru.png"
+        #define OS_ID "Windows Debug"
 
-        #define CACHE_PATH_DERPIBOORU    "E:/My Programs/Builds/QBooru/cache/derpibooru/"
+        #define CACHE_PATH  "F:/My Programs/Builds/QBooru/cache/"
+        #define CONF_PATH     "F:/My Programs/Builds/QBooru/conf/"
+        #define CONF_FILE    "F:/My Programs/Builds/QBooru/conf/configuration.json"
+        #define LOG_FILE    "F:/My Programs/Builds/QBooru/programLog.log"
+        #define ICON_PATH "F:/My Programs/Builds/QBooru/conf/defaultDerpibooru.png"
 
-        #define CHANGELOG_FILE "E:/My Programs/Builds/QBooru/conf/changelog.txt"
-        #define LAST_VERSION_FILE "E:/My Programs/Builds/QBooru/conf/lastVersion.json"
+        #define CACHE_PATH_DERPIBOORU    "F:/My Programs/Builds/QBooru/cache/derpibooru/"
 
-        #define UPDATER_MAIN_EXECUTABLE "E:/My Programs/Builds/QBooru/QBooruUpdater.exe"
-        #define LOADING_GIF "E:/My Programs/Builds/QBooru/conf/loader.gif"
+        #define CHANGELOG_FILE "F:/My Programs/Builds/QBooru/conf/changelog.txt"
+        #define LAST_VERSION_FILE "F:/My Programs/Builds/QBooru/conf/lastVersion.json"
 
-        #define BOORU_LIST "E:/My Programs/Builds/QBooru/conf/boorulist.json"
+        #define UPDATER_MAIN_EXECUTABLE "F:/My Programs/Builds/QBooru/QBooruUpdater.exe"
+        #define LOADING_GIF "F:/My Programs/Builds/QBooru/conf/loader.gif"
+
+        #define BOORU_LIST "F:/My Programs/Builds/QBooru/conf/boorulist.json"
 
 #else
     /**Windows Release**/
+        #define OS_ID "Windows"
 
         #define CACHE_PATH  "cache/"
-        #define CONFPATH     "conf/"
+        #define CONF_PATH     "conf/"
         #define CONF_FILE    "conf/configuration.json"
         #define LOG_FILE    "programLog.log"
         #define ICON_PATH "conf/icon.ico"
