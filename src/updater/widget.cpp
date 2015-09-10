@@ -117,6 +117,34 @@ void Widget::runAndStopApplication()
 
 void Widget::updateSoftware()
 {
+    checkQtChanges();
     cachingFile(LAST_EXECUTABLE_FILE_URL,VIEWER_MAIN_EXECUTABLE,true,false);
     refreshInterface();
+}
+
+void Widget::checkQtChanges()
+{
+    /*Qt 5.4 to Qt 5.5*/
+    /*Viewer from 1.10.x or older to 1.11.x*/
+    if(viewerVersions[1][0] == 1 && viewerVersions[1][1] >= 11)
+    {
+        if(viewerVersions[0][0] == 1 && viewerVersions[0][1] < 11)
+        {
+            int reponse = QMessageBox::question(this, "Qt update", "The new 1.11 builds require new DLLs to work, do you want to download the DLL pack ? \n\n You'll need to extract it in your QBooru folder", QMessageBox ::Yes | QMessageBox::No);
+            if (reponse == QMessageBox::Yes)
+            {
+                QDesktopServices::openUrl(QUrl("https://github.com/FlorentUguet/QBooru/raw/master/builds/archive/Qt%205.5/Qt%205.5.zip"));
+                QMessageBox::information(this, "Qt update", "Your browser should have opened a new tab. If not, use that link : \n\n https://github.com/FlorentUguet/QBooru/raw/master/builds/archive/Qt%205.5/Qt%205.5.zip");
+            }
+            else if (reponse == QMessageBox::No)
+            {
+                int reponse2 = QMessageBox::question(this, "Qt update", "Do you wish to update anyway ?", QMessageBox ::Yes | QMessageBox::No);
+
+                if (reponse2 == QMessageBox::No)
+                {
+                    exit(0);
+                }
+            }
+        }
+    }
 }

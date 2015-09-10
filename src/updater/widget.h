@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QtWidgets>
 
+#include <QDesktopServices>
+
 #include "fonctions.h"
 
 class Widget : public QWidget
@@ -13,6 +15,9 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = 0);
     ~Widget();
+
+    void checkQtChanges();
+
 public slots:
     void runApplication();
     void runAndStopApplication();
