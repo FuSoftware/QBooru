@@ -9,11 +9,12 @@
 
 #define CURL_STATICLIB
 #define APP_NAME "QBooru Updater"
-#define APP_VERSION "1.1.1.0"
+#define APP_VERSION "1.1.2.0"
+#define APP_QT_VER "55"
 
 #define CONF_FILE_URL "https://raw.githubusercontent.com/FlorentUguet/QBooru/master/builds/latest/conf/configuration.json"
 #define CHANGELOG_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/changelog.html"
-#define LAST_VERSION_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/versions.json"
+#define LAST_VERSION_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/versions1.json"
 #define LAST_EXECUTABLE_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/builds/latest/QBooru.exe"
 
 #define VERSION_CONTROL_DIGITS 4

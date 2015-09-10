@@ -62,6 +62,10 @@ void Widget::refreshInterface()
     getVersion(root["versions"]["viewer"]["local"].asCString(),viewerVersions[0]);//LOCAL
     getVersion(root["versions"]["viewer"]["last"].asCString(),viewerVersions[1]);//LAST
 
+    version_qt_last = root["versions"]["qt"]["last"].asInt();
+    version_qt_local = root["versions"]["qt"]["local"].asInt();
+
+
     for(int j=0;j<VERSION_CONTROL_DIGITS;j++)
     {
         if(viewerVersions[1][j] > viewerVersions[0][j])
@@ -124,11 +128,9 @@ void Widget::updateSoftware()
 
 void Widget::checkQtChanges()
 {
-    /*Qt 5.4 to Qt 5.5*/
-    /*Viewer from 1.10.x or older to 1.11.x*/
-    if(viewerVersions[1][0] == 1 && viewerVersions[1][1] >= 11)
+    if(version_qt_last > version_qt_last)
     {
-        if(viewerVersions[0][0] == 1 && viewerVersions[0][1] < 11)
+        if(version_qt_last == 55)
         {
             int reponse = QMessageBox::question(this, "Qt update", "The new 1.11 builds require new DLLs to work, do you want to download the DLL pack ? \n\n You'll need to extract it in your QBooru folder", QMessageBox ::Yes | QMessageBox::No);
             if (reponse == QMessageBox::Yes)

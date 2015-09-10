@@ -6,6 +6,8 @@
 #include "fonctions_all.h"
 #include "classBooruSite.h"
 #include <stdexcept>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 class ConfigFile
@@ -20,6 +22,7 @@ public:
     void saveFile();
     void loadSoftwareVersion();
     void checkSoftwareVersions();
+    bool checkQtChanges();
 
     void loadBooruSites();
     void resetBooruSites();
@@ -91,6 +94,9 @@ private:
     int version_updater_local[4];
     int version_viewer_last[4];
     int version_viewer_local[4];
+
+    int version_qt_local;
+    int version_qt_last;
 
     std::string version_updater_last_str;
     std::string version_updater_local_str;
