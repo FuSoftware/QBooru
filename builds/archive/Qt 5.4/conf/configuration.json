@@ -1,0 +1,110 @@
+{
+   "boorus" : [
+      {
+         "base_url" : "http://gelbooru.com",
+         "cache_path" : "cache/Gelbooru/",
+         "download_path" : "downloads/Gelbooru/",
+         "imageLimit" : 15,
+         "index" : 0,
+         "name" : "Gelbooru",
+         "search_file_path" : "cache/Gelbooru/search.json",
+         "search_url" : "http://gelbooru.com/index.php?page=dapi&json=1&s=post&q=index",
+         "show_index_url" : "http://gelbooru.com/index.php?page=post&s=view&id=",
+         "siteTypeInt" : 1,
+         "site_type_string" : "gelbooru",
+         "tag_file_path" : "conf/tagsGelbooru.json",
+         "tag_url" : "/index.php?page=dapi&s=tag&q=index&order=name&limit=0"
+      },
+      {
+         "base_url" : "http://yande.re",
+         "cache_path" : "cache/Yandere/",
+         "download_path" : "downloads/Yandere/",
+         "imageLimit" : 15,
+         "index" : 1,
+         "name" : "Yandere",
+         "search_file_path" : "cache/Yandere/post.json",
+         "search_url" : "http://yande.re/post.json",
+         "show_index_url" : "http://yande.re/post/show/",
+         "siteTypeInt" : 2,
+         "site_type_string" : "moebooru",
+         "tag_file_path" : "conf/tagsYandere.json",
+         "tag_url" : "http://yande.re/tag.json?limit=0"
+      },
+      {
+         "base_url" : "http://konachan.com",
+         "cache_path" : "cache/Konachan/",
+         "download_path" : "downloads/Konachan/",
+         "imageLimit" : 15,
+         "index" : 2,
+         "name" : "Konachan",
+         "search_file_path" : "cache/Konachan/post.json",
+         "search_url" : "http://konachan.com/post.json",
+         "show_index_url" : "http://konachan.com/post/show/",
+         "siteTypeInt" : 2,
+         "site_type_string" : "moebooru",
+         "tag_file_path" : "conf/tagsKonachan.json",
+         "tag_url" : "http://konachan.com/tag.json?limit=0"
+      },
+      {
+         "base_url" : "http://rule34.xxx",
+         "cache_path" : "cache/Rule34/",
+         "download_path" : "downloads/Rule34/",
+         "imageLimit" : 15,
+         "index" : 3,
+         "name" : "Rule34",
+         "search_file_path" : "cache/Rule34/search.json",
+         "search_url" : "http://rule34.xxx/index.php?page=dapi&json=1&s=post&q=index",
+         "show_index_url" : "http://rule34.xxx/index.php?page=post&s=view&id=",
+         "siteTypeInt" : 1,
+         "site_type_string" : "gelbooru",
+         "tag_file_path" : "conf/tagsRule34.json",
+         "tag_url" : "/index.php?page=dapi&s=tag&q=index&order=name&limit=0"
+      },
+      {
+         "base_url" : "http://danbooru.donmai.us",
+         "cache_path" : "cache/Danbooru/",
+         "download_path" : "downloads/Danbooru",
+         "imageLimit" : 15,
+         "index" : 4,
+         "name" : "Danbooru",
+         "search_file_path" : "cache/Danbooru/posts.json",
+         "search_url" : "http://danbooru.donmai.us/posts.json",
+         "show_index_url" : "http://danbooru.donmai.us/posts/",
+         "siteTypeInt" : 3,
+         "site_type_string" : "danbooru",
+         "tag_file_path" : "conf/tagsDanbooru.json",
+         "tag_url" : "http://danbooru.donmai.us/tag.json?limit=0"
+      },
+      0,
+      null
+   ],
+   "paths" : {
+      "default_download_path" : "",
+      "download" : "",
+      "downloadDefaut" : ""
+   },
+   "settings" : {
+      "api_key_derpibooru" : "",
+      "booru_number" : 5,
+      "last_tag_refresh" : 1413756607,
+      "load_on_startup" : false,
+      "picture_columns" : 5,
+      "picture_number" : 15,
+      "picture_rows" : 3,
+      "preferred_booru" : 0,
+      "preferred_rating" : 0,
+      "window_h" : 768,
+      "window_w" : 1024
+   },
+   "temp" : null,
+   "versions" : {
+      "updater" : {
+         "last" : "1.1.0.3",
+         "local" : "1.1.0.3"
+      },
+      "viewer" : {
+         "last" : "1.9.0.0",
+         "local" : "1.10.0.0"
+      }
+   }
+}
