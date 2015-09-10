@@ -1,12 +1,10 @@
 # QBooru
 
 ##Important notice
-Since 1.9, Gelbooru XML is depreciated, the JSON one is now used. Please apply the following changes to your Gelbooru sites' configuration :
+Since 1.11, QBooru switched to Qt 5.5, including the new DLLs. You'll have to download them, for the program to work. use one of the following methods
 <ul>
-  <li>Change in your Gelbooru based website settings the search_file extensions from XML to JSON</li>
-  <li>Add to the search_url in your Gelbooru based website settings the term "&json=1"</li>
-  <li>or</li>
-  <li>Refer to "search_file_path" and "search_url" in https://github.com/FlorentUguet/QBooru/releases/download/v1.9.0/configuration.json</li>
+  <li>Download the full last build here https://github.com/FlorentUguet/QBooru/tree/master/builds/latest</li>
+  <li>Extract the DLLs and folders in that file https://github.com/FlorentUguet/QBooru/raw/master/builds/archive/Qt%205.5/Qt%205.5.zip to the folder where you use QBooru, then update it.</li>
 </ul>
 
 ##Summit
