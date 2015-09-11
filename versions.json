@@ -1,9 +1,4 @@
 {
-<<<<<<< HEAD
 	"updater" : "1.1.2.0",
 	"viewer" : "1.11.2.0"
-=======
-	"updater" : "1.1.1.0",
-	"viewer" : "1.11.1.0"
->>>>>>> origin/master
 }
