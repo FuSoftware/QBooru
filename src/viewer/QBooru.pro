@@ -61,15 +61,6 @@ HEADERS  += widget.h \
     json/reader.h \
     json/value.h \
     json/writer.h \
-    Derpibooru/fonctionsDerpibooru.h \
-    Derpibooru/imagesDerpibooru.h \
-    Derpibooru/rechercheDerpibooru.h \
-    Gelbooru/fonctionsGelbooru.h \
-    Gelbooru/imagesGelbooru.h \
-    Gelbooru/rechercheGelbooru.h \
-    Moebooru/fonctionsMoebooru.h \
-    Moebooru/rechercheMoebooru.h \
-    Moebooru/imagesMoebooru.h \
     Widget/imageTabClass.h \
     Widget/optionTabClass.h \
     Widget/searchTabClass.h \
@@ -78,9 +69,6 @@ HEADERS  += widget.h \
     classBooruSite.h \
     Widget/BooruSettingsWidgetClass.h \
     Widget/booruSettingsTabClass.h \
-    Danbooru/fonctionsDanbooru.h \
-    Danbooru/imagesDanbooru.h \
-    Danbooru/rechercheDanbooru.h \
     Workers/caching_thread.h \
     Workers/image_loading_thread.h \
     Workers/viewer_loading_thread.h \

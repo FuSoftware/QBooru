@@ -24,7 +24,7 @@
  * Set this to 1 to change to the absolute paths for the program (Debug)
  */
 
-#define DEBUG 1
+#define DEBUG 0
 
 #define CURL_STATICLIB
 
@@ -38,7 +38,7 @@
 
 #define CONF_FILE_URL "https://raw.githubusercontent.com/FlorentUguet/QBooru/master/builds/latest/conf/configuration.json"
 #define CHANGELOG_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/changelog.html"
-#define LAST_VERSION_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/versions1.json"
+#define LAST_VERSION_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/versions.json"
 #define UPDATER_URL "https://github.com/FlorentUguet/QBooru/raw/master/builds/latest/QBooruUpdater.exe"
 #define BOORU_LIST_URL "https://github.com/FlorentUguet/QBooru/raw/master/boorulist.json"
 
