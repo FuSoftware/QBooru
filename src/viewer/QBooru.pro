@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkitwidgets network concurrent
+QT       += core gui network concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     fonctions/fonctions_json.cpp \
     fonctions/fonctions_qt.cpp \
     BooruHeaders/booru_search_engine.cpp \
-    config_file.cpp
+    config_file.cpp \
+    Widget/updaterTab.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -92,7 +93,8 @@ HEADERS  += widget.h \
     fonctions/fonctions_json.h \
     fonctions/fonctions_qt.h \
     BooruHeaders/booru_search_engine.h \
-    config_file.h
+    config_file.h \
+    Widget/updaterTab.h
 
 FORMS    +=
 
@@ -108,4 +110,12 @@ LIBS += -L/lib -lcurl
 OTHER_FILES += \
     default.png \
     Backups_Fonctions.txt
+
+static { # everything below takes effect with CONFIG ''= static
+ CONFIG+= static
+ DEFINES+= STATIC
+ message("~~~ static build ~~~") # this is for information, that the static build is done
+ #mac: TARGET = $$join(TARGET,,,_static) #this adds an _static in the end, so you can seperate static build from non static build
+ #win32: TARGET = $$join(TARGET,,,s) #this adds an s in the end, so you can seperate static build from non static build
+}
 

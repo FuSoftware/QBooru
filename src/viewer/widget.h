@@ -20,6 +20,7 @@
 #include "Widget/searchTabClass.h"
 #include "Widget/viewerTabClass.h"
 #include "Widget/booruSettingsTabClass.h"
+#include "Widget/updaterTab.h"
 
 #include "classBooruSite.h"
 #include "fonctions_all.h"
@@ -31,6 +32,7 @@ class ViewerTab;
 class OptionTab;
 class BooruSettingsTab;
 class LoadingWidget;
+class UpdaterTab;
 
 
 class Widget : public QWidget
@@ -57,12 +59,14 @@ public:
 public slots:
     void on_tab_changed(int tabIndex);
     void refresh();
+    void slotReboot();
 
 private:
     QVBoxLayout *mainLayout; 
     OptionTab *optionTab;
     QTabWidget *tabWidgetMain;
     BooruSettingsTab *settingTabs;
+    UpdaterTab *updaterTab;
 
     QString hostNames[16];
 

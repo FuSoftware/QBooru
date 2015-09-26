@@ -22,35 +22,35 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+    int exit_code = 0;
+
     srand(time(NULL));
-    QApplication *a = new QApplication(argc, argv);
     std::freopen(LOG_FILE, "a", stdout);
 
     clog << endl;
 
     std::cout << std::endl;
 
-    cachingFile(UPDATER_URL, UPDATER_MAIN_EXECUTABLE, false, false);
+    do
+    {
+        QApplication *a = new QApplication(argc, argv);
+        cachingFile(BOORU_LIST_URL, BOORU_LIST, false, false);
+        cachingFile(CONF_FILE_URL, CONF_FILE, false, true);
+        cachingFile(CHANGELOG_FILE_URL, CHANGELOG_FILE, false, false);
+        ConfigFile confFile(false);
 
-    cachingFile(BOORU_LIST_URL, BOORU_LIST, false, false);
+        QIcon icone;
+        icone.addFile(ICON_PATH);
 
-    cachingFile(CONF_FILE_URL, CONF_FILE, false, true);
+        outputInfo(L_INFO,std::string("Generating Widget"));
+        Widget w;
 
-    ConfigFile confFile(false);
+        w.setWindowTitle(QString(APP_NAME) + QString(" ") + QString(OS_ID) + QString(" ") + QString(APP_VERSION));
+        outputInfo(L_DEBUG,std::string("Showing Widget"));
+        w.show();
 
-    QIcon icone;
-    icone.addFile(ICON_PATH);
+        exit_code = a->exec();
+    }while(exit_code == EXIT_CODE_REBOOT);
 
-    outputInfo(L_INFO,std::string("Generating Widget"));
-    Widget w;
-
-    w.setWindowTitle(QString(APP_NAME) + QString(" ") + QString(OS_ID) + QString(" ") + QString(APP_VERSION));
-    outputInfo(L_DEBUG,std::string("Showing Widget"));
-    w.show();
-
-    int ret = a->exec();
-    w.deleteLater();
-    a->deleteLater();
-
-    return ret;
+    return EXIT_SUCCESS;
 }

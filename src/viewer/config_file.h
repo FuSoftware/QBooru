@@ -51,6 +51,8 @@ public:
 
     void getVersion(char* versionChar, int versionInt[4]);
 
+    std::string getVersionString(int version_type);
+    bool getUpdateState();
     std::vector<BooruSite*> getBoorus();
     BooruSite *getBooru(int i);
     int getBooruNumber();
@@ -90,18 +92,13 @@ private:
     int window_h;
     int window_w;
 
-    int version_updater_last[4];
-    int version_updater_local[4];
     int version_viewer_last[4];
     int version_viewer_local[4];
 
-    int version_qt_local;
-    int version_qt_last;
-
-    std::string version_updater_last_str;
-    std::string version_updater_local_str;
     std::string version_viewer_last_str;
     std::string version_viewer_local_str;
+
+    bool update_needed;
 };
 
 #endif // CONFIGFILE_H

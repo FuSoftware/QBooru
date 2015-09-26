@@ -62,6 +62,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
             searchRating->addItem("Explicit");
             searchRating->setMaximumHeight(21);
 
+        widgetImageTabs = new QWidget(this);
         layoutImageTabs = new QGridLayout;
             for(i=0;i<picture_number;i++)
             { 
@@ -116,6 +117,8 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
     layoutImageTabs->setVerticalSpacing(0);
     layoutImageTabs->setHorizontalSpacing(0);
 
+    widgetImageTabs->setLayout(layoutImageTabs);
+
     signalMapper->setMapping(searchButton, 0);
     signalMapper->setMapping(lineEditTags, 1);
     signalMapper->setMapping(lineEditPageSet, 2);
@@ -134,7 +137,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
 
     /*Main Layout*/
     layoutMain->addLayout(layoutSearch);
-    layoutMain->addLayout(layoutImageTabs);
+    layoutMain->addWidget(widgetImageTabs);
     layoutMain->addLayout(layoutSearchPage);
 
     setLayout(layoutMain);
@@ -456,4 +459,9 @@ void SearchTab::updateSearchStatus(int progress, QString text)
 ConfigFile *SearchTab::getConfigFile()
 {
     return this->conf_file;
+}
+
+QWidget* SearchTab::getImageTabsWidget()
+{
+    return this->widgetImageTabs;
 }

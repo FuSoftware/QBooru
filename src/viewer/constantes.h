@@ -24,21 +24,26 @@
  * Set this to 1 to change to the absolute paths for the program (Debug)
  */
 
-#define DEBUG 0
+#define DEBUG 1
 
 #define CURL_STATICLIB
+
 #define APP_NAME "QBooru Viewer"
-#define APP_VERSION "1.11.2.0"
-#define APP_QT_VER 55
+#define APP_VERSION "1.12.0.0"
 #define TAG_NUMBER    512 //Max number of tags to show in the Viewer
 #define MAX_BOORU_NUMBER 64 //Max number of Boorus to load in the main widget
 #define MAX_PICTURE_NUMBER 64 //Max number of pictures/page
+
+#define EXIT_CODE_REBOOT 10000
 
 #define CONF_FILE_URL "https://raw.githubusercontent.com/FlorentUguet/QBooru/master/builds/latest/conf/configuration.json"
 #define CHANGELOG_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/changelog.html"
 #define LAST_VERSION_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/versions1.json"
 #define UPDATER_URL "https://github.com/FlorentUguet/QBooru/raw/master/builds/latest/QBooruUpdater.exe"
 #define BOORU_LIST_URL "https://github.com/FlorentUguet/QBooru/raw/master/boorulist.json"
+
+#define LAST_EXECUTABLE_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/builds/latest/QBooru.exe"
+#define VIEWER_MAIN_EXECUTABLE "QBooru.exe"
 
 enum InfoLevel
 {
@@ -63,6 +68,11 @@ enum Ratings
   RATING_SAFE,
   RATING_QUESTIONNABLE,
   RATING_EXPLICIT
+};
+
+enum Versions{
+    VER_LOCAL = 0,
+    VER_LAST
 };
 
 #ifdef _WIN32

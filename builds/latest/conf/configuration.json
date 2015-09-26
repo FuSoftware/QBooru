@@ -17,7 +17,7 @@
       {
          "base_url" : "http://yande.re",
          "cache_path" : "cache/Yandere/",
-         "download_path" : "downloads/Yandere/",
+         "download_path" : "downloads/Yandere",
          "index" : 1,
          "name" : "Yandere",
          "search_file_path" : "cache/Yandere/post.json",
@@ -31,7 +31,7 @@
       {
          "base_url" : "http://konachan.com",
          "cache_path" : "cache/Konachan/",
-         "download_path" : "downloads/Konachan/",
+         "download_path" : "downloads/Konachan",
          "index" : 2,
          "name" : "Konachan",
          "search_file_path" : "cache/Konachan/post.json",
@@ -59,7 +59,7 @@
       {
          "base_url" : "http://danbooru.donmai.us",
          "cache_path" : "cache/Danbooru/",
-         "download_path" : "downloads/Danbooru",
+         "download_path" : "downloads/Danbooru/",
          "index" : 4,
          "name" : "Danbooru",
          "search_file_path" : "cache/Danbooru/posts.json",
@@ -89,15 +89,17 @@
       "window_w" : 1024
    },
    "versions" : {
+      "qt" : {
+         "last" : 55,
+         "local" : 55
+      },
       "updater" : {
-         "last" : "1.1.0.3",
-         "local" : "1.1.0.3",
-		 "qt" : 55
+         "last" : "1.1.2.0",
+         "local" : "1.1.2.0"
       },
       "viewer" : {
-         "last" : "1.10.0.0",
-         "local" : "1.11.0.0",
-		 "qt" : 55
+         "last" : "1.11.2.0",
+         "local" : "1.11.3.0"
       }
    }
 }

@@ -53,3 +53,11 @@ linux:{
 
     LIBS += -L/lib -lcurl
 }
+
+static { # everything below takes effect with CONFIG ''= static
+ CONFIG+= static
+ DEFINES+= STATIC
+ message("~~~ static build ~~~") # this is for information, that the static build is done
+ #mac: TARGET = $$join(TARGET,,,_static) #this adds an _static in the end, so you can seperate static build from non static build
+ #win32: TARGET = $$join(TARGET,,,s) #this adds an s in the end, so you can seperate static build from non static build
+}

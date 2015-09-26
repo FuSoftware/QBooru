@@ -28,6 +28,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     tabWidgetMain->addTab(optionTab,"Options");
     settingTabs = new BooruSettingsTab(this);
     tabWidgetMain->addTab(settingTabs,"Edit Boorus");
+    updaterTab = new UpdaterTab(this);
+    tabWidgetMain->addTab(updaterTab,"Updater");
 
     setMinimumSize(1024,768);
     mainLayout->addWidget(tabWidgetMain);
@@ -91,6 +93,12 @@ void Widget::refresh()
     mainLayout->addWidget(tabWidgetMain);
 
     tabWidgetMain->setCurrentIndex(booruIndexMax+2);
+}
+
+void Widget::slotReboot()
+{
+    qDebug() << "Performing application reboot...";
+    qApp->exit( EXIT_CODE_REBOOT );
 }
 
 void Widget::setupHosts(std::vector<BooruSite*> boorus, int index)

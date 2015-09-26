@@ -64,10 +64,6 @@ void ConfigFile::saveFile()
     newRoot["settings"]["window_w"] = window_w;
 
     outputInfo(L_DEBUG,std::string("Saving Versions"));
-    newRoot["versions"]["qt"]["local"] = version_qt_local;
-    newRoot["versions"]["qt"]["last"] = version_qt_last;
-    newRoot["versions"]["updater"]["local"] = version_updater_local_str;
-    newRoot["versions"]["updater"]["last"] = version_updater_last_str;
     newRoot["versions"]["viewer"]["local"] = version_viewer_local_str;
     newRoot["versions"]["viewer"]["last"] = version_viewer_last_str;
 
@@ -77,20 +73,15 @@ void ConfigFile::saveFile()
 
 void ConfigFile::loadSoftwareVersion()
 {
-    version_qt_last = root["versions"]["qt"]["last"].asInt();
-    version_qt_local = root["versions"]["qt"]["local"].asInt();
-    version_updater_last_str = root["versions"]["updater"]["last"].asString();
-    version_updater_local_str = root["versions"]["updater"]["local"].asString();
     version_viewer_last_str = root["versions"]["viewer"]["last"].asString();
     version_viewer_local_str = root["versions"]["viewer"]["local"].asString();
 }
 
 void ConfigFile::checkSoftwareVersions()
 {
-    bool newVersion = true;
+    update_needed = true;
 
     root["versions"]["viewer"]["local"] = APP_VERSION;
-    root["versions"]["qt"]["local"] = APP_QT_VER;
 
     int errorbuf = cachingFile(LAST_VERSION_FILE_URL, LAST_VERSION_FILE, false, false);
 
@@ -107,19 +98,11 @@ void ConfigFile::checkSoftwareVersions()
 
     outputInfo(L_INFO,std::string("Last versions cached"));
 
-    root["versions"]["updater"]["last"] = rootVersions["updater"].asCString();
-    root["versions"]["updater"]["local"] = rootVersions["updater"].asCString(); // Since it updates on its own, this is set to avoid errors
-
     root["versions"]["viewer"]["last"] = rootVersions["viewer"].asCString();
-
-    root["versions"]["qt"]["last"] = rootVersions["qt"].asInt();
 
     loadSoftwareVersion();
 
     /*Checks current and last version*/
-    getVersion(strdup(root["versions"]["updater"]["local"].asCString()),version_updater_local);
-    getVersion(strdup(root["versions"]["updater"]["last"].asCString()),version_updater_last);
-
     getVersion(strdup(root["versions"]["viewer"]["local"].asCString()),version_viewer_local);
     getVersion(strdup(root["versions"]["viewer"]["last"].asCString()),version_viewer_last);
 
@@ -127,21 +110,18 @@ void ConfigFile::checkSoftwareVersions()
     {
         if(version_viewer_local[i] >= version_viewer_last[i])
         {
-            newVersion = false;
+            update_needed = false;
         }
     }
 
-    if(newVersion)
+    if(update_needed)
     {
         /*Updates if needed*/
         int reponse = QMessageBox::question(0, "Update", "A new update is available : " + QString(root["versions"]["viewer"]["last"].asCString()) + ". Do you want to update ?", QMessageBox ::Yes | QMessageBox::No);
 
         if (reponse == QMessageBox::Yes)
         {
-            if(checkQtChanges())
-            {
-                runUpdaterFunction();
-            }
+
         }
         else if (reponse == QMessageBox::No)
         {
@@ -151,32 +131,6 @@ void ConfigFile::checkSoftwareVersions()
     {
         outputInfo(L_INFO,std::string("You have the latest version"));
     }
-}
-
-bool ConfigFile::checkQtChanges()
-{
-    if(version_qt_last > version_qt_last)
-    {
-        if(version_qt_last == 55)
-        {
-            int reponse = QMessageBox::question(0, "Qt update", "The new 1.11 builds require new DLLs to work, do you want to download the DLL pack ? \n\n You'll need to extract it in your QBooru folder", QMessageBox ::Yes | QMessageBox::No);
-            if (reponse == QMessageBox::Yes)
-            {
-                QDesktopServices::openUrl(QUrl(QString("https://github.com/FlorentUguet/QBooru/raw/master/builds/archive/Qt%205.5/Qt%205.5.zip")));
-                QMessageBox::information(0, "Qt update", "Your browser should have opened a new tab. If not, use that link : \n\n https://github.com/FlorentUguet/QBooru/raw/master/builds/archive/Qt%205.5/Qt%205.5.zip");
-            }
-            else if (reponse == QMessageBox::No)
-            {
-                int reponse2 = QMessageBox::question(0, "Qt update", "Do you wish to update anyway ?", QMessageBox ::Yes | QMessageBox::No);
-
-                if (reponse2 == QMessageBox::No)
-                {
-                    return false;
-                }
-            }
-        }
-    }
-    return true;
 }
 
 void ConfigFile::checkFile()
@@ -467,6 +421,23 @@ void ConfigFile::getVersion(char* versionChar, int versionInt[4])
     versionInt[j] = atoi(mot.c_str());
     j++;
     mot = "";
+}
+
+std::string ConfigFile::getVersionString(int version_type)
+{
+    if(version_type == VER_LAST)
+    {
+        return this->version_viewer_last_str;
+    }
+    else
+    {
+        return this->version_viewer_local_str;
+    }
+}
+
+bool ConfigFile::getUpdateState()
+{
+    return this->update_needed;
 }
 
 std::vector<BooruSite *> ConfigFile::getBoorus()

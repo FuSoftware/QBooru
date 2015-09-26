@@ -10,12 +10,10 @@
 
 ImageTab::ImageTab(SearchTab *parent, int imageHostInt) : QWidget(parent)
 {
-    conf_file = parent->getConfigFile();
 
     setParent(parent);
-    int image_width =  parent->width() / conf_file->getPictureColumns();
-    int image_height = parent->height() / conf_file->getPictureRow();
 
+    conf_file = parent->getConfigFile();
 
     imageHost = imageHostInt;
     parentWidget = parent;
@@ -26,7 +24,7 @@ ImageTab::ImageTab(SearchTab *parent, int imageHostInt) : QWidget(parent)
 
     imageThumbnail->setPixmap(QPixmap(ICON_PATH));
     imageThumbnail->setStyleSheet("qproperty-alignment: AlignCenter;");
-    imageThumbnail->setMinimumSize(image_width,image_height);
+    imageThumbnail->setMinimumSize(100,100);
 
     imageDescription->setStyleSheet("qproperty-alignment: AlignCenter;");
     imageDescription->setMaximumSize(imageDescription->maximumWidth(),21);
@@ -53,8 +51,6 @@ void ImageTab::loadPicture(QString imagePath, QString comment)
 {
     this->updateGeometry();
 
-    int espacement_h = 3;
-    int espacement_w = 3;
     thumbnailPath = imagePath;
     commentString = comment;
 
@@ -69,14 +65,17 @@ void ImageTab::loadPicture(QString imagePath, QString comment)
     if(height < 768){height = 768;}
     if(width < 1024){width = 1024;}
 
-    imageSize.setWidth(parentWidget->width() / conf_file->getPictureColumns());
-    imageSize.setHeight(parentWidget->height() / conf_file->getPictureRow());
+    parentWidget->getImageTabsWidget()->updateGeometry();
 
-    imageThumbnail->setPixmap(pixmap.scaled(this->height()-imageDescription->minimumHeight(),this->width(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    imageSize.setWidth(parentWidget->getImageTabsWidget()->width() / conf_file->getPictureColumns());
+    imageSize.setHeight((parentWidget->getImageTabsWidget()->height() / conf_file->getPictureRow()) - imageDescription->height()*2);
+
+    outputInfo(L_DEBUG,"Size : " + intToString(imageSize.width()) + "x" + intToString(imageSize.height()));
+    //imageSize.setWidth(125);
+    //imageSize.setHeight(125);
+
+    imageThumbnail->setPixmap(pixmap.scaled(imageSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     imageDescription->setText(commentString);
-
-    this->updateGeometry();
-    imageThumbnail->setPixmap(pixmap.scaled(this->height()-imageDescription->minimumHeight(),this->width(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 void ImageTab::resizeEvent(QResizeEvent * event)

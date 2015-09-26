@@ -40,6 +40,8 @@ public:
     void updateSearchStatus(int progress, QString text);
     ConfigFile *getConfigFile();
 
+    QWidget* getImageTabsWidget();
+
 
     /*Objets*/
     BooruImage images[64];
@@ -105,8 +107,8 @@ private:
             QHBoxLayout *layoutSearchRating;
             QComboBox *searchRating;
 
+        QWidget *widgetImageTabs;
         QGridLayout *layoutImageTabs;
-
 
         QHBoxLayout *layoutSearchPage;
             QPushButton *pushButtonPageMoins;
