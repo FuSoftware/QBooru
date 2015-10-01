@@ -177,20 +177,6 @@ BooruSite::~BooruSite()
 Json::Value BooruSite::saveBooruSite(Json::Value root)
 {
     outputInfo(L_INFO,std::string("Saving ") + name);
-    //Json::Value root = loadJSONFile(CONF_FILE);
-
-    /*
-    std::cout << name << " parameters : " << std::endl <<
-                site_type_string << std::endl <<
-                base_url << std::endl <<
-                search_url << std::endl <<
-                tag_url << std::endl <<
-                cache_path<< std::endl <<
-                 download_path<< std::endl <<
-                 search_file_path<< std::endl <<
-                 tag_file_path<< std::endl <<
-                 siteTypeInt<< std::endl <<
-                 index<< std::endl;*/
 
     root["boorus"][index]["name"] = name;
 
