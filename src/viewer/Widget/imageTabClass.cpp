@@ -70,7 +70,7 @@ void ImageTab::loadPicture(QString imagePath, QString comment)
     imageSize.setWidth(parentWidget->getImageTabsWidget()->width() / conf_file->getPictureColumns());
     imageSize.setHeight((parentWidget->getImageTabsWidget()->height() / conf_file->getPictureRow()) - imageDescription->height()*2);
 
-    outputInfo(L_DEBUG,"Size : " + intToString(imageSize.width()) + "x" + intToString(imageSize.height()));
+    //outputInfo(L_DEBUG,"Size : " + intToString(imageSize.width()) + "x" + intToString(imageSize.height()));
     //imageSize.setWidth(125);
     //imageSize.setHeight(125);
 
