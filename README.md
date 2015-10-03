@@ -1,11 +1,7 @@
 # QBooru
 
 ##Important notice
-Since 1.11, QBooru switched to Qt 5.5, including the new DLLs. You'll have to download them, for the program to work. use one of the following methods
-<ul>
-  <li>Download the full last build here https://github.com/FlorentUguet/QBooru/tree/master/builds/latest</li>
-  <li>Extract the DLLs and folders in that file https://github.com/FlorentUguet/QBooru/raw/master/builds/archive/Qt%205.5/Qt%205.5.zip to the folder where you use QBooru, then update it.</li>
-</ul>
+Since 1.12, QBooru is statically builded. Most DLLs aren't needed anymore, since they're now included in the .exe. This should avoid issues for the future updates, since the IDE's dlls aren't dynamic anymore.
 
 ##Summit
 QBooru is a lightweight Windows and Linux client that allows users to see pictures from most booru sites, and download them, for example :
