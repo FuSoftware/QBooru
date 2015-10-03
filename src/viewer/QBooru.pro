@@ -46,7 +46,9 @@ SOURCES += main.cpp\
     fonctions/fonctions_qt.cpp \
     BooruHeaders/booru_search_engine.cpp \
     config_file.cpp \
-    Widget/updaterTab.cpp
+    Widget/updaterTab.cpp \
+    BooruHeaders/boorutag.cpp \
+    BooruHeaders/boorutaglist.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -82,7 +84,9 @@ HEADERS  += widget.h \
     fonctions/fonctions_qt.h \
     BooruHeaders/booru_search_engine.h \
     config_file.h \
-    Widget/updaterTab.h
+    Widget/updaterTab.h \
+    BooruHeaders/boorutag.h \
+    BooruHeaders/boorutaglist.h
 
 FORMS    +=
 

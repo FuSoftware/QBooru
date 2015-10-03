@@ -2,12 +2,9 @@
 #include "classBooruSite.h"
 #include <QApplication>
 #include <QIcon>
-#include <QMessageBox>
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
 #include <iomanip>
-#include <QMessageBox>
 
 #include "fonctions_all.h"
 
@@ -17,6 +14,9 @@
 #include "Widget/viewerTabClass.h"
 
 #include "config_file.h"
+
+#include "BooruHeaders/boorutaglist.h"
+
 
 using namespace std;
 
