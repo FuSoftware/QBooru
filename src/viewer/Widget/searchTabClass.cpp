@@ -42,11 +42,31 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
         layoutSearch = new QHBoxLayout;
         layoutTags = new QHBoxLayout;
 
+            /*Searchbar*/
             searchButton = new QPushButton("Refresh");
             lineEditTags = new QLineEdit;
             lineEditTags->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
             lineEditTags->setMaximumHeight(21);
 
+            /*Autocompletion*/
+            if(booru->isTagListToLoad())
+            {
+                booru->loadTagList();
+                if(booru->isTagListLoaded())
+                {
+                    outputInfo(L_DEBUG,"Loading taglist for " + booru->getName());
+                    QStringList wordList;
+                    for(int i=0;i<booru->getTagList()->size();i++)
+                    {
+                        wordList << QString(booru->getTagList()->getTag(i)->getName().c_str());
+                    }
+                    QCompleter *completer = new QCompleter(wordList, this);
+                    completer->setCaseSensitivity(Qt::CaseInsensitive);
+                    lineEditTags->setCompleter(completer);
+                }
+            }
+
+            /*Search STatus*/
             layoutSearchStatus = new QVBoxLayout;
                 progressBarSearch = new QProgressBar;
                 progressBarSearch->setMaximumHeight(21);

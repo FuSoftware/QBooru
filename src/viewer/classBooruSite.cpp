@@ -47,7 +47,7 @@ BooruSite::BooruSite(std::string booruName, std::string booruUrl, int booruType,
     case DANBOORU2_TYPE:
         show_index_url = booruUrl + "/posts/";
         search_url = base_url + "/posts.json";
-        tag_url = base_url + "/tag.json?limit=0";
+        tag_url = base_url + "/tags.json";
 
         search_file_path = cache_path + "posts.json";
         tag_file_path = tag_file_path_base + ".json";
@@ -205,49 +205,74 @@ Json::Value BooruSite::saveBooruSite(Json::Value root)
 
 void BooruSite::loadFromJSON(int index)
 {
-    Json::Value root = loadJSONFile(CONF_FILE);
-
-                 name = root["boorus"][index]["name"].asString();
-     site_type_string = root["boorus"][index]["site_type_string"].asString();
-
-              base_url = root["boorus"][index]["base_url"].asString();
-            search_url = root["boorus"][index]["search_url"].asString();
-               tag_url = root["boorus"][index]["tag_url"].asString();
-        show_index_url = root["boorus"][index]["show_index_url"].asString();
-
-           cache_path = root["boorus"][index]["cache_path"].asString();
-        download_path = root["boorus"][index]["download_path"].asString();
-     search_file_path = root["boorus"][index]["search_file_path"].asString();
-        tag_file_path = root["boorus"][index]["tag_file_path"].asString();
-
-    siteTypeInt = root["boorus"][index]["siteTypeInt"].asInt();
-    this->index = index;
+    Json::Value root = loadJSONFile(CONF_FILE);   
+    loadFromJSON(root["boorus"][index]);
 }
 
 void BooruSite::loadFromJSON(Json::Value booru_root)
-{  
-            name = booru_root["name"].asString();
-            outputInfo(L_DEBUG,
-                       std::string("Loading from JSON ") + this->getName());
+{
+    tag_list_to_load = false;
+    tag_list_loaded = false;
+    name = booru_root["name"].asString();
+    outputInfo(L_DEBUG,
+    std::string("Loading from JSON ") + this->getName());
 
-        site_type_string = booru_root["site_type_string"].asString();
+    site_type_string = booru_root["site_type_string"].asString();
 
-              base_url = booru_root["base_url"].asString();
-            search_url = booru_root["search_url"].asString();
-               tag_url = booru_root["tag_url"].asString();
-        show_index_url = booru_root["show_index_url"].asString();
+    base_url = booru_root["base_url"].asString();
+    search_url = booru_root["search_url"].asString();
+    tag_url = booru_root["tag_url"].asString();
+    show_index_url = booru_root["show_index_url"].asString();
 
-              cache_path = booru_root["cache_path"].asString();
-           download_path = booru_root["download_path"].asString();
-        search_file_path = booru_root["search_file_path"].asString();
-           tag_file_path = booru_root["tag_file_path"].asString();
+    cache_path = booru_root["cache_path"].asString();
+    download_path = booru_root["download_path"].asString();
+    search_file_path = booru_root["search_file_path"].asString();
+    tag_file_path = booru_root["tag_file_path"].asString();
 
-        siteTypeInt = booru_root["siteTypeInt"].asInt();
+    siteTypeInt = booru_root["siteTypeInt"].asInt();
 
-            index = booru_root["index"].asInt();
+    index = booru_root["index"].asInt();
+
+    if(this->siteTypeInt == MOEBOORU_TYPE && !tag_list_loaded)
+    {
+        tag_list_to_load = true;
+    }
+}
+
+void BooruSite::loadTagList()
+{
+    if(fexists(this->tag_file_path.c_str()))
+    {
+        this->tag_list = new BooruTagList(this->tag_file_path,this);
+        outputInfo(L_DEBUG,intToString(tag_list->size()) + " tags loaded for " + this->name);
+        tag_list_loaded = true;
+    }
 }
 
 /*Getters*/
+bool BooruSite::isTagListToLoad()
+{
+    return this->tag_list_to_load;
+}
+
+bool BooruSite::isTagListLoaded()
+{
+    return this->tag_list_loaded;
+}
+
+BooruTagList *BooruSite::getTagList()
+{
+    if(tag_list_loaded)
+    {
+        return this->tag_list;
+    }
+    else
+    {
+        return 0;
+    }
+
+}
+
 string BooruSite::getName()
 {
     return name;

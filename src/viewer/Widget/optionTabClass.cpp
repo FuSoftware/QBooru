@@ -39,7 +39,7 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
             labelCache = new QLabel("Cache size :",this);
 
             pushButtonTags = new QPushButton("Refresh Tags",this);
-            labelTags = new QLabel("Last refresh :",this);
+            labelTags = new QLabel("Last refresh : " + QString(returnTimeStringConvert(conf_file->getLastTagRefresh()).c_str()),this);
 /*
         QVBoxLayout *layoutDownloadPath2 = new QVBoxLayout;
             pushButtonResetAllDownloadPath = new QPushButton("Reset all download paths",this);
@@ -243,13 +243,15 @@ void OptionTab::refreshTagLists()
 
     for(i=0;i<conf_file->getBooruNumber();i++)
     {
-        cachingFile(strdup(conf_file->getBooru(i)->getTagUrl().c_str()), strdup(conf_file->getBooru(i)->getTagFilePath().c_str()),false, false);
+        cachingFile(conf_file->getBooru(i)->getTagUrl().c_str(), conf_file->getBooru(i)->getTagFilePath().c_str(),true, false);
+        //outputInfo(L_DEBUG, "Saving " + conf_file->getBooru(i)->getTagUrl() + " to " + conf_file->getBooru(i)->getTagFilePath());
     }
 
     refreshTagTime();
 
     int currentTime = time(NULL);
-    //root["settings"]["last_tag_refresh"] =  currentTime;
+    conf_file->setLastTagRefresh(currentTime);
+    conf_file->saveFile();
 }
 
 void OptionTab::refreshTagTime()

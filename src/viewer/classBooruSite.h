@@ -5,7 +5,11 @@
 #include "constantes.h"
 #include "json/json.h"
 
+#include "./BooruHeaders/boorutaglist.h"
+
 using namespace std;
+
+class BooruTagList;
 
 class BooruSite
 {
@@ -23,7 +27,12 @@ public:
     void loadFromJSON(int index);
     void loadFromJSON(Json::Value booru_root);
 
+    void loadTagList();
+
     /*Getters*/
+    bool isTagListToLoad();
+    bool isTagListLoaded();
+    BooruTagList *getTagList();
     string getName();
     string getTypeString();
     string getBaseUrl();
@@ -51,6 +60,8 @@ public:
     void setIndex(int i);
 	
 private:
+    BooruTagList *tag_list;
+
     string name;
     string site_type_string;
 
@@ -66,6 +77,9 @@ private:
 
     int siteTypeInt;
     int index;
+
+    bool tag_list_loaded;
+    bool tag_list_to_load;
 };
 
 #endif
