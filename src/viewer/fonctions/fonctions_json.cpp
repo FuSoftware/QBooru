@@ -1,6 +1,6 @@
 #include "fonctions_json.h"
 
-Json::Value saveAndLoad(Json::Value root, char* file)
+Json::Value saveAndLoad(Json::Value root, const char* file)
 {
     /*
      * Saves the specified Json::Value to a file.
@@ -11,7 +11,7 @@ Json::Value saveAndLoad(Json::Value root, char* file)
     return root;
 }
 
-Json::Value loadJSONFile(char* filePath)
+Json::Value loadJSONFile(const char* filePath)
 {   
     Json::Value root; // will contains the root value after parsing
     Json::Reader reader;
@@ -30,7 +30,7 @@ Json::Value loadJSONFile(char* filePath)
     return root;
 }
 
-void saveJSONFile(Json::Value root,char* filePath)
+void saveJSONFile(Json::Value root, const char* filePath)
 {
     Json::StyledWriter writer;
     std::ofstream mFile;

@@ -185,7 +185,7 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream)
 }
 
 /*Read image with cUrl*/
-int cachingFile(char *url, char outfilename[4096], bool output, bool check_file_presence)
+int cachingFile(const char *url, const char *outfilename, bool output, bool check_file_presence)
 {
     CURL *curl;
     FILE *fp;
@@ -200,7 +200,7 @@ int cachingFile(char *url, char outfilename[4096], bool output, bool check_file_
     {
         if(output)
         {
-            outputInfo(L_DEBUG,std::string(std::string("Caching : ")+std::string(url)));
+            outputInfo(L_DEBUG,std::string(std::string("Caching : ")+ std::string(url) + std::string(" to ") + std::string(outfilename)));
         }
 
         curl = curl_easy_init();
@@ -249,7 +249,6 @@ char *getFileExtension(char *filename)
 
     return formatChar;
 }
-
 
 bool fexists(const char *filename)
 {

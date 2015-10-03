@@ -34,7 +34,7 @@ void BooruImage::setBooru(BooruSite* booru)
 
 void BooruImage::loadData(int picture_index)
 {
-    Json::Value root = loadJSONFile(stringToCString(booru->getSearchFilePath().c_str())); // will contains the root value after parsing
+    Json::Value root = loadJSONFile(booru->getSearchFilePath().c_str()); // will contains the root value after parsing
 
     std::string image;
     std::string directory;
@@ -145,17 +145,17 @@ void BooruImage::loadPaths()
 
 void BooruImage::download_thumb()
 {
-    cachingFile(stringToCString(preview_url),stringToCString(thumb_path),false,true);
+    cachingFile(preview_url.c_str(),thumb_path.c_str(),false,true);
 }
 
 void BooruImage::download_medium()
 {
-    cachingFile(stringToCString(sample_url),stringToCString(medium_path),true,false);
+    cachingFile(sample_url.c_str(),medium_path.c_str(),false,false);
 }
 
 void BooruImage::download_full()
 {
-    cachingFile(stringToCString(full_url),stringToCString(full_path),true,false);
+    cachingFile(full_url.c_str(),full_path.c_str(),false,false);
 }
 
 std::string BooruImage::getThumbPath()

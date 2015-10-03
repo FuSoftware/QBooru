@@ -29,7 +29,7 @@ char *downloadPath();
 
 size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream);
 /*Read image with cUrl*/
-int cachingFile(char *url, char outfilename[4096], bool output, bool check_file_presence);
+int cachingFile(const char *url, const char *outfilename, bool output, bool check_file_presence);
 
 char *getFileExtension(char *filename);
 

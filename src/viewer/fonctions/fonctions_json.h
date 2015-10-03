@@ -8,8 +8,8 @@
 #include "fonctions_all.h"
 #include "../json/json.h"
 
-Json::Value saveAndLoad(Json::Value root, char* file);
-Json::Value loadJSONFile(char* filePath);
-void saveJSONFile(Json::Value root, char* filePath);
+Json::Value saveAndLoad(Json::Value root, const char* file);
+Json::Value loadJSONFile(const char* filePath);
+void saveJSONFile(Json::Value root, const char* filePath);
 
 #endif
