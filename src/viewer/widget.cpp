@@ -55,6 +55,17 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     }
 
     tabWidgetMain->setCurrentIndex(conf_file->getPreferredBooru());
+
+    /*Updates if needed*/
+    if(conf_file->isUpdateAvailable())
+    {
+        int reponse = QMessageBox::question(0, "Update", "A new update is available : " + QString(conf_file->getVersionString(VER_LAST).c_str()) + ". Do you want to update ?", QMessageBox ::Yes | QMessageBox::No);
+
+        if (reponse == QMessageBox::Yes)
+        {
+            tabWidgetMain->setCurrentIndex(tabWidgetMain->indexOf(optionTab));
+        }
+    }
 }
 
 Widget::~Widget()
