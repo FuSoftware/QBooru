@@ -27,6 +27,7 @@ public:
     void loadBooruSites();
     void resetBooruSites();
 
+    void checkLastTagRefresh();
     void checkPreferredRating();
     void checkPreferredBooru();
     void checkLoadOnStartup();
@@ -36,6 +37,7 @@ public:
     void checkBoorusIntegrity();
     void ordonnerBoorus();
 
+    void setLastTagRefresh(int last_tag_refresh);
     void setDownloadPath(std::string downloadPath);
     void setBoorus(std::vector<BooruSite*> boorus);
     void setBooru(BooruSite *booru, int i);
@@ -51,6 +53,8 @@ public:
 
     void getVersion(char* versionChar, int versionInt[4]);
 
+    bool isUpdateAvailable();
+    int getLastTagRefresh();
     std::string getVersionString(int version_type);
     bool getUpdateState();
     std::vector<BooruSite*> getBoorus();

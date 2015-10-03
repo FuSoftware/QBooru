@@ -18,7 +18,7 @@ ConfigFile::~ConfigFile()
 void ConfigFile::loadFromPath(std::string path, bool loadOnly)
 {
     file_path = path;
-    root = loadJSONFile(strdup(path.c_str()));
+    root = loadJSONFile(path.c_str());
 
     checkFile();
 
@@ -68,7 +68,7 @@ void ConfigFile::saveFile()
     newRoot["versions"]["viewer"]["last"] = version_viewer_last_str;
 
     outputInfo(L_DEBUG,std::string("Saving File"));
-    saveJSONFile(newRoot,strdup(file_path.c_str()));
+    saveJSONFile(newRoot,file_path.c_str());
 }
 
 void ConfigFile::loadSoftwareVersion()
@@ -116,16 +116,7 @@ void ConfigFile::checkSoftwareVersions()
 
     if(update_needed)
     {
-        /*Updates if needed*/
-        int reponse = QMessageBox::question(0, "Update", "A new update is available : " + QString(root["versions"]["viewer"]["last"].asCString()) + ". Do you want to update ?", QMessageBox ::Yes | QMessageBox::No);
-
-        if (reponse == QMessageBox::Yes)
-        {
-
-        }
-        else if (reponse == QMessageBox::No)
-        {
-        }
+        outputInfo(L_INFO,std::string("An update is available"));
     }
     else
     {
@@ -159,6 +150,8 @@ void ConfigFile::checkFile()
 
 
     outputInfo(L_DEBUG,std::string("Checking Config File"));
+
+    checkLastTagRefresh();
     checkPreferredRating();
     checkWindowSize();
     checkPictureGrid();
@@ -166,7 +159,25 @@ void ConfigFile::checkFile()
     checkLoadOnStartup();
 
     this->config_file_version = LAST_CONF_FILE_VERSION;
-    //this->saveFile();
+}
+
+void ConfigFile::checkLastTagRefresh()
+{
+    if(root["settings"]["last_tag_refresh"].isInt())
+    {
+        if(root["settings"]["last_tag_refresh"].asInt() >= 4)
+        {
+            this->last_tag_refresh = 0;
+        }
+        else
+        {
+            this->last_tag_refresh = root["settings"]["last_tag_refresh"].asInt();
+        }
+    }
+    else
+    {
+        this->last_tag_refresh = 0;
+    }
 }
 
 void ConfigFile::checkPreferredRating()
@@ -395,6 +406,15 @@ void ConfigFile::resetBooruSites()
 }
 
 /*Getters*/
+bool ConfigFile::isUpdateAvailable()
+{
+    return this->update_needed;
+}
+
+int ConfigFile::getLastTagRefresh()
+{
+    return last_tag_refresh;
+}
 
 void ConfigFile::getVersion(char* versionChar, int versionInt[4])
 {
@@ -493,6 +513,10 @@ std::string ConfigFile::getDownloadPath()
     return this->default_download_path;
 }
 
+void ConfigFile::setLastTagRefresh(int last_tag_refresh)
+{
+    this->last_tag_refresh = last_tag_refresh;
+}
 void ConfigFile::setDownloadPath(std::string downloadPath)
 {
     this->default_download_path = downloadPath;
