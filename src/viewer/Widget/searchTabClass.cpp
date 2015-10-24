@@ -55,6 +55,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
                 if(booru->isTagListLoaded())
                 {
                     outputInfo(L_DEBUG,"Loading taglist for " + booru->getName());
+                    outputInfo(L_DEBUG,"Longest word is " + booru->getTagList()->getTag(booru->getTagList()->getMaxTagLengthIndex())->getName() + " with " + intToString(booru->getTagList()->getMaxTagLength()) +  " char");
                     QStringList wordList;
                     for(int i=0;i<booru->getTagList()->size();i++)
                     {
