@@ -187,6 +187,11 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream)
 /*Read image with cUrl*/
 int cachingFile(const char *url, const char *outfilename, bool output, bool check_file_presence)
 {
+    cachingFile(url,outfilename,"",output, check_file_presence);
+}
+
+int cachingFile(const char *url, const char *outfilename, const char* referer_url, bool output, bool check_file_presence)
+{
     CURL *curl;
     FILE *fp;
     CURLcode res;
@@ -216,6 +221,18 @@ int cachingFile(const char *url, const char *outfilename, bool output, bool chec
             curl_easy_setopt(curl, CURLOPT_TIMEOUT, 30);
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, buf);
+
+            curl_easy_setopt(curl, CURLOPT_AUTOREFERER, 1L);
+
+            if(referer_url != '\0')
+            {
+                //std::string user_pwd = "Elaanel:10judge02";
+                //curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC ) ;
+                //curl_easy_setopt(curl, CURLOPT_USERPWD, user_pwd.c_str());
+                curl_easy_setopt(curl, CURLOPT_REFERER, referer_url);
+                outputInfo(L_DEBUG,std::string("Referer : ") + std::string(referer_url));
+            }
+
             res = curl_easy_perform(curl);
             curl_easy_cleanup(curl);
             fclose(fp);

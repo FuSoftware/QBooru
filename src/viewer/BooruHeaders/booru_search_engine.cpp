@@ -71,7 +71,8 @@ void BooruSearchEngine::generateUrlExtension()
 void BooruSearchEngine::search()
 {
     search_url = booru->getSearchUrl() + search_extension;
-    cachingFile(search_url.c_str(), booru->getSearchFilePath().c_str(),false,false);
+    //std::string referer = booru->getShowIndexUrl() + intToString(1);
+    cachingFile(search_url.c_str(), booru->getSearchFilePath().c_str(), booru->getBaseUrl().c_str(),false,false);
 }
 
 void BooruSearchEngine::search(std::string tags)
