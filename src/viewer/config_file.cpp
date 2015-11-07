@@ -85,6 +85,8 @@ void ConfigFile::checkSoftwareVersions()
 
     int errorbuf = cachingFile(LAST_VERSION_FILE_URL, LAST_VERSION_FILE, false, false);
 
+    Json::Value rootVersions = loadJSONFile(LAST_VERSION_FILE);
+
     if(errorbuf != 0)
     {
         std::stringstream ss;
@@ -93,8 +95,6 @@ void ConfigFile::checkSoftwareVersions()
         outputInfo(L_ERROR,error);
         throw std::runtime_error(error);
     }
-
-    Json::Value rootVersions = loadJSONFile(LAST_VERSION_FILE);
 
     outputInfo(L_INFO,std::string("Last versions cached"));
 
