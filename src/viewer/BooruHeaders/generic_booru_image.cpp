@@ -145,17 +145,17 @@ void BooruImage::loadPaths()
 
 void BooruImage::download_thumb()
 {
-    cachingFile(preview_url.c_str(),thumb_path.c_str(),false,true);
+    downloadFile(preview_url.c_str(),thumb_path.c_str(),false,false,false);
 }
 
 void BooruImage::download_medium()
 {
-    cachingFile(sample_url.c_str(),medium_path.c_str(),false,false);
+    downloadFile(sample_url.c_str(),medium_path.c_str(),true,false,false);
 }
 
 void BooruImage::download_full()
 {
-    cachingFile(full_url.c_str(),full_path.c_str(),false,false);
+    downloadFile(full_url.c_str(),full_path.c_str(),true,false,false);
 }
 
 std::string BooruImage::getThumbPath()
