@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "../constantes.h"
+#include "../Workers/file_downloader.h"
+#include "../Workers/qnamredirect.h"
 #include "fonctions.h"
 
 #include <QString>
@@ -17,10 +19,12 @@
 void checkFolder(std::string path);
 void runUpdaterFunction();
 
-void criticalCURLError(QWidget *parent, int error);
-void criticalProgramError(QWidget *parent, int error);
 void clearLayout(QLayout *layout);
 void clearLayoutSecond(QLayout *layout);
 QString readChangelog();
+
+int downloadFile(const char* url, const char* file, bool override = true, bool output = false, bool async = false );
+
+QUrl findRedirection(QUrl url);
 
 #endif

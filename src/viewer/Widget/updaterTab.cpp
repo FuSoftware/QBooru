@@ -74,7 +74,7 @@ void UpdaterTab::refreshInterface()
 
 void UpdaterTab::updateSoftware()
 {
-    cachingFile(LAST_EXECUTABLE_FILE_URL,VIEWER_MAIN_EXECUTABLE,true,false);
+    downloadFile(LAST_EXECUTABLE_FILE_URL,VIEWER_MAIN_EXECUTABLE);
     refreshInterface();  
     emit rebootApp();
 }

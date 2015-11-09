@@ -1,12 +1,16 @@
 #include "config_file.h"
 
-ConfigFile::ConfigFile(bool loadOnly)
-{
-    this->loadFromPath(CONF_FILE, loadOnly);
+ConfigFile::ConfigFile(bool loadOnly) : ConfigFile(CONF_FILE, loadOnly)
+{  
 }
 
 ConfigFile::ConfigFile(std::string path, bool loadOnly)
 {
+    if(!fexists(path.c_str()))
+    {
+        downloadFile(CONF_FILE_URL, path.c_str(),false,true);
+    }
+
     this->loadFromPath(path, loadOnly);
 }
 
@@ -17,7 +21,7 @@ ConfigFile::~ConfigFile()
 
 void ConfigFile::loadFromPath(std::string path, bool loadOnly)
 {
-    file_path = path;
+    this->file_path = path;
     root = loadJSONFile(path.c_str());
 
     checkFile();
@@ -41,7 +45,7 @@ void ConfigFile::saveFile()
 
     int i=0;
 
-    outputInfo(L_DEBUG,std::string("Saving Boorus"));
+    outputInfo(L_DEBUG,std::string("Saving ") + intToString(boorus.size()) + std::string(" Boorus"));
     for(i=0;i<boorus.size();i++)
     {
         newRoot = boorus.at(i)->saveBooruSite(newRoot);
@@ -83,7 +87,7 @@ void ConfigFile::checkSoftwareVersions()
 
     root["versions"]["viewer"]["local"] = APP_VERSION;
 
-    int errorbuf = cachingFile(LAST_VERSION_FILE_URL, LAST_VERSION_FILE, false, false);
+    int errorbuf = downloadFile(LAST_VERSION_FILE_URL,LAST_VERSION_FILE,true,false,false);
 
     if(errorbuf != 0)
     {
@@ -96,7 +100,7 @@ void ConfigFile::checkSoftwareVersions()
 
     Json::Value rootVersions = loadJSONFile(LAST_VERSION_FILE);
 
-    outputInfo(L_INFO,std::string("Last versions cached"));
+    outputInfo(L_DEBUG,std::string("Last versions cached"));
 
     root["versions"]["viewer"]["last"] = rootVersions["viewer"].asCString();
 

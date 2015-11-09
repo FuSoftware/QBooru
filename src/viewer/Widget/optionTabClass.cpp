@@ -11,6 +11,8 @@
 
 OptionTab::OptionTab(Widget *parent) : QWidget(parent)
 {
+    downloadFile(BOORU_LIST_URL, BOORU_LIST);
+
     conf_file = parent->getConfigFile();
 
     for(int i=0;i<LAYOUT_NUMBER_OPTIONS;i++)
@@ -243,8 +245,7 @@ void OptionTab::refreshTagLists()
 
     for(i=0;i<conf_file->getBooruNumber();i++)
     {
-        cachingFile(conf_file->getBooru(i)->getTagUrl().c_str(), conf_file->getBooru(i)->getTagFilePath().c_str(),true, false);
-        //outputInfo(L_DEBUG, "Saving " + conf_file->getBooru(i)->getTagUrl() + " to " + conf_file->getBooru(i)->getTagFilePath());
+        downloadFile(conf_file->getBooru(i)->getTagUrl().c_str(), conf_file->getBooru(i)->getTagFilePath().c_str());
     }
 
     refreshTagTime();

@@ -23,6 +23,6 @@ CachingWorker::~CachingWorker()
 // --- PROCESS ---
 void CachingWorker::process()
 {
-    connection_state = cachingFile(file_url,file_name,output_text, true);
+    downloadFile(file_url,file_name,false,output_text,false);
     emit finished();
 }
