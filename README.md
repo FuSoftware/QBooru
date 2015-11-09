@@ -1,7 +1,9 @@
 # QBooru
 
 ##Important notice
-Since 1.12, QBooru is statically builded. Most DLLs aren't needed anymore, since they're now included in the .exe. This should avoid issues for the future updates, since the IDE's dlls aren't dynamic anymore.
+Since 1.13, all DLL dependencies are deleted. You should only need to use QBooru.exe
+Gelbooru support is stopped until they give a new way to use the API. I don't want to include my password hash in to the app.
+I may add a way to specify your Gelbooru account in the app, but for now, the support is dropped.
 
 ##Summit
 QBooru is a lightweight Windows and Linux client that allows users to see pictures from most booru sites, and download them, for example :
@@ -36,5 +38,3 @@ Boorus can be added, edited, and deleted through the Booru tab in the software, 
 
 ##Credits
 cdunn2001 : https://github.com/open-source-parsers/jsoncpp for making the JSON parser JsonCPP
-
-leethomason : https://github.com/leethomason/tinyxml2 for making the XML parser TinyXML2

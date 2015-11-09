@@ -8,13 +8,13 @@ QT       += core gui network concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-QMAKE_CXXFLAGS += -Wno-write-strings
+QMAKE_CXXFLAGS += -Wno-write-strings -std=c++11
 
 TARGET = QBooru
 TEMPLATE = app
 RC_FILE = myapp.rc
 
-VERSION = 1.11.0.0
+VERSION = 1.12.5.0
 QMAKE_TARGET_COMPANY = Florent Uguet
 QMAKE_TARGET_PRODUCT = QBooru
 
@@ -48,7 +48,9 @@ SOURCES += main.cpp\
     config_file.cpp \
     Widget/updaterTab.cpp \
     BooruHeaders/boorutag.cpp \
-    BooruHeaders/boorutaglist.cpp
+    BooruHeaders/boorutaglist.cpp \
+    Workers/file_downloader.cpp \
+    Workers/qnamredirect.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -86,18 +88,11 @@ HEADERS  += widget.h \
     config_file.h \
     Widget/updaterTab.h \
     BooruHeaders/boorutag.h \
-    BooruHeaders/boorutaglist.h
+    BooruHeaders/boorutaglist.h \
+    Workers/file_downloader.h \
+    Workers/qnamredirect.h
 
 FORMS    +=
-
-win32:{
-LIBS += "F:/Qt/Qt5.5.0/5.5/mingw492_32/lib/libcurl.a" "F:/Qt/Qt5.5.0/5.5/mingw492_32/lib/libcurldll.a"
-}
-
-linux:{
-
-LIBS += -L/lib -lcurl
-}
 
 OTHER_FILES += \
     default.png \
