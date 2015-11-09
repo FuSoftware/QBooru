@@ -7,6 +7,11 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QFile>
+#include <QEventLoop>
+
+#include "qnamredirect.h"
+
+#include <QDebug>
 
 class FileDownloader : public QObject
 {
@@ -17,14 +22,18 @@ public:
     void download(const char *url, const char *filename);
     QByteArray downloadedData() const;
 
+    QUrl findRedirection(QUrl url);
+
 signals:
     void downloaded();
+    void saved();
 
 public slots:
     void fileDownloaded(QNetworkReply* pReply);
     void saveData();
 
 private:
+    QEventLoop *loop;
     QString m_Url;
     QString m_Filename;
     QNetworkAccessManager m_WebCtrl;
