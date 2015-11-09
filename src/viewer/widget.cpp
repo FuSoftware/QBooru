@@ -1,8 +1,9 @@
 #include "widget.h"
 
-Widget::Widget(QWidget *parent) : QWidget(parent)
+Widget::Widget(ConfigFile * cfg, QWidget *parent) : QWidget(parent)
 {
-    conf_file = new ConfigFile(true);
+    conf_file = cfg;
+
     int i;
     int booruIndexMax = conf_file->getBooruNumber();
 
@@ -38,7 +39,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     resize(conf_file->getWindowW(), conf_file->getWindowH());
 
-    searchtabs[0]->checkPageButtonStatus();
+    //searchtabs[0]->checkPageButtonStatus();
 
     connect(tabWidgetMain,SIGNAL(currentChanged(int)), this, SLOT(on_tab_changed(int)));
 
