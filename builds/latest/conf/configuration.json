@@ -12,12 +12,12 @@
          "siteTypeInt" : 1,
          "site_type_string" : "gelbooru",
          "tag_file_path" : "conf/tagsGelbooru.json",
-         "tag_url" : "/index.php?page=dapi&s=tag&q=index&order=name&limit=0"
+         "tag_url" : "http://gelbooru.com/index.php?page=dapi&s=tag&q=index&order=name&limit=0"
       },
       {
          "base_url" : "http://yande.re",
          "cache_path" : "cache/Yandere/",
-         "download_path" : "downloads/Yandere",
+         "download_path" : "downloads/Yandere/",
          "index" : 1,
          "name" : "Yandere",
          "search_file_path" : "cache/Yandere/post.json",
@@ -31,7 +31,7 @@
       {
          "base_url" : "http://konachan.com",
          "cache_path" : "cache/Konachan/",
-         "download_path" : "downloads/Konachan",
+         "download_path" : "downloads/Konachan/",
          "index" : 2,
          "name" : "Konachan",
          "search_file_path" : "cache/Konachan/post.json",
@@ -54,7 +54,7 @@
          "siteTypeInt" : 1,
          "site_type_string" : "gelbooru",
          "tag_file_path" : "conf/tagsRule34.json",
-         "tag_url" : "/index.php?page=dapi&s=tag&q=index&order=name&limit=0"
+         "tag_url" : "http://rule34.xxx/index.php?page=dapi&s=tag&q=index&order=name&limit=0&json=1"
       },
       {
          "base_url" : "http://danbooru.donmai.us",
@@ -68,7 +68,7 @@
          "siteTypeInt" : 3,
          "site_type_string" : "danbooru",
          "tag_file_path" : "conf/tagsDanbooru.json",
-         "tag_url" : "http://danbooru.donmai.us/tag.json?limit=0"
+         "tag_url" : "http://danbooru.donmai.us/tag.json"
       }
    ],
    "paths" : {
@@ -83,23 +83,15 @@
       "picture_columns" : 5,
       "picture_number" : 15,
       "picture_rows" : 3,
-      "preferred_booru" : 0,
+      "preferred_booru" : 57542856,
       "preferred_rating" : 0,
       "window_h" : 768,
       "window_w" : 1024
    },
    "versions" : {
-      "qt" : {
-         "last" : 55,
-         "local" : 55
-      },
-      "updater" : {
-         "last" : "1.1.2.0",
-         "local" : "1.1.2.0"
-      },
       "viewer" : {
-         "last" : "1.11.2.0",
-         "local" : "1.11.3.0"
+         "last" : "1.12.1.0",
+         "local" : "1.12.3.0"
       }
    }
 }
