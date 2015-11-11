@@ -5,7 +5,7 @@ Since 1.13, all DLL dependencies are deleted. You should only need to use QBooru
 Gelbooru support is stopped until they give a new way to use the API. I don't want to include my password hash in to the app.
 I may add a way to specify your Gelbooru account in the app, but for now, the support is dropped.
 
-##Summit
+##Summary
 QBooru is a lightweight Windows and Linux client that allows users to see pictures from most booru sites, and download them, for example :
 <ul>
   <li>Gelbooru</li>
