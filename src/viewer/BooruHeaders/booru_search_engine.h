@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "../fonctions_all.h"
+#include "../Workers/cookiejar.h"
 
 class BooruSearchEngine
 {
@@ -18,9 +19,11 @@ public:
     void search(std::string tags);
     void search(int page);
     void search(std::string tags, int page);
+    void search(std::string tags, int page, CookieJar* cookie);
 
     void setRating(int rating_id);
 
+    void setCookie(CookieJar *cookie);
     void setBooru(BooruSite* booru);
     void setTags(std::string tags);
     void setImageCount(int count);
@@ -28,7 +31,9 @@ public:
     void setApiKey(std::string key);
 
 private:
+    bool has_cookie;
     BooruSite* booru;
+    CookieJar* cookie;
 
     int image_count;
 

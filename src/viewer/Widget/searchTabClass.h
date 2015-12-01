@@ -11,6 +11,7 @@
 #include "../classBooruSite.h"
 #include "../Workers/caching_thread.h"
 #include "../Workers/image_loading_thread.h"
+#include "../Workers/cookiejar.h"
 
 class Widget;
 class ImageTab;
@@ -71,6 +72,7 @@ protected:
 signals:
 
 public slots:
+    void login();
     void searchActionToggled(int sender);
     void setViewer(int sender);
     void newSearch();
@@ -79,6 +81,7 @@ public slots:
 
 private:
     ConfigFile *conf_file;
+    CookieJar* cookie;
 
     int loaded_pictures;
     int recherche;
@@ -101,8 +104,7 @@ private:
         QHBoxLayout *layoutTags;
 
             QPushButton *searchButton;
-
-
+            QPushButton *loginButton;
 
             QHBoxLayout *layoutSearchRating;
             QComboBox *searchRating;

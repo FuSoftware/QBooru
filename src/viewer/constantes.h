@@ -26,10 +26,8 @@
 
 #define DEBUG 0
 
-#define CURL_STATICLIB
-
 #define APP_NAME "QBooru Viewer"
-#define APP_VERSION "1.13.0.0"
+#define APP_VERSION "1.14.0.0"
 #define TAG_NUMBER    512 //Max number of tags to show in the Viewer
 #define MAX_BOORU_NUMBER 64 //Max number of Boorus to load in the main widget
 #define MAX_PICTURE_NUMBER 64 //Max number of pictures/page

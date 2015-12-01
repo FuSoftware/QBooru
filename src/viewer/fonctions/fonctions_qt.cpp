@@ -1,5 +1,7 @@
 #include "fonctions_qt.h"
 
+#include "../Workers/cookiejar.h"
+
 void checkFolder(std::string path)
 {
     QDir dirCache1(path.c_str());
@@ -111,11 +113,10 @@ QString readChangelog()
 
     return changelog;
 }
-
-int downloadFile(const char* url, const char* file, bool override, bool output , bool async)
+int downloadFile(const char *url, const char *file, CookieJar *cookies ,bool override, bool output, bool async)
 {
     std::string output_s;
-    QString referer = "Dummy Ref";
+    QString referer = "Dummy";
 
     if(output)
     {
@@ -136,14 +137,21 @@ int downloadFile(const char* url, const char* file, bool override, bool output ,
 
             QUrl file_url = findRedirection(QUrl(QString(url)));
 
+
             //Synchronous download
             QNetworkAccessManager *manager = new QNetworkAccessManager;
             QNetworkRequest request;
 
-
             request.setUrl(file_url.toString());
             request.setRawHeader("User-Agent", "QBooru");
             //request.setRawHeader("Referer", referer);
+
+            //Cookies
+            if(!cookies->isEmpty())
+            {
+                qDebug() << "Adding cookies" << cookies->getAllCookies();
+                manager->setCookieJar(cookies);
+            }
 
             QNetworkReply* m_pReply = manager->get(request);
 
@@ -161,7 +169,8 @@ int downloadFile(const char* url, const char* file, bool override, bool output ,
                 return m_pReply->error();
             }
 
-            //qDebug() << "Saving" << QString(file);
+            //qDebug() << m_pReply->readAll();
+            qDebug() << "getAllCookies: " << cookies->getAllCookies();
 
             QString file_s = QString(file);
 
@@ -180,6 +189,54 @@ int downloadFile(const char* url, const char* file, bool override, bool output ,
 
         return 0;
     }
+}
+
+int downloadFile(const char* url, const char* file, bool override,  bool output , bool async)
+{
+    CookieJar *cookies = new CookieJar(0);
+    downloadFile(url,file,cookies,override,async);
+}
+
+QList<QNetworkCookie> getLoginCookie(const char* url, QString user, QString pass)
+{
+    //Getting redirection
+    QUrlQuery postData;
+    postData.addQueryItem("user", user);
+    postData.addQueryItem("pass", pass);
+    postData.addQueryItem("submit", "Log+in");
+
+    QUrl file_url = QUrl(QString(url));
+
+    //Synchronous download
+    QNetworkAccessManager *manager = new QNetworkAccessManager;
+    QNetworkRequest request;
+
+    request.setUrl(file_url.toString());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    //request.setRawHeader("Referer", referer);
+
+    qDebug() << "Querying" << file_url.toString() << "with POST" << postData.toString(QUrl::FullyEncoded).toUtf8();
+
+    QNetworkReply* m_pReply = manager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
+
+    QEventLoop loop;
+    QObject::connect(m_pReply, SIGNAL(finished()),&loop, SLOT(quit()));
+    loop.exec();
+
+    //qDebug() << "Loop finished";
+    QVariant variantCookies = m_pReply->header(QNetworkRequest::SetCookieHeader);
+    QList<QNetworkCookie> cookies = qvariant_cast<QList<QNetworkCookie> >(variantCookies);
+    qDebug() << "Cookies reply: " << cookies;
+
+    if(m_pReply->error() != QNetworkReply::NoError)
+    {
+        std::string output_s = std::string("Network error while downloading ") + std::string(url);
+        outputInfo(L_ERROR,output_s);
+        outputInfo(L_ERROR,m_pReply->errorString().toStdString());
+        return cookies;
+    }
+
+    return cookies;
 }
 
 QUrl findRedirection(QUrl url)

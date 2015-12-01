@@ -6,6 +6,18 @@
 #include "widget.h"
 #include "booruSettingsTabClass.h"
 
+enum Lines{
+    L_NAME =0,
+    L_URL,
+    L_DOWNLOAD,
+    L_SEARCH,
+    L_SHOW,
+    L_TAGS,
+    L_SIZE
+};
+
+const QString label_strings[L_SIZE] = {"Name","Main URL","Download Path","Seach URL", "Show URL", "Tags URL"};
+
 class BooruSettingsTab;
 
 class BooruSettings : public QWidget
@@ -15,6 +27,8 @@ class BooruSettings : public QWidget
 public:
     BooruSettings(BooruSettingsTab *parent = 0);
     ~BooruSettings();
+
+    QList<QWidget*> generateInputs();
 
     /*Objets publics*/
     QPushButton *saveButton;
@@ -30,37 +44,24 @@ private:
     QSpacerItem *spacer;
     BooruSettingsTab *parentWidget;
 
+    QList<QLineEdit*> lineEdits;
+
     QVBoxLayout *layoutMain;
 
     QGroupBox *groupBoxMainSettings;
-    QGridLayout *layoutGroupBoxMainSettings;
+    QVBoxLayout *layoutGroupBoxMainSettings;
 
         QCheckBox *checkBoxPreset;
         QComboBox *comboBoxPreset;
-        QLabel *labelBooruName;
-        QLineEdit *lineEditBooruName;
-        QLabel *labelBooruURL;
-        QLineEdit *lineEditBooruURL;
         QLabel *labelBooruType;
         QComboBox *comboBoxBooruType;
 
     QGroupBox *groupBoxOptionalSettings;
-    QGridLayout *layoutGroupBoxOptionalSettings;
+    QVBoxLayout *layoutGroupBoxOptionalSettings;
 
-        QLabel *labelBooruDownloadPath;
-        QLineEdit *lineEditBooruDownloadPath;
 
     QGroupBox *groupBoxAdvancedSettings;
-    QGridLayout *layoutGroupBoxAdvancedSettings;
-
-        QLabel *labelBooruSearchUrl;
-        QLineEdit *lineEditBooruSearchUrl;
-
-        QLabel *labelBooruShowIndexUrl;
-        QLineEdit *lineEditBooruShowIndexUrl;
-
-        QLabel *labelBooruTagsUrl;
-        QLineEdit *lineEditBooruTagsUrl;
+    QVBoxLayout *layoutGroupBoxAdvancedSettings;
 
 };
 

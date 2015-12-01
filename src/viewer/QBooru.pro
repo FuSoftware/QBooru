@@ -50,7 +50,8 @@ SOURCES += main.cpp\
     BooruHeaders/boorutag.cpp \
     BooruHeaders/boorutaglist.cpp \
     Workers/file_downloader.cpp \
-    Workers/qnamredirect.cpp
+    Workers/qnamredirect.cpp \
+    Workers/cookiejar.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -90,7 +91,8 @@ HEADERS  += widget.h \
     BooruHeaders/boorutag.h \
     BooruHeaders/boorutaglist.h \
     Workers/file_downloader.h \
-    Workers/qnamredirect.h
+    Workers/qnamredirect.h \
+    Workers/cookiejar.h
 
 FORMS    +=
 

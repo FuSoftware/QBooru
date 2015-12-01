@@ -2,16 +2,18 @@
 
 BooruSearchEngine::BooruSearchEngine()
 {
-
+    has_cookie = false;
 }
 
 BooruSearchEngine::BooruSearchEngine(BooruSite* booru)
 {
+    has_cookie = false;
     setBooru(booru);
 }
 
 BooruSearchEngine::BooruSearchEngine(BooruSite* booru, std::string tags, int page)
 {
+    has_cookie = false;
     setBooru(booru);
     setTags(tags);
     setPage(page);
@@ -71,7 +73,17 @@ void BooruSearchEngine::generateUrlExtension()
 void BooruSearchEngine::search()
 {
     search_url = booru->getSearchUrl() + search_extension;
-    downloadFile(search_url.c_str(), booru->getSearchFilePath().c_str(),true,false,false);
+
+    if(!cookie->isEmpty())
+    {
+        qDebug() << "Querying search file with cookies";
+        downloadFile(search_url.c_str(), booru->getSearchFilePath().c_str(),cookie,true,false,false);
+    }
+    else
+    {
+        downloadFile(search_url.c_str(), booru->getSearchFilePath().c_str(),true,false,false);
+    }
+
 }
 
 void BooruSearchEngine::search(std::string tags)
@@ -94,6 +106,21 @@ void BooruSearchEngine::search(std::string tags, int page)
     setPage(page);
     generateUrlExtension();
     search();
+}
+
+void BooruSearchEngine::search(std::string tags, int page, CookieJar* cookie)
+{
+    setCookie(cookie);
+    setTags(tags);
+    setPage(page);
+    generateUrlExtension();
+    search();
+}
+
+void BooruSearchEngine::setCookie(CookieJar *cookie)
+{
+    this->cookie = cookie;
+    has_cookie = true;
 }
 
 void BooruSearchEngine::setRating(int rating_id)

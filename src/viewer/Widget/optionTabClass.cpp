@@ -164,6 +164,8 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
 
     searchRating->setCurrentIndex(conf_file->getPreferredRating());
     defaultBooru->setCurrentIndex(conf_file->getPreferredBooru());
+
+
 }
 
 OptionTab::~OptionTab()

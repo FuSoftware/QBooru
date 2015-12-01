@@ -17,16 +17,20 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
     QString buffer;
     int i=0;
 
+    QList<QWidget*> list = generateInputs();
+
     groupBoxMainSettings = new QGroupBox("Main Settings", this);
-    layoutGroupBoxMainSettings = new QGridLayout;
+    layoutGroupBoxMainSettings = new QVBoxLayout;
+
+        layoutGroupBoxMainSettings->addWidget(list.at(L_NAME));
 
         checkBoxPreset = new QCheckBox("Presets",this);
         checkBoxPreset->setChecked(false);
 
         comboBoxPreset = new QComboBox(this);
         comboBoxPreset->setDisabled(true);
-        layoutGroupBoxMainSettings->addWidget(checkBoxPreset,0,2);
-        layoutGroupBoxMainSettings->addWidget(comboBoxPreset,0,3);
+        layoutGroupBoxMainSettings->addWidget(checkBoxPreset);
+        layoutGroupBoxMainSettings->addWidget(comboBoxPreset);
 
         while(i < conf_file->getBoorus().size())
         {
@@ -36,55 +40,37 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
             i++;
         }
 
-        labelBooruName = new QLabel("Booru Name",this);
-        lineEditBooruName = new QLineEdit(this);
-        layoutGroupBoxMainSettings->addWidget(labelBooruName,0,0);
-        layoutGroupBoxMainSettings->addWidget(lineEditBooruName,0,1);
+        //qDebug() << "Generated the Options tab" ;
+        layoutGroupBoxMainSettings->addWidget(list.at(L_URL));
+        //qDebug() << "Generated the Options tab" ;
 
-        labelBooruURL = new QLabel("Booru Main URL",this);
-        lineEditBooruURL = new QLineEdit(this);
-        layoutGroupBoxMainSettings->addWidget(labelBooruURL,1,0);
-        layoutGroupBoxMainSettings->addWidget(lineEditBooruURL,1,1);
-
+        QHBoxLayout * lay = new QHBoxLayout;
         labelBooruType = new QLabel("Booru Type",this);
         comboBoxBooruType = new QComboBox(this);
         comboBoxBooruType->addItem("Derpibooru (not recommended, is being recoded)");
         comboBoxBooruType->addItem("Gelbooru");
         comboBoxBooruType->addItem("Moebooru");
         comboBoxBooruType->addItem("Danbooru");
-        layoutGroupBoxMainSettings->addWidget(labelBooruType,2,0);
-        layoutGroupBoxMainSettings->addWidget(comboBoxBooruType,2,1);
+        lay->addWidget(labelBooruType);
+        lay->addWidget(comboBoxBooruType);
+        layoutGroupBoxMainSettings->addLayout(lay);
         comboBoxBooruType->setCurrentIndex(GELBOORU_TYPE);
 
     groupBoxOptionalSettings = new QGroupBox("Optional Settings", this);
     groupBoxOptionalSettings->setCheckable(true);
     groupBoxOptionalSettings->setChecked(false);
-    layoutGroupBoxOptionalSettings = new QGridLayout;
+    layoutGroupBoxOptionalSettings = new QVBoxLayout;
 
-        labelBooruDownloadPath = new QLabel("Download Path",this);
-        lineEditBooruDownloadPath = new QLineEdit(this);
-        layoutGroupBoxOptionalSettings->addWidget(labelBooruDownloadPath,0,0);
-        layoutGroupBoxOptionalSettings->addWidget(lineEditBooruDownloadPath,0,1);
+        layoutGroupBoxMainSettings->addWidget(list.at(L_DOWNLOAD));
 
     groupBoxAdvancedSettings = new QGroupBox("Optional Settings", this);
     groupBoxAdvancedSettings->setCheckable(true);
     groupBoxAdvancedSettings->setChecked(false);
-    layoutGroupBoxAdvancedSettings = new QGridLayout;
+    layoutGroupBoxAdvancedSettings = new QVBoxLayout;
 
-        labelBooruSearchUrl = new QLabel("Search URL",this);
-        lineEditBooruSearchUrl = new QLineEdit(this);
-        layoutGroupBoxAdvancedSettings->addWidget(labelBooruSearchUrl,0,0);
-        layoutGroupBoxAdvancedSettings->addWidget(lineEditBooruSearchUrl,0,1);
-
-        labelBooruShowIndexUrl = new QLabel("Posts' base URL",this);
-        lineEditBooruShowIndexUrl = new QLineEdit(this);
-        layoutGroupBoxAdvancedSettings->addWidget(labelBooruShowIndexUrl,1,0);
-        layoutGroupBoxAdvancedSettings->addWidget(lineEditBooruShowIndexUrl,1,1);
-
-        labelBooruTagsUrl = new QLabel("Taglist URL",this);
-        lineEditBooruTagsUrl = new QLineEdit(this);
-        layoutGroupBoxAdvancedSettings->addWidget(labelBooruTagsUrl,2,0);
-        layoutGroupBoxAdvancedSettings->addWidget(lineEditBooruTagsUrl,2,1);
+        layoutGroupBoxMainSettings->addWidget(list.at(L_SEARCH));
+        layoutGroupBoxMainSettings->addWidget(list.at(L_SHOW));
+        layoutGroupBoxMainSettings->addWidget(list.at(L_TAGS));
 
      groupBoxMainSettings->setLayout(layoutGroupBoxMainSettings);
      groupBoxOptionalSettings->setLayout(layoutGroupBoxOptionalSettings);
@@ -110,6 +96,31 @@ BooruSettings::~BooruSettings()
     //clearLayout(layoutMain);
 }
 
+QList<QWidget*> BooruSettings::generateInputs()
+{
+    QList<QWidget*> list;
+    QWidget* widget;
+    QHBoxLayout *layout;
+    QLabel *label;
+    QLineEdit* lineEdit;
+
+    for(int i=0;i<L_SIZE;i++)
+    {
+        widget = new QWidget(this);
+        layout = new QHBoxLayout;
+        label = new QLabel(label_strings[i],this);
+        lineEdit = new QLineEdit(this);
+
+        layout->addWidget(label);
+        layout->addWidget(lineEdit);
+        widget->setLayout(layout);
+        list.push_back(widget);
+        lineEdits.push_back(lineEdit);
+    }
+
+    return list;
+}
+
 void BooruSettings::editBooru()
 {
     /*!
@@ -120,38 +131,38 @@ void BooruSettings::editBooru()
 
     if(!groupBoxAdvancedSettings->isChecked() && !groupBoxOptionalSettings->isChecked())
     {
-        booru = new BooruSite(lineEditBooruName->text().toStdString(),
-                              lineEditBooruURL->text().toStdString(),
+        booru = new BooruSite(lineEdits.at(L_NAME)->text().toStdString(),
+                              lineEdits.at(L_URL)->text().toStdString(),
                               comboBoxBooruType->currentIndex(),
                               index);
     }
     else if(!groupBoxAdvancedSettings->isChecked() && groupBoxOptionalSettings->isChecked())
     {
-        booru = new BooruSite(lineEditBooruName->text().toStdString(),
-                              lineEditBooruURL->text().toStdString(),
-                              lineEditBooruDownloadPath->text().toStdString() ,
+        booru = new BooruSite(lineEdits.at(L_NAME)->text().toStdString(),
+                              lineEdits.at(L_URL)->text().toStdString(),
+                              lineEdits.at(L_DOWNLOAD)->text().toStdString() ,
                               comboBoxBooruType->currentIndex(),
                               index);
     }
     else if(groupBoxAdvancedSettings->isChecked() && !groupBoxOptionalSettings->isChecked())
     {
-        booru = new BooruSite(lineEditBooruName->text().toStdString(),
-                              lineEditBooruURL->text().toStdString(),
-                              lineEditBooruSearchUrl->text().toStdString(),
-                              lineEditBooruTagsUrl->text().toStdString(),
-                              lineEditBooruShowIndexUrl->text().toStdString(),
-                              lineEditBooruDownloadPath->text().toStdString() ,
+        booru = new BooruSite(lineEdits.at(L_NAME)->text().toStdString(),
+                              lineEdits.at(L_URL)->text().toStdString(),
+                              lineEdits.at(L_SEARCH)->text().toStdString(),
+                              lineEdits.at(L_TAGS)->text().toStdString(),
+                              lineEdits.at(L_SHOW)->text().toStdString(),
+                              lineEdits.at(L_DOWNLOAD)->text().toStdString() ,
                               comboBoxBooruType->currentIndex(),
                               index);
     }
     else
     {
-        booru = new BooruSite(lineEditBooruName->text().toStdString(),
-                              lineEditBooruURL->text().toStdString(),
-                              lineEditBooruSearchUrl->text().toStdString(),
-                              lineEditBooruTagsUrl->text().toStdString(),
-                              lineEditBooruShowIndexUrl->text().toStdString(),
-                              std::string(std::string(downloadPath()) + lineEditBooruName->text().toStdString()) ,
+        booru = new BooruSite(lineEdits.at(L_NAME)->text().toStdString(),
+                              lineEdits.at(L_URL)->text().toStdString(),
+                              lineEdits.at(L_SEARCH)->text().toStdString(),
+                              lineEdits.at(L_TAGS)->text().toStdString(),
+                              lineEdits.at(L_SHOW)->text().toStdString(),
+                              std::string(std::string(downloadPath()) + lineEdits.at(L_NAME)->text().toStdString()) ,
                               comboBoxBooruType->currentIndex(),
                               index);
     }
@@ -172,19 +183,19 @@ void BooruSettings::loadBooru(int index)
 
     if(index < conf_file->getBooruNumber())
     {
-        lineEditBooruName->setText(QString(conf_file->getBooru(index)->getName().c_str()));
+        lineEdits.at(L_NAME)->setText(QString(conf_file->getBooru(index)->getName().c_str()));
 
-        lineEditBooruURL->setText(QString(conf_file->getBooru(index)->getBaseUrl().c_str()));
+        lineEdits.at(L_URL)->setText(QString(conf_file->getBooru(index)->getBaseUrl().c_str()));
 
         comboBoxBooruType->setCurrentIndex(conf_file->getBooru(index)->getSiteTypeInt());
 
-        lineEditBooruDownloadPath->setText(QString(conf_file->getBooru(index)->getDownloadPath().c_str()));
+        lineEdits.at(L_DOWNLOAD)->setText(QString(conf_file->getBooru(index)->getDownloadPath().c_str()));
 
-        lineEditBooruSearchUrl->setText(QString(conf_file->getBooru(index)->getSearchUrl().c_str()));
+        lineEdits.at(L_SEARCH)->setText(QString(conf_file->getBooru(index)->getSearchUrl().c_str()));
 
-        lineEditBooruShowIndexUrl->setText(QString(conf_file->getBooru(index)->getShowIndexUrl().c_str()));
+        lineEdits.at(L_SHOW)->setText(QString(conf_file->getBooru(index)->getShowIndexUrl().c_str()));
 
-        lineEditBooruTagsUrl->setText(QString(conf_file->getBooru(index)->getTagUrl().c_str()));
+        lineEdits.at(L_TAGS)->setText(QString(conf_file->getBooru(index)->getTagUrl().c_str()));
     }
 }
 
@@ -197,9 +208,9 @@ void BooruSettings::loadPreset(int index)
      */
     Json::Value root = loadJSONFile(BOORU_LIST);
 
-    lineEditBooruName->setText(QString(root["boorus"][index]["name"].asCString()));
+    lineEdits.at(L_NAME)->setText(QString(root["boorus"][index]["name"].asCString()));
 
-    lineEditBooruURL->setText(QString(root["boorus"][index]["base_url"].asCString()));
+    lineEdits.at(L_URL)->setText(QString(root["boorus"][index]["base_url"].asCString()));
 
     comboBoxBooruType->setCurrentIndex(root["boorus"][index]["siteTypeInt"].asInt());
 }

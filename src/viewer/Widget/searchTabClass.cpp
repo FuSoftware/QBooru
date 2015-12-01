@@ -15,6 +15,9 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
 
     booru = site;
 
+    cookie = new CookieJar(QString(this->booru->getName().c_str()),this);
+    cookie->load();
+
     booru_search_engine.setBooru(booru);
     booru_search_engine.setImageCount(picture_number);
 
@@ -43,7 +46,8 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
         layoutTags = new QHBoxLayout;
 
             /*Searchbar*/
-            searchButton = new QPushButton("Refresh");
+            loginButton = new QPushButton("Login",this);
+            searchButton = new QPushButton("Refresh",this);
             lineEditTags = new QLineEdit;
             lineEditTags->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
             lineEditTags->setMaximumHeight(21);
@@ -110,6 +114,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
 
     /*Search elements*/
     QVBoxLayout *verticalLayoutSearch = new QVBoxLayout;
+    layoutSearchRating->addWidget(loginButton);
     layoutSearchRating->addWidget(searchRating);
     layoutSearchRating->addWidget(searchButton);
     layoutSearchRating->addWidget(lineEditTags);
@@ -152,6 +157,8 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
     connect(pushButtonPageMoins, SIGNAL(clicked()),signalMapper,SLOT(map()));
     connect(pushButtonPagePlus, SIGNAL(clicked()),signalMapper,SLOT(map()));
 
+    connect(loginButton, SIGNAL(clicked()), this , SLOT(login()));
+
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(searchActionToggled(int)));
     connect(buttonMapper, SIGNAL(mapped(int)), this, SLOT(setViewer(int)));
 
@@ -188,6 +195,27 @@ SearchTab::~SearchTab()
     }
     clearLayoutSecond(layoutMain);
     */
+}
+
+void SearchTab::login()
+{
+    /*Login test*/
+
+    QString user = QInputDialog::getText(this, "UserID", "Please input your Username (needed to log in to Gelbooru)", QLineEdit::Normal, QString());
+    QString pass = QInputDialog::getText(this, "Pass", "Please input your Password (needed to log in to Gelbooru)", QLineEdit::Normal, QString());
+
+    QList<QNetworkCookie> cookies = getLoginCookie("http://gelbooru.com/index.php?page=account&s=login&code=00",user,pass);
+
+    cookie->setCookiesFromUrl(cookies,QString(this->booru->getBaseUrl().c_str()));
+
+    if(cookie->isEmpty())
+    {
+        QMessageBox::warning(this,"Warning","Login cookies could not be retrieved. Please check your username/password");
+    }
+    else
+    {
+        qDebug() << "Loaded" << QString(this->booru->getName().c_str()) << "cookie" << cookie->getAllCookies();
+    }
 }
 
 void SearchTab::setLoadingState(int i, bool state)
@@ -250,7 +278,7 @@ void SearchTab::loadSearch(int refreshTags)
 
     /*Tags*/
 
-    booru_search_engine.search(tags.toStdString(),lineEditPageSet->text().toInt());
+    booru_search_engine.search(tags.toStdString(),lineEditPageSet->text().toInt(),this->cookie);
 
     /*Chargement*/
 
