@@ -1,17 +1,17 @@
 #include "config_file.h"
 
-ConfigFile::ConfigFile(bool loadOnly) : ConfigFile(CONF_FILE, loadOnly)
+ConfigFile::ConfigFile() : ConfigFile(CONF_FILE)
 {  
 }
 
-ConfigFile::ConfigFile(std::string path, bool loadOnly)
+ConfigFile::ConfigFile(std::string path)
 {
     if(!fexists(path.c_str()))
     {
         downloadFile(CONF_FILE_URL, path.c_str(),false,true);
     }
 
-    this->loadFromPath(path, loadOnly);
+    loadData(path);
 }
 
 ConfigFile::~ConfigFile()
@@ -19,22 +19,15 @@ ConfigFile::~ConfigFile()
 
 }
 
-void ConfigFile::loadFromPath(std::string path, bool loadOnly)
+void ConfigFile::loadData(std::string path)
 {
     this->file_path = path;
     root = loadJSONFile(path.c_str());
+}
 
+void ConfigFile::process()
+{
     checkFile();
-
-    if(!loadOnly)
-    {
-        checkSoftwareVersions();
-    }
-    else
-    {
-        loadSoftwareVersion();
-    }
-
     loadBooruSites();
     saveFile();
 }
@@ -73,59 +66,6 @@ void ConfigFile::saveFile()
 
     outputInfo(L_DEBUG,std::string("Saving File"));
     saveJSONFile(newRoot,file_path.c_str());
-}
-
-void ConfigFile::loadSoftwareVersion()
-{
-    version_viewer_last_str = root["versions"]["viewer"]["last"].asString();
-    version_viewer_local_str = root["versions"]["viewer"]["local"].asString();
-}
-
-void ConfigFile::checkSoftwareVersions()
-{
-    update_needed = true;
-
-    root["versions"]["viewer"]["local"] = APP_VERSION;
-
-    int errorbuf = downloadFile(LAST_VERSION_FILE_URL,LAST_VERSION_FILE,true,false,false);
-
-    if(errorbuf != 0)
-    {
-        std::stringstream ss;
-        ss << errorbuf;
-        std::string error = std::string("Error ") + ss.str();
-        outputInfo(L_ERROR,error);
-        throw std::runtime_error(error);
-    }
-
-    Json::Value rootVersions = loadJSONFile(LAST_VERSION_FILE);
-
-    outputInfo(L_DEBUG,std::string("Last versions cached"));
-
-    root["versions"]["viewer"]["last"] = rootVersions["viewer"].asCString();
-
-    loadSoftwareVersion();
-
-    /*Checks current and last version*/
-    getVersion(strdup(root["versions"]["viewer"]["local"].asCString()),version_viewer_local);
-    getVersion(strdup(root["versions"]["viewer"]["last"].asCString()),version_viewer_last);
-
-    for(int i=0;i<4;i++)
-    {
-        if(version_viewer_local[i] >= version_viewer_last[i])
-        {
-            update_needed = false;
-        }
-    }
-
-    if(update_needed)
-    {
-        outputInfo(L_INFO,std::string("An update is available"));
-    }
-    else
-    {
-        outputInfo(L_INFO,std::string("You have the latest version"));
-    }
 }
 
 void ConfigFile::checkFile()
@@ -409,59 +349,9 @@ void ConfigFile::resetBooruSites()
     this->booru_number = 4;
 }
 
-/*Getters*/
-bool ConfigFile::isUpdateAvailable()
-{
-    return this->update_needed;
-}
-
 int ConfigFile::getLastTagRefresh()
 {
     return last_tag_refresh;
-}
-
-void ConfigFile::getVersion(char* versionChar, int versionInt[4])
-{
-    unsigned int i = 0;
-    int j = 0;
-    char lettre;
-    std::string mot = "";
-
-    for(i=0;i<strlen(versionChar);i++)
-    {
-        lettre = *(versionChar+i);
-
-        if(lettre == '.')
-        {
-            versionInt[j] = atoi(mot.c_str());
-            j++;
-            mot = "";
-        }
-        else
-        {
-            mot += lettre;
-        }
-    }
-    versionInt[j] = atoi(mot.c_str());
-    j++;
-    mot = "";
-}
-
-std::string ConfigFile::getVersionString(int version_type)
-{
-    if(version_type == VER_LAST)
-    {
-        return this->version_viewer_last_str;
-    }
-    else
-    {
-        return this->version_viewer_local_str;
-    }
-}
-
-bool ConfigFile::getUpdateState()
-{
-    return this->update_needed;
 }
 
 std::vector<BooruSite *> ConfigFile::getBoorus()

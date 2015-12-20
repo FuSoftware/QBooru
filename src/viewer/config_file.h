@@ -13,15 +13,14 @@
 class ConfigFile
 {
 public:
-    ConfigFile(bool loadOnly);
-    ConfigFile(std::string path, bool loadOnly);
+    ConfigFile();
+    ConfigFile(std::string path);
     ~ConfigFile();
 
-    void loadFromPath(std::string path, bool loadOnly);
+    void loadData(std::string path);
+    void process();
     void checkFile();
     void saveFile();
-    void loadSoftwareVersion();
-    void checkSoftwareVersions();
     bool checkQtChanges();
 
     void loadBooruSites();
@@ -51,12 +50,7 @@ public:
     void setWindowH(int h);
     void setWindowW(int w);
 
-    void getVersion(char* versionChar, int versionInt[4]);
-
-    bool isUpdateAvailable();
     int getLastTagRefresh();
-    std::string getVersionString(int version_type);
-    bool getUpdateState();
     std::vector<BooruSite*> getBoorus();
     BooruSite *getBooru(int i);
     int getBooruNumber();
