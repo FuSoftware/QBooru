@@ -33,6 +33,9 @@
 
         #define BOORU_LIST "F:/My Programs/Builds/QBooru/conf/boorulist.json"
 
+        #define EXECUTABLE "F:/My Programs/Builds/QBooru/QBooru.exe"
+        #define EXECUTABLE_DL "F:/My Programs/Builds/QBooru/QBooru.dl"
+
 #else
     /**Windows Release**/
         #define OS_ID "Windows"
@@ -52,6 +55,10 @@
         #define LOADING_GIF "conf/loader.gif"
 
         #define BOORU_LIST "conf/boorulist.json"
+
+        #define EXECUTABLE "QBooru.exe"
+        #define EXECUTABLE_DL "QBooru.dl"
+
 #endif
 #endif // CONSTANTES_WIN
 

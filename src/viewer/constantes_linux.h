@@ -31,6 +31,9 @@
 
         #define BOORU_LIST "/usr/share/qbooru/conf/boorulist.json"
 
+        #define EXECUTABLE "/usr/share/qbooru/QBooru"
+        #define EXECUTABLE_DL "/usr/share/qbooru/QBooru.dl"
+
 #else
     /**Linux Release**/
 
@@ -49,6 +52,9 @@
         #define LOADING_GIF "/conf/loader.gif"
 
         #define BOORU_LIST "conf/boorulist.json"
+
+        #define EXECUTABLE "QBooru"
+        #define EXECUTABLE_DL "QBooru.dl"
 #endif
 
 #endif // CONSTANTES_LINUX
