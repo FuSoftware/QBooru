@@ -1,4 +1,11 @@
 <ul>
+	<li>1.15.0.0
+	<ul>
+		<li>New version control system</li>
+		<li>Cookies fully working nowd</li>
+	</ul>
+	</li>
+    &nbsp;
 	<li>1.14.0.0
 	<ul>
 		<li>You can now log into Gelbooru</li>
