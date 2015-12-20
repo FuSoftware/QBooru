@@ -169,9 +169,6 @@ int downloadFile(const char *url, const char *file, CookieJar *cookies ,bool ove
                 return m_pReply->error();
             }
 
-            //qDebug() << m_pReply->readAll();
-            qDebug() << "getAllCookies: " << cookies->getAllCookies();
-
             QString file_s = QString(file);
 
             QFile file(file_s);

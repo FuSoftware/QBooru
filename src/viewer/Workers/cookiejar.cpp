@@ -80,7 +80,15 @@ bool CookieJar::setCookiesFromUrl(const QList<QNetworkCookie> &cookieList, const
 
 bool CookieJar::isEmpty()
 {
-    return this->allCookies().empty();
+    if(m_loaded)
+    {
+        return this->allCookies().empty();
+    }
+    else
+    {
+        return true;
+    }
+
 }
 
 QList<QNetworkCookie> CookieJar::getAllCookies()

@@ -36,8 +36,7 @@ int QStartupWidget::checkVersions()
     QNetworkAccessManager *manager = new QNetworkAccessManager;
     QNetworkRequest request;
 
-    QUrl url("http://florentuguet.net16.net/qbooru/software.php"); //Main URL
-    //QUrl url("http://florentuguet.net16.net/tulpadiary/software-test\.php"); //Test URL
+    QUrl url(URL_RECORDS); //Main URL
     QUrlQuery params;
 
     request.setUrl(url.toString());
@@ -61,7 +60,6 @@ int QStartupWidget::checkVersions()
     timer.setInterval(5000); //5s timeout
 
     QObject::connect(&timer, SIGNAL(timeout()),m_pReply, SLOT(abort()));
-
     QEventLoop loop;
     QObject::connect(m_pReply, SIGNAL(finished()),&loop, SLOT(quit()));
     loop.exec();

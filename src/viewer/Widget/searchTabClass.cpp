@@ -54,18 +54,17 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
                 //Don't show the button
                 loginButton->hide();
             }
-            else
-            {
-                //Load the cookies
-                cookie = new CookieJar(QString(this->booru->getName().c_str()),this);
-                cookie->load();
 
-                if(!cookie->isEmpty())
-                {
-                    //Indicates it on the button
-                    loginButton->setText("Login OK");
-                }
+            //Load the cookies
+            cookie = new CookieJar(QString(this->booru->getName().c_str()),this);
+            cookie->load();
+
+            if(!cookie->isEmpty())
+            {
+                //Indicates it on the button
+                loginButton->setText("Login OK");
             }
+
 
             /*Autocompletion*/
             if(booru->isTagListToLoad())
