@@ -2,6 +2,7 @@
 #define BOORUSEARCHENGINE_H
 
 #include <iostream>
+#include <QTimer>
 #include "../fonctions_all.h"
 #include "../Workers/cookiejar.h"
 
@@ -29,6 +30,7 @@ public:
     void setImageCount(int count);
     void setPage(int page);
     void setApiKey(std::string key);
+    int logSearch();
 
 private:
     bool has_cookie;
@@ -37,6 +39,7 @@ private:
 
     int image_count;
 
+    std::string tags_org;
     std::string tags;
     std::string search_extension;
     std::string search_url;

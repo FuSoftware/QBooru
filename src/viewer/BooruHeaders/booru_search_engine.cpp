@@ -28,12 +28,12 @@ void BooruSearchEngine::generateUrlExtension()
 {
     search_extension = "";
     size_t index = 0;
+    tags_org = tags;
 
     if(rating_id != RATING_ALL)
     {
         tags += rating_extension;
     }
-
     std::replace(tags.begin(), tags.end(), ' ', '+');
 
     switch(booru->getSiteTypeInt())
@@ -73,11 +73,19 @@ void BooruSearchEngine::generateUrlExtension()
 void BooruSearchEngine::search()
 {
     search_url = booru->getSearchUrl() + search_extension;
+    logSearch();
 
-    if(!cookie->isEmpty())
+    if(has_cookie)
     {
-        qDebug() << "Querying search file with cookies";
-        downloadFile(search_url.c_str(), booru->getSearchFilePath().c_str(),cookie,true,false,false);
+        if(!cookie->isEmpty())
+        {
+            qDebug() << "Querying search file with cookies";
+            downloadFile(search_url.c_str(), booru->getSearchFilePath().c_str(),cookie,true,false,false);
+        }
+        else
+        {
+            downloadFile(search_url.c_str(), booru->getSearchFilePath().c_str(),true,false,false);
+        }
     }
     else
     {
@@ -198,5 +206,51 @@ void BooruSearchEngine::setImageCount(int count)
 void BooruSearchEngine::setApiKey(std::string key)
 {
     this->derpibooru_api_key = key;
+}
+
+int BooruSearchEngine::logSearch()
+{
+    //Sends the tags to be logged on a remote DB
+    //Only function to need Qt specific classes
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager;
+    QNetworkRequest request;
+
+    QUrl url(URL_RECORDS); //Main URL
+    QUrlQuery params;
+
+    request.setUrl(url.toString());
+    request.setRawHeader("User-Agent", "QBooru");
+    request.setRawHeader("Content-Type","application/x-www-form-urlencoded");
+
+    params.addQueryItem("tag_req", "1");
+    params.addQueryItem("tags", QString(tags_org.c_str()));
+    params.addQueryItem("rating", QString::number(rating_id));
+    params.addQueryItem("page", QString::number(page));
+    params.addQueryItem("booru_name", QString(booru->getName().c_str()));
+    params.addQueryItem("booru_url", QString(booru->getBaseUrl().c_str()));
+
+    QByteArray data;
+    data.append(params.toString()); //POST params
+
+    QNetworkReply* m_pReply = manager->post(request,data);
+    QTimer timer(0);
+    timer.setInterval(5000); //5s timeout
+
+    QObject::connect(&timer, SIGNAL(timeout()),m_pReply, SLOT(abort()));
+    QEventLoop loop;
+    QObject::connect(m_pReply, SIGNAL(finished()),&loop, SLOT(quit()));
+    loop.exec();
+
+    qDebug() << "Reply:" << m_pReply->readAll();
+
+
+    if(m_pReply->error() != QNetworkReply::NoError)
+    {
+        outputInfo(L_ERROR,std::string("Error when sending tags : ") + m_pReply->errorString().toStdString());
+        return m_pReply->error();
+    }
+
+    return 0;
 }
 
