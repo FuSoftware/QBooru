@@ -36,6 +36,7 @@ Boorus can be added, edited, and deleted through the Booru tab in the software, 
 
 ##Build instructions (Linux)
 <ul>
+  <li>Clone the git repo</li>
   <li>Install Qt and Qt creator</li>
   <ul>
     <li>Pacman : <code>sudo pacman -S qt5 qtcreator</code></li>
