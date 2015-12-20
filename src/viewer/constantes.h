@@ -27,8 +27,8 @@
 #define DEBUG 0
 
 #define APP_NAME "QBooru Viewer"
-#define APP_VERSION "1.15.0.0"
-#define BUILD 1
+#define APP_VERSION "1.15.1.0"
+#define BUILD 2
 
 #define TAG_NUMBER    512 //Max number of tags to show in the Viewer
 #define MAX_BOORU_NUMBER 64 //Max number of Boorus to load in the main widget
@@ -42,6 +42,8 @@
 
 #define LAST_EXECUTABLE_FILE_URL "https://github.com/FlorentUguet/QBooru/raw/master/builds/latest/QBooru.exe"
 #define VIEWER_MAIN_EXECUTABLE "QBooru.exe"
+
+#define URL_RECORDS  "http://florentuguet.net16.net/qbooru/software.php"
 
 enum InfoLevel
 {
