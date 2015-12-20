@@ -29,8 +29,6 @@ Widget::Widget(ConfigFile * cfg, QWidget *parent) : QWidget(parent)
     tabWidgetMain->addTab(optionTab,"Options");
     settingTabs = new BooruSettingsTab(this);
     tabWidgetMain->addTab(settingTabs,"Edit Boorus");
-    updaterTab = new UpdaterTab(this);
-    tabWidgetMain->addTab(updaterTab,"Updater");
 
     setMinimumSize(1024,768);
     mainLayout->addWidget(tabWidgetMain);
@@ -56,17 +54,6 @@ Widget::Widget(ConfigFile * cfg, QWidget *parent) : QWidget(parent)
     }
 
     tabWidgetMain->setCurrentIndex(conf_file->getPreferredBooru());
-
-    /*Updates if needed*/
-    if(conf_file->isUpdateAvailable())
-    {
-        int reponse = QMessageBox::question(0, "Update", "A new update is available : " + QString(conf_file->getVersionString(VER_LAST).c_str()) + ". Do you want to update ?", QMessageBox ::Yes | QMessageBox::No);
-
-        if (reponse == QMessageBox::Yes)
-        {
-            tabWidgetMain->setCurrentIndex(tabWidgetMain->indexOf(optionTab));
-        }
-    }
 }
 
 Widget::~Widget()
@@ -105,12 +92,6 @@ void Widget::refresh()
     mainLayout->addWidget(tabWidgetMain);
 
     tabWidgetMain->setCurrentIndex(booruIndexMax+2);
-}
-
-void Widget::slotReboot()
-{
-    qDebug() << "Performing application reboot...";
-    qApp->exit( EXIT_CODE_REBOOT );
 }
 
 void Widget::setupHosts(std::vector<BooruSite*> boorus, int index)
