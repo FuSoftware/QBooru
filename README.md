@@ -1,9 +1,7 @@
 # QBooru
 
 ##Important notice
-Since 1.13, all DLL dependencies are deleted. You should only need to use QBooru.exe
-Gelbooru support is stopped until they give a new way to use the API. I don't want to include my password hash in to the app.
-I may add a way to specify your Gelbooru account in the app, but for now, the support is dropped.
+Since 1.15, a new version control relying on http://florentuguet.net16.net/ has been implemented. The software won't need to download the versions anymore.
 
 ##Summary
 QBooru is a lightweight Windows and Linux client that allows users to see pictures from most booru sites, and download them, for example :
@@ -35,6 +33,18 @@ Search tab example : http://puu.sh/cK0pj.jpg
 ##Configuration
 Users can change nearly all the parameters through the Option tab, or by editing the configuration.json file.
 Boorus can be added, edited, and deleted through the Booru tab in the software, but they can also be edited manually in the configuration file.
+
+##Build instructions (Linux)
+<ul>
+  <li>Install Qt and Qt creator</li>
+  <ul>
+    <li>Pacman : <code>sudo pacman -S qt5 qtcreator</code></li>
+    <li>Yaourt : <code>yaourt -S qt5 qtcreator</code></li>
+  </ul>
+  <li>Load the .pro file in QtCreator (Qt >= 5)</li>
+  <li>Put the now built executable in a folder with full R/W permissions </li>
+  <li>Run it</li>
+</ul>
 
 ##Credits
 cdunn2001 : https://github.com/open-source-parsers/jsoncpp for making the JSON parser JsonCPP
