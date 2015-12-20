@@ -15,9 +15,6 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
 
     booru = site;
 
-    cookie = new CookieJar(QString(this->booru->getName().c_str()),this);
-    cookie->load();
-
     booru_search_engine.setBooru(booru);
     booru_search_engine.setImageCount(picture_number);
 
@@ -52,14 +49,30 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
             lineEditTags->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
             lineEditTags->setMaximumHeight(21);
 
+            if(booru->getSiteTypeInt() != GELBOORU_TYPE)
+            {
+                //Don't show the button
+                loginButton->hide();
+            }
+            else
+            {
+                //Load the cookies
+                cookie = new CookieJar(QString(this->booru->getName().c_str()),this);
+                cookie->load();
+
+                if(!cookie->isEmpty())
+                {
+                    //Indicates it on the button
+                    loginButton->setText("Login OK");
+                }
+            }
+
             /*Autocompletion*/
             if(booru->isTagListToLoad())
             {
                 booru->loadTagList();
                 if(booru->isTagListLoaded())
                 {
-                    outputInfo(L_DEBUG,"Loading taglist for " + booru->getName());
-                    outputInfo(L_DEBUG,"Longest word is " + booru->getTagList()->getTag(booru->getTagList()->getMaxTagLengthIndex())->getName() + " with " + intToString(booru->getTagList()->getMaxTagLength()) +  " char");
                     QStringList wordList;
                     for(int i=0;i<booru->getTagList()->size();i++)
                     {
@@ -71,7 +84,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
                 }
             }
 
-            /*Search STatus*/
+            /*Search Status*/
             layoutSearchStatus = new QVBoxLayout;
                 progressBarSearch = new QProgressBar;
                 progressBarSearch->setMaximumHeight(21);
@@ -215,6 +228,7 @@ void SearchTab::login()
     else
     {
         qDebug() << "Loaded" << QString(this->booru->getName().c_str()) << "cookie" << cookie->getAllCookies();
+        loginButton->setText("Login OK");
     }
 }
 
