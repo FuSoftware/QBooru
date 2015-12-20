@@ -19,7 +19,15 @@ void CookieJar::load()
 
     QSettings *settings = new QSettings(path, QSettings::IniFormat);
     settings->beginGroup(cookie_location);
-    QList<QNetworkCookie> savedCookies = QNetworkCookie::parseCookies(settings->value("cookie_location").toByteArray());
+
+    QList<QNetworkCookie> savedCookies;
+
+    for(int i=0;i<settings->allKeys().size();i++)
+    {
+        //Load existing cookies
+        savedCookies.push_back(QNetworkCookie::parseCookies(settings->value(settings->allKeys().at(i)).toByteArray()).at(0));
+    }
+    qDebug() << "Saved cookies at" << path << ":" << savedCookies;
 
     for (int j = 0; j < savedCookies.count(); j++)
         insertCookie(savedCookies.at(j));
@@ -35,10 +43,16 @@ void CookieJar::save()
 
     QList<QNetworkCookie> cookies = allCookies();
 
+    qDebug() << "Saving cookies at" << path << ":" << cookies;
+
     QSettings *settings = new QSettings(path, QSettings::IniFormat);
     settings->beginGroup(cookie_location);
-    settings->setValue(cookies[0].name(), cookies[0].toRawForm());
-    settings->setValue(cookies[1].name(), cookies[1].toRawForm());
+
+    for(int i=0;i<cookies.size();i++)
+    {
+        //Saves cookies
+        settings->setValue(cookies[i].name(), cookies[i].toRawForm());
+    }
 }
 
 QList<QNetworkCookie> CookieJar::cookiesForUrl(const QUrl &url) const
