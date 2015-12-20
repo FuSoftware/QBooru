@@ -46,12 +46,13 @@ SOURCES += main.cpp\
     fonctions/fonctions_qt.cpp \
     BooruHeaders/booru_search_engine.cpp \
     config_file.cpp \
-    Widget/updaterTab.cpp \
     BooruHeaders/boorutag.cpp \
     BooruHeaders/boorutaglist.cpp \
     Workers/file_downloader.cpp \
     Workers/qnamredirect.cpp \
-    Workers/cookiejar.cpp
+    Workers/cookiejar.cpp \
+    Widget/qstartupwidget.cpp \
+    Widget/qdownloadwidget.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -87,12 +88,13 @@ HEADERS  += widget.h \
     fonctions/fonctions_qt.h \
     BooruHeaders/booru_search_engine.h \
     config_file.h \
-    Widget/updaterTab.h \
     BooruHeaders/boorutag.h \
     BooruHeaders/boorutaglist.h \
     Workers/file_downloader.h \
     Workers/qnamredirect.h \
-    Workers/cookiejar.h
+    Workers/cookiejar.h \
+    Widget/qstartupwidget.h \
+    Widget/qdownloadwidget.h
 
 FORMS    +=
 
