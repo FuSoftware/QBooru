@@ -19,6 +19,7 @@
 #include "Widget/optionTabClass.h"
 #include "Widget/searchTabClass.h"
 #include "Widget/viewerTabClass.h"
+#include "Widget/grabberwidget.h"
 #include "Widget/booruSettingsTabClass.h"
 
 #include "classBooruSite.h"
@@ -26,6 +27,7 @@
 #include "fileutils.h"
 #include "config_file.h"
 
+class GrabberWidget;
 class SearchTab;
 class ViewerTab;
 class OptionTab;
@@ -63,6 +65,7 @@ private:
     OptionTab *optionTab;
     QTabWidget *tabWidgetMain;
     BooruSettingsTab *settingTabs;
+    GrabberWidget *grabberTab;
 
     QString hostNames[16];
 

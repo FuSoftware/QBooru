@@ -45,6 +45,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
             /*Searchbar*/
             loginButton = new QPushButton("Login",this);
             searchButton = new QPushButton("Refresh",this);
+            dumpButton = new QPushButton("Dump Page",this);
             lineEditTags = new QLineEdit;
             lineEditTags->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
             lineEditTags->setMaximumHeight(21);
@@ -127,6 +128,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
     /*Search elements*/
     QVBoxLayout *verticalLayoutSearch = new QVBoxLayout;
     layoutSearchRating->addWidget(loginButton);
+    layoutSearchRating->addWidget(dumpButton);
     layoutSearchRating->addWidget(searchRating);
     layoutSearchRating->addWidget(searchButton);
     layoutSearchRating->addWidget(lineEditTags);
@@ -168,6 +170,8 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
     connect(lineEditPageSet, SIGNAL(returnPressed()),signalMapper,SLOT(map()));
     connect(pushButtonPageMoins, SIGNAL(clicked()),signalMapper,SLOT(map()));
     connect(pushButtonPagePlus, SIGNAL(clicked()),signalMapper,SLOT(map()));
+
+    connect(dumpButton,SIGNAL(clicked()),this,SLOT(startDumpingPicture()));
 
     connect(loginButton, SIGNAL(clicked()), this , SLOT(login()));
 
@@ -495,6 +499,42 @@ void SearchTab::startLoadingPicture(int i)
         connect(thread_pool_loading[i], SIGNAL(finished()), thread_pool_loading[i], SLOT(deleteLater()));
 
         thread_pool_loading[i]->start();
+    }
+}
+
+void SearchTab::startDumpingPicture()
+{
+    dump_progress = 0;
+
+    dumpButton->setDisabled(true);
+    dumpButton->setText("Dumping");
+
+    for(int i=0;i<conf_file->getPictureNumber();i++)
+    {
+        QThread *thread = new QThread(this);
+        ImageDownloadWorker *worker = new ImageDownloadWorker(&images[i]);
+
+        worker->moveToThread(thread);
+
+        connect(thread, SIGNAL(started()), worker, SLOT(process()));
+        connect(worker, SIGNAL(finished()), this, SLOT(updateDumping()));
+        connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
+        connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+        connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+        thread->start();
+    }
+}
+
+void SearchTab::updateDumping()
+{
+    dump_progress++;
+    dumpButton->setText("Dumped " + QString::number(dump_progress) + QString("/") + QString::number(conf_file->getPictureNumber()));
+
+    if(dump_progress >= conf_file->getPictureNumber())
+    {
+        dumpButton->setEnabled(true);
+        dumpButton->setText("Dump page");
     }
 }
 

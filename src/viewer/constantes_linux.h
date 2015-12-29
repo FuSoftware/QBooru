@@ -16,6 +16,7 @@
 /**Linux Debug**/
 
         #define CACHE_PATH  "/usr/share/qbooru/cache/"
+        #define DOWNLOAD_PATH  "/usr/share/qbooru/downloads/"
         #define CONF_PATH     "/usr/share/qbooru/conf/"
         #define CONF_FILE    "/usr/share/qbooru/conf/configuration.json"
         #define LOG_FILE    "/usr/share/qbooru/programLog.log"
@@ -38,6 +39,7 @@
     /**Linux Release**/
 
         #define CACHE_PATH  "cache/"
+        #define DOWNLOAD_PATH  "downloads/"
         #define CONF_PATH     "conf/"
         #define CONF_FILE    "conf/configuration.json"
         #define LOG_FILE    "programLog.log"

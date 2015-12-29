@@ -18,6 +18,7 @@
         #define OS_ID "Windows Debug"
 
         #define CACHE_PATH  "F:/My Programs/Builds/QBooru/cache/"
+        #define DOWNLOAD_PATH  "F:/My Programs/Builds/QBooru/downloads/"
         #define CONF_PATH     "F:/My Programs/Builds/QBooru/conf/"
         #define CONF_FILE    "F:/My Programs/Builds/QBooru/conf/configuration.json"
         #define LOG_FILE    "F:/My Programs/Builds/QBooru/programLog.log"
@@ -41,6 +42,7 @@
         #define OS_ID "Windows"
 
         #define CACHE_PATH  "cache/"
+        #define DOWNLOAD_PATH  "downloads/"
         #define CONF_PATH     "conf/"
         #define CONF_FILE    "conf/configuration.json"
         #define LOG_FILE    "programLog.log"

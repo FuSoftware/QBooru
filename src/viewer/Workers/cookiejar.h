@@ -22,6 +22,7 @@ public:
     bool isEmpty();
     QList<QNetworkCookie> getAllCookies();
     QString getUrl();
+    QString getCookieData(int id);
 
 signals:
     void cookiesChanged();

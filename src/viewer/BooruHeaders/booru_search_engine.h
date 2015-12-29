@@ -30,7 +30,14 @@ public:
     void setImageCount(int count);
     void setPage(int page);
     void setApiKey(std::string key);
+    void setDump(bool isDump);
+    int getResultSize();
     int logSearch();
+
+    int getPage();
+    CookieJar *getCookie();
+    std::string getTags();
+    bool hasCookie();
 
 private:
     bool has_cookie;
@@ -49,6 +56,7 @@ private:
     std::string derpibooru_api_key;
     int page;
     int rating_id;
+    bool isDump;
 };
 
 #endif // BOORUSEARCHENGINE_H

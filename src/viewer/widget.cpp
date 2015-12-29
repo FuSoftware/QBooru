@@ -25,6 +25,8 @@ Widget::Widget(ConfigFile * cfg, QWidget *parent) : QWidget(parent)
 
     viewerTab = new ViewerTab(this);
     tabWidgetMain->addTab(viewerTab,"Image Viewer");
+    grabberTab = new GrabberWidget(this);
+    tabWidgetMain->addTab(grabberTab,"Grabber");
     optionTab = new OptionTab(this);
     tabWidgetMain->addTab(optionTab,"Options");
     settingTabs = new BooruSettingsTab(this);
@@ -123,6 +125,11 @@ void Widget::on_tab_changed(int tabIndex)
     else
     {
         viewerTab->releaseKeyboard();
+    }
+
+    if(tabIndex == viewerIndex+1) //Grabber
+    {
+        QMessageBox::warning(this,"Grabber","The Grabber is still an experimental feature.\nThis feature is heavy for servers, and you may get blocked, or banned.\nYour IP and UserID are recorded in case of abuse, and are sent through the created cookies.\n\nIn case of IP or ID ban, I'm not responsible. Please don't overuse this feature.");
     }
 }
 

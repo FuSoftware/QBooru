@@ -101,3 +101,7 @@ QString CookieJar::getUrl()
     return QString("http://") + this->allCookies().at(0).domain();
 }
 
+QString CookieJar::getCookieData(int id)
+{
+    return QString(this->allCookies().at(id).value());
+}

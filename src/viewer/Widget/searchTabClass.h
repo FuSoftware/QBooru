@@ -13,6 +13,8 @@
 #include "../Workers/image_loading_thread.h"
 #include "../Workers/cookiejar.h"
 
+#include"../Workers/downloadworker.h"
+
 class Widget;
 class ImageTab;
 class CachingWorker;
@@ -78,8 +80,11 @@ public slots:
     void newSearch();
     void startLoadingPicture(int i);
     void image_loaded(int index);
+    void startDumpingPicture();
+    void updateDumping();
 
 private:
+    int dump_progress;
     ConfigFile *conf_file;
     CookieJar* cookie;
 
@@ -105,6 +110,7 @@ private:
 
             QPushButton *searchButton;
             QPushButton *loginButton;
+            QPushButton *dumpButton;
 
             QHBoxLayout *layoutSearchRating;
             QComboBox *searchRating;
