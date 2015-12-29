@@ -52,7 +52,10 @@ SOURCES += main.cpp\
     Workers/qnamredirect.cpp \
     Workers/cookiejar.cpp \
     Widget/qstartupwidget.cpp \
-    Widget/qdownloadwidget.cpp
+    Widget/qdownloadwidget.cpp \
+    Workers/imagegrabber.cpp \
+    Widget/grabberwidget.cpp \
+    Workers/downloadworker.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -94,7 +97,10 @@ HEADERS  += widget.h \
     Workers/qnamredirect.h \
     Workers/cookiejar.h \
     Widget/qstartupwidget.h \
-    Widget/qdownloadwidget.h
+    Widget/qdownloadwidget.h \
+    Workers/imagegrabber.h \
+    Widget/grabberwidget.h \
+    Workers/downloadworker.h
 
 FORMS    +=
 

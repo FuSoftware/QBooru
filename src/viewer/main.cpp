@@ -15,6 +15,7 @@
 #include "Workers/qnamredirect.h"
 
 #include "Widget/qstartupwidget.h"
+#include "Workers/imagegrabber.h"
 
 
 using namespace std;
@@ -36,7 +37,7 @@ int main(int argc, char *argv[])
     /*Config file*/
     QStartupWidget *s = new QStartupWidget(0);
     s->process();
-    ConfigFile *cfg = s->getCfg();
+    ConfigFile *cfg = s->getCfg(); 
 
     s->updateStatus("Loading the main software");
 
