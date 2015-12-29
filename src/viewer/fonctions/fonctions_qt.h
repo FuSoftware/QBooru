@@ -23,6 +23,7 @@
 
 class CookieJar;
 
+void checkFileFolder(std::string path);
 void checkFolder(std::string path);
 void runUpdaterFunction();
 

@@ -2,6 +2,14 @@
 
 #include "../Workers/cookiejar.h"
 
+void checkFileFolder(std::string path)
+{
+    QFileInfo file(path.c_str());
+    if (!file.absoluteDir().exists()) {
+        file.absoluteDir().mkpath(".");
+    }
+}
+
 void checkFolder(std::string path)
 {
     QDir dirCache1(path.c_str());
@@ -117,6 +125,8 @@ int downloadFile(const char *url, const char *file, CookieJar *cookies ,bool ove
 {
     std::string output_s;
     QString referer = "Dummy";
+
+    checkFileFolder(std::string(file));
 
     if(output)
     {

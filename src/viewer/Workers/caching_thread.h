@@ -11,11 +11,11 @@ class CachingWorker : public QObject
     Q_OBJECT
  
 public:
-    CachingWorker(char url[4096], char outfilename[4096], bool needs_output);
+    CachingWorker(const char *url, const char *outfilename, bool needs_output);
     CachingWorker();
     ~CachingWorker();
 
-    char  file_name[4096];
+    char* file_name;
     char* file_url;
     bool output_text;
     int connection_state;
