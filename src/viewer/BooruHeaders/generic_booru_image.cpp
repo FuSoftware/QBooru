@@ -124,6 +124,11 @@ void BooruImage::loadData(int picture_index)
 
 void BooruImage::loadPaths()
 {
+    loadPaths(booru->getDownloadPath());
+}
+
+void BooruImage::loadPaths(std::string download_folder)
+{
     std::string fileName;
     std::string format;
 
@@ -140,7 +145,28 @@ void BooruImage::loadPaths()
     /*Full path*/
     fileName = full_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
-    full_path = booru->getDownloadPath() + intToString(id) + "_full." + format;
+    full_path = download_folder + intToString(id) + "_full." + format;
+}
+
+void BooruImage::loadPaths(std::string download_folder,std::string prefix)
+{
+    std::string fileName;
+    std::string format;
+
+    /*Thumb path*/
+    fileName = preview_url;
+    format = fileName.substr(fileName.find_last_of(".") + 1);
+    thumb_path = booru->getCachePath() + intToString(id) + "." + format;
+
+    /*Medium Path*/
+    fileName = sample_url;
+    format = fileName.substr(fileName.find_last_of(".") + 1);
+    medium_path = booru->getCachePath() + intToString(id)+ "." + "_medium" + format;
+
+    /*Full path*/
+    fileName = full_url;
+    format = fileName.substr(fileName.find_last_of(".") + 1);
+    full_path = download_folder + prefix + "_" + intToString(id) + "_full." + format;
 }
 
 void BooruImage::download_thumb()

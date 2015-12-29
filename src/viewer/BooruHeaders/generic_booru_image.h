@@ -24,6 +24,8 @@ public :
     void setBooru(BooruSite* booru);
     void loadData(int picture_index);
     void loadPaths();
+    void loadPaths(std::string download_folder);
+    void loadPaths(std::string download_folder,std::string prefix);
 
     void download_thumb();
     void download_medium();
