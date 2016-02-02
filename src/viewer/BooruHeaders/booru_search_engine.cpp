@@ -139,7 +139,7 @@ void BooruSearchEngine::search(std::string tags, int page)
 
 void BooruSearchEngine::search(std::string tags, int page, CookieJar* cookie)
 {
-    setCookie(cookie);
+    if(!cookie->isEmpty()){setCookie(cookie);}
     setTags(tags);
     setPage(page);
     generateUrlExtension();
