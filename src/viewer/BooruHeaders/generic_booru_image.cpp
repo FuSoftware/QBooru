@@ -140,7 +140,7 @@ void BooruImage::loadPaths(std::string download_folder)
     /*Medium Path*/
     fileName = sample_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
-    medium_path = booru->getCachePath() + intToString(id)+ "." + "_medium" + format;
+    medium_path = booru->getCachePath() + intToString(id)+ "." + "_medium." + format;
 
     /*Full path*/
     fileName = full_url;
@@ -161,7 +161,7 @@ void BooruImage::loadPaths(std::string download_folder,std::string prefix)
     /*Medium Path*/
     fileName = sample_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
-    medium_path = booru->getCachePath() + intToString(id)+ "." + "_medium" + format;
+    medium_path = booru->getCachePath() + intToString(id)+ "." + "_medium." + format;
 
     /*Full path*/
     fileName = full_url;

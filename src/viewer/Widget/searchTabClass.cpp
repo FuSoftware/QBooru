@@ -76,7 +76,10 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
                     QStringList wordList;
                     for(int i=0;i<booru->getTagList()->size();i++)
                     {
-                        wordList << QString(booru->getTagList()->getTag(i)->getName().c_str());
+                        if(booru->isTagListLoaded())
+                        {
+                            wordList << QString(booru->getTagList()->getTag(i)->getName().c_str());
+                        }
                     }
                     QCompleter *completer = new QCompleter(wordList, this);
                     completer->setCaseSensitivity(Qt::CaseInsensitive);

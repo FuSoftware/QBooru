@@ -201,7 +201,7 @@ int downloadFile(const char *url, const char *file, CookieJar *cookies ,bool ove
 int downloadFile(const char* url, const char* file, bool override,  bool output , bool async)
 {
     CookieJar *cookies = new CookieJar(0);
-    downloadFile(url,file,cookies,override,async);
+    return downloadFile(url,file,cookies,override,async);
 }
 
 QList<QNetworkCookie> getLoginCookie(const char* url, QString user, QString pass)

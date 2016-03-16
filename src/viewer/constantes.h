@@ -24,10 +24,10 @@
  * Set this to 1 to change to the absolute paths for the program (Debug)
  */
 
-#define DEBUG 0
+#define DEBUG 1
 
 #define APP_NAME "QBooru Viewer"
-#define APP_VERSION "1.15.2.1"
+#define APP_VERSION "1.15.2.3"
 #define BUILD 4
 
 #define TAG_NUMBER    512 //Max number of tags to show in the Viewer

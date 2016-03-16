@@ -194,5 +194,10 @@ char *getFileExtension(char *filename)
 bool fexists(const char *filename)
 {
   std::ifstream ifile(filename);
+
+#if __linux
+  return ifile.is_open();
+#else
   return ifile;
+#endif
 }
