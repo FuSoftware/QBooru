@@ -15,8 +15,8 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
 
     booru = site;
 
-    booru_search_engine.setBooru(booru);
-    booru_search_engine.setImageCount(picture_number);
+    booru_search_engine = new BooruSearchEngine(booru, this);
+    booru_search_engine->setImageCount(picture_number);
 
 
     recherche = 0;
@@ -285,7 +285,7 @@ void SearchTab::loadSearch(int refreshTags)
     if(refreshTags == 1)
     {
         tags = lineEditTags->text();
-        booru_search_engine.setRating(searchRating->currentIndex());
+        booru_search_engine->setRating(searchRating->currentIndex());
     }
     else
     {
@@ -298,7 +298,7 @@ void SearchTab::loadSearch(int refreshTags)
 
     /*Tags*/
 
-    booru_search_engine.search(tags.toStdString(),lineEditPageSet->text().toInt(),this->cookie);
+    booru_search_engine->search(tags.toStdString(),lineEditPageSet->text().toInt(),this->cookie);
 
     /*Chargement*/
 

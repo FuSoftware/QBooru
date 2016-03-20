@@ -49,7 +49,7 @@ public:
     /*Objets*/
     BooruImage images[64];
     BooruSite* booru;
-    BooruSearchEngine booru_search_engine;
+    BooruSearchEngine* booru_search_engine;
 
     QVBoxLayout *layoutSearchStatus;
         QLineEdit *lineEditTags;
