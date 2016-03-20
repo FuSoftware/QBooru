@@ -36,6 +36,12 @@
 			 "name" : "Danbooru",
 			 "siteTypeInt" : 3,
 			 "site_type_string" : "danbooru2"
+		},
+		{
+			 "base_url" : "http://e621.net",
+			 "name" : "E621",
+			 "siteTypeInt" : 4,
+			 "site_type_string" : "e621"
 		}
       
 	]

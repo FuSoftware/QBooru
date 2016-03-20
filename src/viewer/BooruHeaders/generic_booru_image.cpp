@@ -117,6 +117,21 @@ void BooruImage::loadData(int picture_index)
         rating = *strdup(root[ picture_index]["rating"].asString().c_str()); //Ok
         tagNumber = loadTags(root[picture_index]["tag_string"].asString(), tags); //Ok
         break;
+    case E621_TYPE:
+        id               = root[picture_index]["id"].asInt();//Ok
+        created_at       = returnTimeStringConvert(returnPostAgeSec(root[picture_index]["created_at"]["s"].asInt()));
+        author           = root[picture_index]["author"].asString(); //Ok
+        source           = root[picture_index]["source"].asString();//Ok
+        score            = root[picture_index]["score"].asInt();//Ok
+        file_size        = root[picture_index]["file_size"].asInt();//Ok
+        full_url    = root[picture_index]["file_url"].asString();//Ok
+        width       = root[picture_index]["width"].asInt(); //Ok
+        height      = root[picture_index]["height"].asInt();// Ok
+        preview_url = root[ picture_index]["preview_url"].asString(); //Ok
+        sample_url = root[ picture_index]["sample_url"].asString(); //Ok
+        rating = *strdup(root[ picture_index]["rating"].asString().c_str()); //Ok
+        tagNumber = loadTags(root[picture_index]["tags"].asString(), tags); //Ok
+        break;
     }
 
     loadPaths();

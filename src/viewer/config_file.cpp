@@ -424,7 +424,18 @@ void ConfigFile::setBoorus(std::vector<BooruSite*> boorus)
 
 void ConfigFile::setBooru(BooruSite *booru, int i)
 {
-    this->boorus.at(i) = booru;
+    if(boorus.size() == i)
+    {
+        boorus.push_back(booru);
+    }
+    else if(boorus.size() < i)
+    {
+        outputInfo(L_ERROR, std::string("Error while adding booru, adding ID ") + intToString(i) + std::string("to a ") + intToString(boorus.size()) + std::string(" booru list."));
+    }
+    else
+    {
+        this->boorus.at(i) = booru;
+    }
 }
 
 void ConfigFile::setBooruNumber(int number)

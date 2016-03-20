@@ -69,6 +69,20 @@
          "site_type_string" : "danbooru",
          "tag_file_path" : "conf/tagsDanbooru.json",
          "tag_url" : "http://danbooru.donmai.us/tag.json"
+      },
+      {
+         "base_url" : "http://e621.net",
+         "cache_path" : "cache/E621/",
+         "download_path" : "downloads/E621",
+         "index" : 5,
+         "name" : "E621",
+         "search_file_path" : "cache/E621/posts.json",
+         "search_url" : "http://e621.net/post/index.json",
+         "show_index_url" : "http://e621.net/post/show/",
+         "siteTypeInt" : 4,
+         "site_type_string" : "e621",
+         "tag_file_path" : "conf/tagsE621.json",
+         "tag_url" : "http://e621.net/tags.bak"
       }
    ],
    "paths" : {
@@ -76,22 +90,22 @@
    },
    "settings" : {
       "api_key_derpibooru" : "",
-      "booru_number" : 5,
+      "booru_number" : 6,
       "config_file_version" : 1,
       "last_tag_refresh" : 0,
       "load_on_startup" : false,
       "picture_columns" : 5,
       "picture_number" : 15,
       "picture_rows" : 3,
-      "preferred_booru" : 57542856,
+      "preferred_booru" : 1769239141,
       "preferred_rating" : 0,
       "window_h" : 768,
       "window_w" : 1024
    },
    "versions" : {
       "viewer" : {
-         "last" : "1.12.1.0",
-         "local" : "1.12.3.0"
+         "last" : "",
+         "local" : ""
       }
    }
 }

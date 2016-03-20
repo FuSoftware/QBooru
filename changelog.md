@@ -1,4 +1,11 @@
 <ul>
+	<li>1.16.0.0
+	<ul>
+		<li>Added support for E621</li>
+		<li>Fixed Booru Adding and deleted most of the optional settings that were'nt needed</li>
+	</ul>
+	</li>
+    &nbsp;
 	<li>1.15.0.0
 	<ul>
 		<li>New version control system</li>

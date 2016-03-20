@@ -9,14 +9,10 @@
 enum Lines{
     L_NAME =0,
     L_URL,
-    L_DOWNLOAD,
-    L_SEARCH,
-    L_SHOW,
-    L_TAGS,
     L_SIZE
 };
 
-const QString label_strings[L_SIZE] = {"Name","Main URL","Download Path","Seach URL", "Show URL", "Tags URL"};
+const QString label_strings[L_SIZE] = {"Name","Main URL"};
 
 class BooruSettingsTab;
 
@@ -55,13 +51,6 @@ private:
         QComboBox *comboBoxPreset;
         QLabel *labelBooruType;
         QComboBox *comboBoxBooruType;
-
-    QGroupBox *groupBoxOptionalSettings;
-    QVBoxLayout *layoutGroupBoxOptionalSettings;
-
-
-    QGroupBox *groupBoxAdvancedSettings;
-    QVBoxLayout *layoutGroupBoxAdvancedSettings;
 
 };
 

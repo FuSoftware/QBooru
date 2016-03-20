@@ -79,6 +79,13 @@ void BooruSearchEngine::generateUrlExtension()
         if(page>0){params.addQueryItem("page", QString::number(page));}
         search_extension += "?";
         break;
+    case E621_TYPE:
+        /*Debut de la requete de recherche*/
+        if(image_count>0){params.addQueryItem("limit", QString::number(image_count));}
+        if(!tags.empty()){params.addQueryItem("tags", QString(tags.c_str()));}
+        if(page>0){params.addQueryItem("page", QString::number(page));}
+        search_extension += "?";
+        break;
     }
     search_extension += params.toString().toStdString();
 }
@@ -189,6 +196,7 @@ void BooruSearchEngine::setRating(int rating_id)
         break;
     case MOEBOORU_TYPE:
     case DANBOORU2_TYPE:
+    case E621_TYPE:
         switch(rating_id)
         {
         case RATING_SAFE:

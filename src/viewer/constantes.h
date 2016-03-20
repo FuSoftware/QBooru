@@ -24,11 +24,11 @@
  * Set this to 1 to change to the absolute paths for the program (Debug)
  */
 
-#define DEBUG 1
+#define DEBUG 0
 
 #define APP_NAME "QBooru Viewer"
-#define APP_VERSION "1.15.2.3"
-#define BUILD 4
+#define APP_VERSION "1.16.0.0"
+#define BUILD 5
 
 #define TAG_NUMBER    512 //Max number of tags to show in the Viewer
 #define MAX_BOORU_NUMBER 64 //Max number of Boorus to load in the main widget
@@ -59,7 +59,7 @@ enum HostType
   GELBOORU_TYPE,
   MOEBOORU_TYPE,
   DANBOORU2_TYPE, //Reffered as "danbooru" in the JSON files
-  DANBOORU_TYPE //Not used for now
+  E621_TYPE //Not used for now
 };
 
 enum Ratings
