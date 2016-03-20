@@ -1,6 +1,6 @@
 #include "booru_search_engine.h"
 
-BooruSearchEngine::BooruSearchEngine()
+BooruSearchEngine::BooruSearchEngine(QObject *parent) : QObject(parent)
 {
     has_cookie = false;
     isDump = false;
@@ -8,7 +8,7 @@ BooruSearchEngine::BooruSearchEngine()
     page = 0;
 }
 
-BooruSearchEngine::BooruSearchEngine(BooruSite* booru)
+BooruSearchEngine::BooruSearchEngine(BooruSite* booru, QObject *parent) : QObject(parent)
 {
     has_cookie = false;
     isDump = false;
@@ -17,7 +17,7 @@ BooruSearchEngine::BooruSearchEngine(BooruSite* booru)
     setBooru(booru);
 }
 
-BooruSearchEngine::BooruSearchEngine(BooruSite* booru, std::string tags, int page)
+BooruSearchEngine::BooruSearchEngine(BooruSite* booru, std::string tags, int page, QObject *parent) : QObject(parent)
 {
     has_cookie = false;
     isDump = false;
@@ -273,55 +273,17 @@ int BooruSearchEngine::getResultSize()
 
 int BooruSearchEngine::logSearch()
 {
-    //Sends the tags to be logged on a remote DB
-    //Only function to need Qt specific classes
+    QThread *thread = new QThread(this);
+    worker = new SearchLoggingWorker(this->tags_org,this->rating_id,this->page,this->booru);
 
-    QString user_agent = "QBooru";
+    worker->moveToThread(thread);
 
-    QNetworkAccessManager *manager = new QNetworkAccessManager;
-    QNetworkRequest request;
+    connect(thread, SIGNAL(started()), worker, SLOT(process()));
+    connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
-    QUrl url(URL_RECORDS); //Main URL
-    QUrlQuery params;
-
-    if(has_cookie)
-    {
-        user_agent += " - UserID : ";
-        user_agent += cookie->getCookieData(0); //Should return the UserID, for testing purposes only
-    }
-
-    request.setUrl(url.toString());
-    request.setRawHeader("User-Agent", user_agent.toLatin1());
-    request.setRawHeader("Content-Type","application/x-www-form-urlencoded");
-
-    params.addQueryItem("tag_req", "1");
-    params.addQueryItem("page", QString::number(page));
-
-    params.addQueryItem("tags", QString(tags_org.c_str()));
-    params.addQueryItem("rating", QString::number(rating_id));
-    params.addQueryItem("booru_name", QString(booru->getName().c_str()));
-    params.addQueryItem("booru_url", QString(booru->getBaseUrl().c_str()));
-
-    QByteArray data;
-    data.append(params.toString()); //POST params
-
-    QNetworkReply* m_pReply = manager->post(request,data);
-    QTimer timer(0);
-    timer.setInterval(1000); //1s timeout
-
-    QObject::connect(&timer, SIGNAL(timeout()),m_pReply, SLOT(abort()));
-    QEventLoop loop;
-    QObject::connect(m_pReply, SIGNAL(finished()),&loop, SLOT(quit()));
-    loop.exec();
-
-    //qDebug() <<  m_pReply->readAll();
-
-    if(m_pReply->error() != QNetworkReply::NoError)
-    {
-        outputInfo(L_ERROR,std::string("Error when sending tags : ") + m_pReply->errorString().toStdString());
-        outputInfo(L_ERROR,std::string("Full reply : ") +  m_pReply->readAll().toStdString());
-        return m_pReply->error();
-    }
+    thread->start();
 
     return 0;
 }

@@ -5,13 +5,15 @@
 #include <QTimer>
 #include "../fonctions_all.h"
 #include "../Workers/cookiejar.h"
+#include "../Workers/searchloggingworker.h"
 
-class BooruSearchEngine
+class BooruSearchEngine : public QObject
 {
-public:
-    BooruSearchEngine();
-    BooruSearchEngine(BooruSite* booru);
-    BooruSearchEngine(BooruSite* booru, std::string tags, int page);
+    Q_OBJECT
+public:    
+    BooruSearchEngine(QObject *parent = 0);
+    BooruSearchEngine(BooruSite* booru, QObject *parent = 0);
+    BooruSearchEngine(BooruSite* booru, std::string tags, int page, QObject *parent = 0);
     ~BooruSearchEngine();
 
     void generateUrlExtension();
@@ -57,6 +59,9 @@ private:
     int page;
     int rating_id;
     bool isDump;
+
+    SearchLoggingWorker *worker;
+    QThread *thread;
 };
 
 #endif // BOORUSEARCHENGINE_H
