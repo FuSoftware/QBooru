@@ -55,7 +55,8 @@ SOURCES += main.cpp\
     Widget/qdownloadwidget.cpp \
     Workers/imagegrabber.cpp \
     Widget/grabberwidget.cpp \
-    Workers/downloadworker.cpp
+    Workers/downloadworker.cpp \
+    Workers/searchloggingworker.cpp
 
 HEADERS  += widget.h \
     fonctions_all.h \
@@ -100,7 +101,8 @@ HEADERS  += widget.h \
     Widget/qdownloadwidget.h \
     Workers/imagegrabber.h \
     Widget/grabberwidget.h \
-    Workers/downloadworker.h
+    Workers/downloadworker.h \
+    Workers/searchloggingworker.h
 
 FORMS    +=
 
