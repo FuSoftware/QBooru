@@ -23,6 +23,7 @@ public :
     void setBooru(int booru_index);
     void setBooru(BooruSite* booru);
     void loadData(int picture_index);
+    void loadTags(std::string tags_str);
     void loadPaths();
     void loadPaths(std::string download_folder);
     void loadPaths(std::string download_folder,std::string prefix);
@@ -49,7 +50,7 @@ public :
     int score;
     int file_size;
 
-    std::string tags[TAG_NUMBER];
+    std::vector<std::string> tags;
 
     std::string file_url;
     int width;

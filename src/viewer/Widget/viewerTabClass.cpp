@@ -26,13 +26,6 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
             scrollAreaTags = new QScrollArea;
                 scrollAreaTagsContents = new QWidget;
                     layoutTags = new QVBoxLayout;
-                        for(i=0;i<TAG_NUMBER;i++)
-                        {
-                            tags[i] = new QPushButton(this);
-                            tags[i]->setDisabled(true);
-                            tags[i]->setFlat(true);
-                            tags[i]->setStyleSheet("text-align: left;");
-                        }
 
             groupBoxInfo = new QGroupBox("Info");
                 layoutGroupBox = new QVBoxLayout;
@@ -67,10 +60,12 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
         groupBoxInfo->setLayout(layoutGroupBox);
 
         /*ScrollAreaTags*/
-        for(i=0;i<256;i++)
+        /*
+        for(i=0;i<tags.size();i++)
         {
-            layoutTags->addWidget(tags[i]);
+            layoutTags->addWidget(tags.at(i));
         }
+        */
         scrollAreaTagsContents->setLayout(layoutTags);
         scrollAreaTags->setWidget(scrollAreaTagsContents);
 
@@ -109,7 +104,7 @@ ViewerTab::~ViewerTab()
     //clearLayoutSecond(layoutMain);
 }
 
-void ViewerTab::loadLabelsTags(std::string tagsArray[TAG_NUMBER], int tagNumber)
+void ViewerTab::loadLabelsTags(std::vector<std::string> tagsArray)
 {
     int i;
     clearLayout(layoutTags);
@@ -118,25 +113,17 @@ void ViewerTab::loadLabelsTags(std::string tagsArray[TAG_NUMBER], int tagNumber)
     scrollAreaTagsContents = new QWidget;
     layoutTags = new QVBoxLayout;
 
-    for(i=0;i<TAG_NUMBER;i++)
+    tags.clear();
+
+    for(i=0;i<tagsArray.size();i++)
     {
-        tags[i] = new QPushButton("Debug",this);
-        tags[i]->setEnabled(false);
-        connect(tags[i], SIGNAL(pressed()), this, SLOT(buttonClicked()));
+        tags.push_back( new QPushButton(QString(tagsArray.at(i).c_str()),this));
+        connect(tags.at(i), SIGNAL(pressed()), this, SLOT(buttonClicked()));
+        tags.at(i)->setFlat(true);
+        tags.at(i)->setStyleSheet ("text-align: left");
+        layoutTags->addWidget(tags.at(i));
     }
 
-    for(i=0;i<tagNumber;i++)
-    {
-        tags[i]->setEnabled(true);
-        tags[i]->setText(QString(tagsArray[i].c_str()));
-        tags[i]->setFlat(true);
-        tags[i]->setStyleSheet ("text-align: left");
-        layoutTags->addWidget(tags[i]);
-    }
-    for(i=tagNumber;i<TAG_NUMBER;i++)
-    {
-       delete tags[i];
-    }
 
     layoutTags->setSpacing(0);
     scrollAreaTagsContents->setLayout(layoutTags);
@@ -179,7 +166,7 @@ void ViewerTab::loadPicture(int imageHostInt, int tabIndex, int index, int pageI
     labelLoading->setText("Loading tags");
     if(booru->getSiteTypeInt() != DERPIBOORU_TYPE)
     {
-        loadLabelsTags(Image.tags,Image.tagNumber);
+        loadLabelsTags(Image.tags);
     }
 
     progressBar->setValue(50);

@@ -20,8 +20,6 @@ std::string returnTimeStringConvert(int time);
 
 int returnPostAgeSec(int postDate);
 
-int loadTags(std::string taglist, std::string tags[TAG_NUMBER]);
-
 char *downloadPath();
 
 char *getFileExtension(char *filename);

@@ -23,7 +23,7 @@ public:
     ViewerTab(Widget *parent = 0);
     ~ViewerTab();
 
-    void loadLabelsTags(std::string tagsArray[TAG_NUMBER], int tagNumber);
+    void loadLabelsTags(std::vector<string> tagsArray);
 
     void loadPicture(int imageHostInt, int tabIndex, int index, int pageIndexInt, BooruSite* booruSite);
     void loadPicture();
@@ -71,7 +71,7 @@ private:
             QScrollArea *scrollAreaTags;
                 QWidget *scrollAreaTagsContents;
                     QVBoxLayout *layoutTags;
-                        QPushButton *tags[TAG_NUMBER];
+                        std::vector<QPushButton*>tags;
 
             QGroupBox *groupBoxInfo;
                 QVBoxLayout *layoutGroupBox;

@@ -127,34 +127,6 @@ int returnPostAgeSec(int postDate)
     return age;
 }
 
-int loadTags(std::string taglist, std::string tags[TAG_NUMBER])
-{
-    char lettre;
-    std::string mot = "";
-    unsigned int i;
-    unsigned int j = 0;
-
-    for(i=0;i<strlen(taglist.c_str());i++)
-    {
-        lettre = *(taglist.c_str()+i);
-        if(isspace(lettre))
-        {
-            tags[j] = mot;
-            j++;
-            mot = "";
-        }
-        else
-        {
-            mot += lettre;
-        }
-    }
-
-    tags[j] = mot;
-    j++;
-    mot = "";
-    return j;
-}
-
 char *downloadPath()
 {
     /*
