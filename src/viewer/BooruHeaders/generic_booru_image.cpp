@@ -173,15 +173,6 @@ void BooruImage::loadPaths(std::string download_folder)
     std::string fileName;
     std::string format;
 
-    std::string file_name = intToString(id);
-
-    for(int i=0;i<this->tags.size();i++)
-    {
-        file_name += tags.at(i) + "+";
-    }
-
-    if(tags.size()>0){file_name.pop_back();}
-
     /*Thumb path*/
     fileName = preview_url;
     format = fileName.substr(fileName.find_last_of(".") + 1);
@@ -194,8 +185,8 @@ void BooruImage::loadPaths(std::string download_folder)
 
     /*Full path*/
     fileName = full_url;
-    format = fileName.substr(fileName.find_last_of(".") + 1);
-    full_path = download_folder + file_name + "_full." + format;
+    fileName = fileName.substr(fileName.find_last_of("/") + 1);
+    full_path = download_folder + fileName;
 }
 
 void BooruImage::loadPaths(std::string download_folder,std::string prefix)
@@ -231,6 +222,7 @@ void BooruImage::download_medium()
 
 void BooruImage::download_full()
 {
+    outputInfo(L_DEBUG, string("Saving to ") + full_path);
     downloadFile(full_url.c_str(),full_path.c_str(),true,false,false);
 }
 
