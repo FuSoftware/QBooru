@@ -193,7 +193,7 @@ void ViewerTab::loadPicture()
     infos[5] = QString("Created on : ") + QString(date.c_str());//Date
     infos[6] = QString("Score : ") + QString::number(Image.score);//Score
 
-    infos[8] = QString("Size : ") +QString::number(Image.width) + "x" + QString::number(Image.height);;//Picture Size
+    infos[8] = QString("Size : ") + QString("<a href=\"") + QString(Image.full_url.c_str()) +  QString("\">") + QString::number(Image.width) + "x" + QString::number(Image.height) + QString("</a>");//Picture Size
     infos[9] = QString("File Size : ") + QString::number(Image.file_size);//File Size
 
     switch(Image.rating)
@@ -227,6 +227,10 @@ void ViewerTab::loadPicture()
     labelInfo[1]->setTextFormat(Qt::RichText);
     labelInfo[1]->setTextInteractionFlags(Qt::TextBrowserInteraction);
     labelInfo[1]->setOpenExternalLinks(true);
+
+    labelInfo[8]->setTextFormat(Qt::RichText);
+    labelInfo[8]->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    labelInfo[8]->setOpenExternalLinks(true);
 }
 
 void ViewerTab::downloadPicture()

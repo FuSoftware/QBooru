@@ -27,7 +27,7 @@
 #define DEBUG 0
 
 #define APP_NAME "QBooru Viewer"
-#define APP_VERSION "1.16.4.0"
+#define APP_VERSION "1.16.5.0"
 #define BUILD 9
 
 #define TAG_NUMBER    512 //Max number of tags to show in the Viewer
