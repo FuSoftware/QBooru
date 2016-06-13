@@ -16,28 +16,14 @@ QList<QNetworkCookie> ConnectionManager::getLoginCookie(string url, string user,
 QList<QNetworkCookie> ConnectionManager::getLoginCookie(QString url, QString user, QString pass)
 {
     //Getting redirection
-    QUrlQuery postData;
-    postData.addQueryItem("user", user);
-    postData.addQueryItem("pass", pass);
-    postData.addQueryItem("submit", "Log+in");
+    QUrlQuery *postData = new QUrlQuery;
+    postData->addQueryItem("user", user);
+    postData->addQueryItem("pass", pass);
+    postData->addQueryItem("submit", "Log+in");
 
-    QUrl file_url = QUrl(url);
+    QUrl qurl = QUrl(url);
 
-    //Synchronous download
-    QNetworkAccessManager *manager = new QNetworkAccessManager;
-    QNetworkRequest request;
-
-    request.setUrl(file_url.toString());
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-    //request.setRawHeader("Referer", referer);
-
-    qDebug() << "Querying" << file_url.toString() << "with POST" << postData.toString(QUrl::FullyEncoded).toUtf8();
-
-    QNetworkReply* m_pReply = manager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
-
-    QEventLoop loop;
-    QObject::connect(m_pReply, SIGNAL(finished()),&loop, SLOT(quit()));
-    loop.exec();
+    QNetworkReply* m_pReply = execPostRequest(qurl,postData);
 
     //qDebug() << "Loop finished";
     QVariant variantCookies = m_pReply->header(QNetworkRequest::SetCookieHeader);
@@ -55,28 +41,50 @@ QList<QNetworkCookie> ConnectionManager::getLoginCookie(QString url, QString use
     return cookies;
 }
 
-QNetworkReply* ConnectionManager::execPostRequest(QUrl url, QUrlQuery postData){
-
+QNetworkReply* ConnectionManager::execPostRequest(QUrl url, QUrlQuery *data)
+{
+    return execRequest(url,POST,data);
 }
 
-QNetworkReply* ConnectionManager::execGetRequest(QUrl url, QUrlQuery getData){
-
+QNetworkReply* ConnectionManager::execGetRequest(QUrl url, QUrlQuery *data)
+{
+    QUrl qurl = QUrl(url.toString() + data->toString());
+    return execRequest(qurl,GET);
 }
 
-QNetworkReply* ConnectionManager::execRequest(QUrl url, QUrlQuery postData){
+QNetworkReply* ConnectionManager::execRequest(QUrl url, ReqType type, QUrlQuery *data)
+{
     //Synchronous download
     QNetworkAccessManager *manager = new QNetworkAccessManager;
     QNetworkRequest request;
 
-    request.setUrl(file_url.toString());
+    request.setUrl(url.toString());
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     //request.setRawHeader("Referer", referer);
 
-    qDebug() << "Querying" << file_url.toString() << "with POST" << postData.toString(QUrl::FullyEncoded).toUtf8();
+    QNetworkReply* m_pReply;
 
-    QNetworkReply* m_pReply = manager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
+    switch(type){
+    case GET:
+        qDebug() << "Querying" << url.toString() << "with GET";
+        m_pReply = manager->get(request);
+        break;
+    case POST:
+        if(data != NULL){
+            qDebug() << "Querying" << url.toString() << "with POST" << data->toString(QUrl::FullyEncoded).toUtf8();
+            m_pReply = manager->post(request, data->toString(QUrl::FullyEncoded).toUtf8());
+        }else{
+            qDebug() << "Could not query" << url.toString() << "with POST : " << "Post data empty";
+            return 0;
+        }
+        break;
+    default:
+        break;
+    }
 
     QEventLoop loop;
     QObject::connect(m_pReply, SIGNAL(finished()),&loop, SLOT(quit()));
     loop.exec();
+
+    return m_pReply;
 }

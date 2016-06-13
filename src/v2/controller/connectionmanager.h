@@ -17,6 +17,11 @@
 
 #include "../utils/output.h"
 
+enum ReqType{
+    GET = 0,
+    POST
+};
+
 using namespace std;
 
 class ConnectionManager
@@ -28,6 +33,12 @@ public:
 
     QList<QNetworkCookie> getLoginCookie(string url, string user, string pass);
     QList<QNetworkCookie> getLoginCookie(QString url, QString user, QString pass);
+
+    QNetworkReply* execPostRequest(QUrl url, QUrlQuery *data = 0);
+
+    QNetworkReply* execGetRequest(QUrl url, QUrlQuery *data = 0);
+
+    QNetworkReply* execRequest(QUrl url, ReqType type = GET, QUrlQuery *data = 0);
 
 
 private:
