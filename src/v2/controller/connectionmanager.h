@@ -3,10 +3,17 @@
 
 #include <iostream>
 
+#include <QDebug>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QUrlQuery>
+#include <QString>
 #include <QEventLoop>
+
+#include <QList>
+#include <QNetworkCookie>
+#include <QVariant>
 
 #include "../utils/output.h"
 

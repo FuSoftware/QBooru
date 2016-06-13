@@ -24,7 +24,7 @@
  * Set this to 1 to change to the absolute paths for the program (Debug)
  */
 
-#define DEBUG 0
+#define DEBUG 1
 
 #define APP_NAME "QBooru Viewer"
 #define APP_VERSION "1.16.5.0"
