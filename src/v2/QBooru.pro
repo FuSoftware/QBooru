@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     utils/output.cpp \
     utils/file.cpp \
     model/jsonobject.cpp \
-    controller/connectionmanager.cpp
+    controller/connectionmanager.cpp \
+    tests.cpp \
+    controller/boorusdatabase.cpp
 
 HEADERS  += mainwidget.h \
     model/boorupicture.h \
@@ -51,7 +53,9 @@ HEADERS  += mainwidget.h \
     utils/output.h \
     utils/file.h \
     model/jsonobject.h \
-    controller/connectionmanager.h
+    controller/connectionmanager.h \
+    tests.h \
+    controller/boorusdatabase.h
 
 DISTFILES += \
     json/sconscript
