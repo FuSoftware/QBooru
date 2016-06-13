@@ -8,6 +8,7 @@
 #include "output.h"
 
 Json::Value saveAndLoad(Json::Value root, const char* file);
+Json::Value loadJSONString(string str);
 Json::Value loadJSONFile(const char* filePath);
 void saveJSONFile(Json::Value root, const char* filePath);
 

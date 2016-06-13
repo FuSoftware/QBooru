@@ -11,6 +11,23 @@ Json::Value saveAndLoad(Json::Value root, const char* file)
     return root;
 }
 
+Json::Value loadJSONString(string str)
+{
+    Json::Value root; // will contains the root value after parsing
+    Json::Reader reader;
+
+    bool parsingSuccessful = reader.parse(str,root);
+    if ( !parsingSuccessful )
+    {
+        // report to the user the failure and their locations in the document.
+        outputInfo(L_ERROR,
+                   reader.getFormattedErrorMessages());
+        return Json::nullValue;
+    }
+
+    return root;
+}
+
 Json::Value loadJSONFile(const char* filePath)
 {
     Json::Value root; // will contains the root value after parsing
