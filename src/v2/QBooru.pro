@@ -30,7 +30,9 @@ SOURCES += main.cpp\
     model/jsonobject.cpp \
     controller/connectionmanager.cpp \
     tests.cpp \
-    controller/boorusdatabase.cpp
+    controller/boorusdatabase.cpp \
+    view/qboorupicture.cpp \
+    utils/conversion.cpp
 
 HEADERS  += mainwidget.h \
     model/boorupicture.h \
@@ -55,7 +57,9 @@ HEADERS  += mainwidget.h \
     model/jsonobject.h \
     controller/connectionmanager.h \
     tests.h \
-    controller/boorusdatabase.h
+    controller/boorusdatabase.h \
+    view/qboorupicture.h \
+    utils/conversion.h
 
 DISTFILES += \
     json/sconscript

@@ -20,12 +20,15 @@ class BooruPicture
 public:
     BooruPicture(Json::Value root, BooruSite *parent);
 
+    int getH();
+    int getW();
+
 private:
     void loadGelbooru(Json::Value root);
     void loadMoebooru(Json::Value root);
     void loadDanbooru(Json::Value root);
     void loadE621(Json::Value root);
-    void loadTags(std::string tags_str);
+    void loadTags(string tags_str);
 
     BooruSite *parent;
 

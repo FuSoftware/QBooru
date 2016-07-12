@@ -10,10 +10,8 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWidget w;
-    w.show();
 
-    test_database();
+    test_picture();
 
     return a.exec();
 }

@@ -186,3 +186,11 @@ string secondsToString(int time){
 int postAge(int postDate){
     return time(NULL) - postDate;
 }
+
+int BooruPicture::getW(){
+    return this->w;
+}
+
+int BooruPicture::getH(){
+    return this->h;
+}

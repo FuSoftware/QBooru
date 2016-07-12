@@ -32,3 +32,10 @@ void test_database()
 
     cout << sites.size() << " boorus loaded" << endl;
 }
+
+void test_picture()
+{
+    QBooruPicture *p = new QBooruPicture;
+    p->setText("Test Comment");
+    p->show();
+}
