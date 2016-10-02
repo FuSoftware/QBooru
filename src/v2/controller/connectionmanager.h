@@ -15,7 +15,11 @@
 #include <QNetworkCookie>
 #include <QVariant>
 
-#include "../utils/output.h"
+#include <QFile>
+#include <QFileInfo>
+
+#include "utils/output.h"
+#include "utils/file.h"
 
 enum ReqType{
     GET = 0,
@@ -30,6 +34,9 @@ public:
     ConnectionManager();
 
     string get(string url, string params);
+
+    bool downloadFile(std::string url, std::string path, bool override);
+    bool downloadFile(QString url, QString path, bool override);
 
     QList<QNetworkCookie> getLoginCookie(string url, string user, string pass);
     QList<QNetworkCookie> getLoginCookie(QString url, QString user, QString pass);

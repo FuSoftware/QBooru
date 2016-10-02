@@ -5,6 +5,30 @@ ConnectionManager::ConnectionManager()
 
 }
 
+bool ConnectionManager::downloadFile(std::string url, std::string path, bool override)
+{
+    return downloadFile(QString(url.c_str()),QString(path.c_str()),override);
+}
+
+bool ConnectionManager::downloadFile(QString url, QString path, bool override)
+{
+    QFile file(path);
+
+    checkFileFolder(path);
+
+    if(file.exists() && !override){
+        return true;
+    }
+
+    QNetworkReply* reply = execGetRequest(url);
+
+    file.open(QIODevice::WriteOnly);
+    file.write(reply->readAll());
+    file.close();
+
+    return true;
+}
+
 QList<QNetworkCookie> ConnectionManager::getLoginCookie(string url, string user, string pass){
     QString qurl = QString(url.c_str());
     QString quser = QString(user.c_str());

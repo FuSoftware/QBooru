@@ -2,6 +2,7 @@
 #define QBOORUPICTURE_H
 
 #include "model/boorupicture.h"
+#include "controller/connectionmanager.h"
 
 #include <QtWidgets>
 
@@ -15,7 +16,7 @@ public:
     void loadUI();
 
     void setBooruPicture(BooruPicture* picture);
-    void setPixmap(QPixmap* pixmap);
+    void setPixmap(QPixmap pixmap);
     void setText(QString text);
 
 signals:
@@ -24,7 +25,7 @@ public slots:
 
 private:
     BooruPicture* picture;
-    QPixmap *pixmap;
+    QPixmap pixmap;
 
     QLabel *labelPicture;
     QLabel *labelComment;

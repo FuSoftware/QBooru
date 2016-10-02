@@ -13,8 +13,8 @@ QBooruPicture::QBooruPicture(BooruPicture *picture, QWidget *parent) : QWidget(p
 
 void QBooruPicture::loadUI()
 {
-    labelPicture = new QLabel(this);
-    labelComment = new QLabel(this);
+    labelPicture = new QLabel("Picture",this);
+    labelComment = new QLabel("Size",this);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(labelPicture);
@@ -29,11 +29,20 @@ void QBooruPicture::setBooruPicture(BooruPicture* picture)
 
     QString text = QString::number(picture->getW()) + QString("x") + QString::number(picture->getH());
     setText(text);
+
+    //TODO : Thread this
+    ConnectionManager *mgr = new ConnectionManager;
+    mgr->downloadFile(picture->getThumbnailUrl(), picture->getThumbnailPath(),true);
+
+    QPixmap pixmap;
+    pixmap.load(QString(picture->getThumbnailPath().c_str()));
+    setPixmap(pixmap);
 }
 
-void QBooruPicture::setPixmap(QPixmap* pixmap)
+void QBooruPicture::setPixmap(QPixmap pixmap)
 {
     this->pixmap = pixmap;
+    labelPicture->setPixmap(pixmap);
 }
 
 void QBooruPicture::setText(QString text)

@@ -32,7 +32,9 @@ SOURCES += main.cpp\
     tests.cpp \
     controller/boorusdatabase.cpp \
     view/qboorupicture.cpp \
-    utils/conversion.cpp
+    utils/conversion.cpp \
+    view/qsearchtab.cpp \
+    workers/qsearchworker.cpp
 
 HEADERS  += mainwidget.h \
     model/boorupicture.h \
@@ -59,7 +61,10 @@ HEADERS  += mainwidget.h \
     tests.h \
     controller/boorusdatabase.h \
     view/qboorupicture.h \
-    utils/conversion.h
+    utils/conversion.h \
+    const.h \
+    view/qsearchtab.h \
+    workers/qsearchworker.h
 
 DISTFILES += \
     json/sconscript

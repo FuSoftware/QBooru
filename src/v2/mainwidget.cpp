@@ -9,3 +9,7 @@ MainWidget::~MainWidget()
 {
 
 }
+
+void MainWidget::initialize()
+{
+}
