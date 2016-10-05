@@ -12,7 +12,7 @@ public:
     ~MainWidget();
 
 public slots:
-    initialize();
+    void initialize();
 private:
 };
 
