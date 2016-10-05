@@ -7,16 +7,17 @@ QDownloadWorker::QDownloadWorker(QString url, QString file, bool override, QObje
     this->override = override;
 }
 
-QDownloadWorker::QDownloadWorker(BooruPicture* picture, PictureType type, QObject *parent = 0) : QObject(parent)
+QDownloadWorker::QDownloadWorker(BooruPicture* picture, PictureType type, QObject *parent) : QObject(parent)
 {
-    this->url = picture->getURL(type);
-    this->file = picture->getFile(type);
+    this->url = QString(picture->getURL(type).c_str());
+    this->file = QString(picture->getFile(type).c_str());
     this->override = false;
 }
 
 void QDownloadWorker::process()
 {
     ConnectionManager* mgr = new ConnectionManager;
-    mgr->downloadFile(url.toStdString(),file.toStdString(),override);
+    bool res = mgr->downloadFile(url.toStdString(),file.toStdString(),override);
+    if(res){emit downloaded(file);}
     emit finished();
 }

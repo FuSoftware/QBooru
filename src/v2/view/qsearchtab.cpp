@@ -68,4 +68,18 @@ void QSearchTab::setupBooru(BooruSite* booru)
 void QSearchTab::search()
 {
     pictures = engine->search(lineEditSearch->text().toStdString(),lineEditPageNumber->text().toInt());
+    loadPictures(pictures);
+}
+
+void QSearchTab::loadPictures(std::vector<BooruPicture*> pictures)
+{
+    for(int i=0;i<pictures.size();i++)
+    {
+        loadPicture(pictures.at(i),i);
+    }
+}
+
+void QSearchTab::loadPicture(BooruPicture* picture, int index)
+{
+    pictureWidgets.at(index)->loadBooruPicture(picture);
 }

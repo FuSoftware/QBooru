@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     utils/conversion.cpp \
     view/qsearchtab.cpp \
     workers/qsearchworker.cpp \
-    workers/qdownloadworker.cpp
+    workers/qdownloadworker.cpp \
+    utils/qnamredirect.cpp
 
 HEADERS  += mainwidget.h \
     model/boorupicture.h \
@@ -66,7 +67,8 @@ HEADERS  += mainwidget.h \
     const.h \
     view/qsearchtab.h \
     workers/qsearchworker.h \
-    workers/qdownloadworker.h
+    workers/qdownloadworker.h \
+    utils/qnamredirect.h
 
 DISTFILES += \
     json/sconscript

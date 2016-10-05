@@ -19,6 +19,7 @@ using namespace std;
 
 enum PictureType{
     PREVIEW = 0,
+    PREVIEW_JPG,
     SAMPLE,
     FULL,
     PICTURE_TYPE_END

@@ -12,7 +12,8 @@ public:
     QDownloadWorker(QString url, QString file, bool override, QObject *parent = 0);
     QDownloadWorker(BooruPicture* picture, PictureType type, QObject *parent = 0);
 signals:
-
+    void downloaded(QString file);
+    void finished();
 public slots:
     void process();
 

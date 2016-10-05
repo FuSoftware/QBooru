@@ -3,8 +3,10 @@
 
 #include "model/boorupicture.h"
 #include "controller/connectionmanager.h"
+#include "workers/qdownloadworker.h"
 
 #include <QtWidgets>
+#include <QDebug>
 
 class QBooruPicture : public QWidget
 {
@@ -15,6 +17,7 @@ public:
 
     void loadUI();
 
+    void loadBooruPicture(BooruPicture* picture);
     void setBooruPicture(BooruPicture* picture);
     void setPixmap(QPixmap pixmap);
     void setText(QString text);
@@ -22,6 +25,7 @@ public:
 signals:
 
 public slots:
+    void loadPixmap(QString file);
 
 private:
     BooruPicture* picture;
@@ -29,6 +33,9 @@ private:
 
     QLabel *labelPicture;
     QLabel *labelComment;
+
+    QThread* thread;
+    QDownloadWorker* worker;
 };
 
 #endif // QBOORUPICTURE_H

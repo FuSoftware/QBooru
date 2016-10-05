@@ -23,25 +23,49 @@ void QBooruPicture::loadUI()
     setLayout(layout);
 }
 
+void QBooruPicture::loadBooruPicture(BooruPicture* picture)
+{
+    this->picture = picture;
+
+    thread = new QThread;
+    worker = new QDownloadWorker(picture,PREVIEW,false);
+
+    worker->moveToThread(thread);
+
+    connect(thread, SIGNAL(started()), worker, SLOT(process()));
+    connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+    connect(worker,SIGNAL(downloaded(QString)),this,SLOT(loadPixmap(QString)));
+
+    thread->start();
+
+    QString text = QString::number(picture->getW()) + QString("x") + QString::number(picture->getH());
+    setText(text);
+}
+
 void QBooruPicture::setBooruPicture(BooruPicture* picture)
 {
     this->picture = picture;
 
     QString text = QString::number(picture->getW()) + QString("x") + QString::number(picture->getH());
     setText(text);
+    loadPixmap(QString(picture->getThumbnailPath().c_str()));
+}
 
-    //TODO : Thread this
-    ConnectionManager *mgr = new ConnectionManager;
-    mgr->downloadFile(picture->getThumbnailUrl(), picture->getThumbnailPath(),true);
-
+void QBooruPicture::loadPixmap(QString file)
+{
+    qDebug() << "Loading pixmap from" << file;
     QPixmap pixmap;
-    pixmap.load(QString(picture->getThumbnailPath().c_str()));
+    pixmap.load(file);
     setPixmap(pixmap);
 }
 
 void QBooruPicture::setPixmap(QPixmap pixmap)
 {
     this->pixmap = pixmap;
+    pixmap.scaled(150,150, Qt::KeepAspectRatio);
     labelPicture->setPixmap(pixmap);
 }
 
