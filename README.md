@@ -43,7 +43,23 @@ Boorus can be added, edited, and deleted through the Booru tab in the software, 
     <li>Yaourt : <code>yaourt -S qt5 qtcreator</code></li>
   </ul>
   <li>Load the .pro file in QtCreator (Qt >= 5)</li>
-  <li>Put the now built executable in a folder with full R/W permissions </li>
+  <li>Put the now built executable in a folder with full R/W permissions</li>
+  <li>Run it</li>
+</ul>
+
+##Build instructions (Mac OS)
+<ul>
+  <li>Clone the git repo</li>
+  <li>Install XCode from App Store</li>
+  <li>Install Qt</li>
+  <ul>
+    <li>MacPorts : <code>sudo port install qt5</code></li>
+    <li>Homebrew : <code>brew install qt5</code></li>
+    <li>Also you can install Qt from official site</li>
+  </ul>
+  <li>Cd into <code>builds</code> directory</li>
+  <li>Run <code>qmake ../src/viewer/QBooru.pro && make</code></li>
+  <li>Put the now built executable in a folder with full R/W permissions</li>
   <li>Run it</li>
 </ul>
 
