@@ -85,6 +85,7 @@ HEADERS  += widget.h \
     BooruHeaders/generic_booru_image.h \
     constantes_win.h \
     constantes_linux.h \
+    constantes_mac.h \
     BooruHeaders/headers.h \
     fonctions/fonctions.h \
     fonctions/fonctions_conversion.h \
@@ -118,3 +119,6 @@ static { # everything below takes effect with CONFIG ''= static
  #win32: TARGET = $$join(TARGET,,,s) #this adds an s in the end, so you can seperate static build from non static build
 }
 
+macx { # Mac OS
+ CONFIG-=app_bundle
+}

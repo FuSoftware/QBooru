@@ -167,7 +167,7 @@ bool fexists(const char *filename)
 {
   std::ifstream ifile(filename);
 
-#if __linux
+#if __linux || __APPLE__
   return ifile.is_open();
 #else
   return ifile;
