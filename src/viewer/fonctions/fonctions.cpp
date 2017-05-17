@@ -146,7 +146,7 @@ char *downloadPath()
     #endif
     */
 
-    return "downloads/";
+    return DOWNLOAD_PATH;
 }
 
 char *getFileExtension(char *filename)

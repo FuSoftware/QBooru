@@ -39,7 +39,7 @@
     /**Mac OS Release**/
 
         #define CACHE_PATH  "cache/"
-        #define DOWNLOAD_PATH  "downloads/"
+        #define DOWNLOAD_PATH  "../../../downloads/"
         #define CONF_PATH     "conf/"
         #define CONF_FILE    "conf/configuration.json"
         #define LOG_FILE    "programLog.log"
@@ -51,7 +51,7 @@
         #define LAST_VERSION_FILE "conf/lastVersion.json"
 
         #define UPDATER_MAIN_EXECUTABLE "QBooruUpdater"
-        #define LOADING_GIF "/conf/loader.gif"
+        #define LOADING_GIF "conf/loader.gif"
 
         #define BOORU_LIST "conf/boorulist.json"
 

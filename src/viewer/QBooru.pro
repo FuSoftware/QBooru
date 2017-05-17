@@ -120,5 +120,7 @@ static { # everything below takes effect with CONFIG ''= static
 }
 
 macx { # Mac OS
+ CONFIG += c++11
  CONFIG-=app_bundle
+ QMAKE_POST_LINK = mkdir -p $$OUT_PWD/QBooru.app/ && cp -r $$PWD/QBooruTemplate.app/ $$OUT_PWD/QBooru.app/ && mv $$OUT_PWD/QBooru $$OUT_PWD/QBooru.app/Contents/MacOS/QBooru && macdeployqt $$OUT_PWD/QBooru.app && cp $$PWD/icon.icns $$OUT_PWD/QBooru.app/Contents/Resources/ && mv $$OUT_PWD/QBooru.app/Contents/_Info.plist $$OUT_PWD/QBooru.app/Contents/Info.plist && cp -r $$OUT_PWD/latest/macos/QBooru.app/Contents/MacOS/conf/ $$OUT_PWD/QBooru.app/Contents/MacOS/conf/
 }
