@@ -35,8 +35,9 @@ SOURCES += main.cpp\
     utils/conversion.cpp \
     view/qmaingrid.cpp \
     controller/boorupixmapdownloader.cpp \
-    workers/qsearchworker.cpp \
-    utils/qnamredirect.cpp
+    controller/qsearchworker.cpp \
+    utils/qnamredirect.cpp \
+    view/qsearchwidget.cpp
 
 HEADERS  += mainwidget.h \
     model/boorupicture.h \
@@ -67,8 +68,9 @@ HEADERS  += mainwidget.h \
     view/qmaingrid.h \
     controller/boorupixmapdownloader.h \
     const.h \
-    workers/qsearchworker.h \
-    utils/qnamredirect.h
+    controller/qsearchworker.h \
+    utils/qnamredirect.h \
+    view/qsearchwidget.h
 
 DISTFILES += \
     json/sconscript

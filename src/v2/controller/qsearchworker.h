@@ -2,6 +2,7 @@
 #define QSEARCHWORKER_H
 
 #include <QObject>
+#include <QVector>
 
 #include "controller/boorusearchengine.h"
 
@@ -12,7 +13,7 @@ public:
     QSearchWorker(BooruSearchEngine* engine, QObject *parent=0);
 
 signals:
-    void results(std::vector<BooruPicture*>);
+    void results(QVector<BooruPicture*>);
     void finished();
 
 public slots:

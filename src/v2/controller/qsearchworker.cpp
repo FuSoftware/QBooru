@@ -9,6 +9,7 @@ QSearchWorker::QSearchWorker(BooruSearchEngine* engine, QObject *parent) : QObje
 void QSearchWorker::process()
 {
     std::vector<BooruPicture*> pictures = engine->search();
-    emit results(pictures);
+
+    emit results(QVector<BooruPicture*>::fromStdVector(pictures));
     emit finished();
 }

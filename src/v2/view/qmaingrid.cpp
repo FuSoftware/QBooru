@@ -26,8 +26,14 @@ QMainGrid::QMainGrid(int l, int h, QWidget *parent) : QWidget(parent)
     setLayout(grid);
 }
 
-void QMainGrid::loadPictures(vector<BooruPicture*> pictures)
+void QMainGrid::loadPictures(std::vector<BooruPicture*> pictures)
 {
+    loadPictures(QVector<BooruPicture*>::fromStdVector(pictures));
+}
+
+void QMainGrid::loadPictures(QVector<BooruPicture*> pictures)
+{
+    qDebug() << "Loading pictures";
     for(int i=0;i<this->count;i++)
     {
         pictureWidgets[i]->setBooruPicture(pictures[i]);

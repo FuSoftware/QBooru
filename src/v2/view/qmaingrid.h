@@ -13,7 +13,6 @@ class QMainGrid : public QWidget
 public:
     QMainGrid(int l, int h, QWidget *parent = nullptr);
 
-    void loadPictures(vector<BooruPicture *> pictures);
     QBooruPicture* getWidget(int i);
     QVector<QBooruPicture*> getWidgets();
 
@@ -23,6 +22,8 @@ public:
 signals:
 
 public slots:
+    void loadPictures(std::vector<BooruPicture *> pictures);
+    void loadPictures(QVector<BooruPicture *> pictures);
 
 private:
     int l;
