@@ -41,6 +41,25 @@ QList<QNetworkCookie> ConnectionManager::getLoginCookie(QString url, QString use
     return cookies;
 }
 
+void ConnectionManager::downloadFile(QString url, QString path, bool overwrite)
+{
+    downloadFile(QUrl(url),path, overwrite);
+}
+
+void ConnectionManager::downloadFile(QUrl url, QString path, bool overwrite)
+{
+    if(!fexists(path.toStdString()) || overwrite)
+    {
+        QNetworkReply* reply = execGetRequest(url);
+
+        createFolder(path);
+        QFile f(path);
+        f.open(QIODevice::WriteOnly);
+        f.write(reply->readAll());
+        f.close();
+    }
+}
+
 QNetworkReply* ConnectionManager::execPostRequest(QUrl url, QUrlQuery *data)
 {
     return execRequest(url,POST,data);
@@ -48,7 +67,13 @@ QNetworkReply* ConnectionManager::execPostRequest(QUrl url, QUrlQuery *data)
 
 QNetworkReply* ConnectionManager::execGetRequest(QUrl url, QUrlQuery *data)
 {
-    QUrl qurl = QUrl(url.toString() + data->toString());
+    QUrl qurl;
+    if(data)
+        qurl = QUrl(url.url() + data->toString());
+    else
+        qurl = url;
+
+
     return execRequest(qurl,GET);
 }
 

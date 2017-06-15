@@ -187,10 +187,32 @@ int postAge(int postDate){
     return time(NULL) - postDate;
 }
 
+string BooruPicture::getThumbnailUrl()
+{
+    return this->url_preview;
+}
+
+string BooruPicture::getFullUrl()
+{
+    return this->url_full;
+}
+string BooruPicture::getThumbnailPath()
+{
+    return "cache/" + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
+}
+string BooruPicture::getFullPath()
+{
+    return "cache/full.jpg";
+}
+
 int BooruPicture::getW(){
     return this->w;
 }
 
 int BooruPicture::getH(){
     return this->h;
+}
+
+int BooruPicture::getID(){
+    return this->id;
 }

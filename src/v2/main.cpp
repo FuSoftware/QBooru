@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    test_picture();
+    test_maingrid();
 
     return a.exec();
 }

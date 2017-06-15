@@ -39,3 +39,23 @@ void test_picture()
     p->setText("Test Comment");
     p->show();
 }
+
+void test_maingrid()
+{
+    BooruSite* site = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+    cout << "Site " << site->getName() << " loaded" << endl;
+
+    BooruSearchEngine *engine = new BooruSearchEngine(site);
+    cout << "Engine loaded" << endl;
+
+    vector<BooruPicture*> pics = engine->search("kawashiro_nitori",0,15);
+    cout << pics.size() << " pics loaded" << endl;
+
+    QMainGrid *grid = new QMainGrid(5,3);
+    cout << "Widget initialized" << endl;
+
+    grid->loadPictures(pics);
+    cout << "Pictures loaded" << endl;
+
+    grid->show();
+}

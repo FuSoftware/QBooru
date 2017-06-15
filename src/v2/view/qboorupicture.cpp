@@ -14,7 +14,7 @@ QBooruPicture::QBooruPicture(BooruPicture *picture, QWidget *parent) : QWidget(p
 void QBooruPicture::loadUI()
 {
     labelPicture = new QLabel(this);
-    labelComment = new QLabel(this);
+    labelComment = new QLabel("Bleh",this);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(labelPicture);
@@ -31,9 +31,10 @@ void QBooruPicture::setBooruPicture(BooruPicture* picture)
     setText(text);
 }
 
-void QBooruPicture::setPixmap(QPixmap* pixmap)
+void QBooruPicture::setPixmap(QPixmap pixmap)
 {
     this->pixmap = pixmap;
+    labelPicture->setPixmap(pixmap);
 }
 
 void QBooruPicture::setText(QString text)

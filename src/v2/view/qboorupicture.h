@@ -4,6 +4,7 @@
 #include "model/boorupicture.h"
 
 #include <QtWidgets>
+#include <QDebug>
 
 class QBooruPicture : public QWidget
 {
@@ -14,17 +15,16 @@ public:
 
     void loadUI();
 
-    void setBooruPicture(BooruPicture* picture);
-    void setPixmap(QPixmap* pixmap);
-    void setText(QString text);
-
 signals:
 
 public slots:
+    void setBooruPicture(BooruPicture* picture);
+    void setPixmap(QPixmap pixmap);
+    void setText(QString text);
 
 private:
     BooruPicture* picture;
-    QPixmap *pixmap;
+    QPixmap pixmap;
 
     QLabel *labelPicture;
     QLabel *labelComment;

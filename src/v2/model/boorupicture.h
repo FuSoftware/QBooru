@@ -12,6 +12,7 @@
 
 #include "jsonobject.h"
 #include "boorusite.h"
+#include "utils/conversion.h"
 
 using namespace std;
 
@@ -22,6 +23,11 @@ public:
 
     int getH();
     int getW();
+    int getID();
+    string getThumbnailUrl();
+    string getFullUrl();
+    string getThumbnailPath();
+    string getFullPath();
 
 private:
     void loadGelbooru(Json::Value root);

@@ -15,7 +15,8 @@
 #include <QNetworkCookie>
 #include <QVariant>
 
-#include "../utils/output.h"
+#include "utils/file.h"
+#include "utils/output.h"
 
 enum ReqType{
     GET = 0,
@@ -33,6 +34,9 @@ public:
 
     QList<QNetworkCookie> getLoginCookie(string url, string user, string pass);
     QList<QNetworkCookie> getLoginCookie(QString url, QString user, QString pass);
+
+    void downloadFile(QString url, QString path, bool overwrite = false);
+    void downloadFile(QUrl url, QString path, bool overwrite = false);
 
     QNetworkReply* execPostRequest(QUrl url, QUrlQuery *data = 0);
 
