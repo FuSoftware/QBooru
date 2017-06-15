@@ -3,7 +3,6 @@
 
 #include "model/boorupicture.h"
 #include "controller/connectionmanager.h"
-#include "workers/qdownloadworker.h"
 
 #include <QtWidgets>
 #include <QDebug>
@@ -30,9 +29,6 @@ private:
 
     QLabel *labelPicture;
     QLabel *labelComment;
-
-    QThread* thread;
-    QDownloadWorker* worker;
 };
 
 #endif // QBOORUPICTURE_H

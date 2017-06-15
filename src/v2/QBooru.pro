@@ -36,7 +36,6 @@ SOURCES += main.cpp\
     view/qmaingrid.cpp \
     controller/boorupixmapdownloader.cpp \
     workers/qsearchworker.cpp \
-    workers/qdownloadworker.cpp \
     utils/qnamredirect.cpp
 
 HEADERS  += mainwidget.h \
@@ -69,7 +68,6 @@ HEADERS  += mainwidget.h \
     controller/boorupixmapdownloader.h \
     const.h \
     workers/qsearchworker.h \
-    workers/qdownloadworker.h \
     utils/qnamredirect.h
 
 DISTFILES += \
