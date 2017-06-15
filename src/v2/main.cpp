@@ -1,9 +1,7 @@
-#include "mainwidget.h"
 #include <QApplication>
 #include <iostream>
 
 #include "tests.h"
-
 
 using namespace std;
 

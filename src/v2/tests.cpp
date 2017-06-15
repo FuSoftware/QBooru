@@ -35,9 +35,21 @@ void test_database()
 
 void test_picture()
 {
-    QBooruPicture *p = new QBooruPicture;
-    p->setText("Test Comment");
-    p->show();
+    BooruSite* saf = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+
+    BooruSearchEngine *engine = new BooruSearchEngine(saf);
+
+    std::vector<BooruPicture*> pics = engine->search("hatsune_miku",0,15);
+
+    std::cout << "Test : " << pics.size() << " pics" << std::endl;
+
+    if(!pics.empty()){
+        QBooruPicture *p = new QBooruPicture;
+        p->setBooruPicture(pics.at(0));
+        p->show();
+    }else{
+        exit(-1);
+    }
 }
 
 void test_maingrid()

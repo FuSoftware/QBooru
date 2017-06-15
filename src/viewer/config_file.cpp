@@ -182,7 +182,7 @@ void ConfigFile::checkDownloadPath()
     }
     else
     {
-        this->default_download_path = "downloads/";
+        this->default_download_path = DOWNLOAD_PATH;
     }
 }
 

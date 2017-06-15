@@ -68,11 +68,11 @@ QNetworkReply* ConnectionManager::execPostRequest(QUrl url, QUrlQuery *data)
 QNetworkReply* ConnectionManager::execGetRequest(QUrl url, QUrlQuery *data)
 {
     QUrl qurl;
+
     if(data)
         qurl = QUrl(url.url() + data->toString());
     else
         qurl = url;
-
 
     return execRequest(qurl,GET);
 }
@@ -82,6 +82,8 @@ QNetworkReply* ConnectionManager::execRequest(QUrl url, ReqType type, QUrlQuery 
     //Synchronous download
     QNetworkAccessManager *manager = new QNetworkAccessManager;
     QNetworkRequest request;
+
+    url = findRedirection(url);
 
     request.setUrl(url.toString());
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
@@ -112,4 +114,16 @@ QNetworkReply* ConnectionManager::execRequest(QUrl url, ReqType type, QUrlQuery 
     loop.exec();
 
     return m_pReply;
+}
+
+QUrl ConnectionManager::findRedirection(QUrl url)
+{
+    QNAMRedirect redirect;
+    redirect.processUrl(url.toString());
+
+    QEventLoop loop;
+    QObject::connect(&redirect, SIGNAL(finished()),&loop, SLOT(quit()));
+    loop.exec();
+
+    return redirect.getLastRedirect();
 }

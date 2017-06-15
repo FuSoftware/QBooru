@@ -41,25 +41,30 @@ QUrlQuery* BooruSearchEngine::generateRequest(string tags, int page, int limit)
 
 vector<BooruPicture*> BooruSearchEngine::search(string tags)
 {
-    return search(tags,this->page,this->limit);
+    set(tags);
+    return search();
 }
 
 vector<BooruPicture*> BooruSearchEngine::search(int page)
 {
-    return search(this->tags,page,this->limit);
+    set(page);
+    return search();
 }
 
 vector<BooruPicture*> BooruSearchEngine::search(string tags, int page)
 {
-    return search(tags,page,this->limit);
+    set(tags,page);
+    return search();
 }
 
 vector<BooruPicture*> BooruSearchEngine::search(string tags, int page, int limit)
 {
-    this->tags = tags;
-    this->page = page;
-    this->limit = limit;
+    set(tags,page,limit);
+    return search();
+}
 
+vector<BooruPicture*> BooruSearchEngine::search()
+{
     QUrlQuery *params = generateRequest(tags, page, limit);
 
     QString url = QString(parent->getSearchUrl().c_str());
@@ -104,4 +109,27 @@ vector<BooruPicture*> BooruSearchEngine::parse(QString data)
     outputInfo(L_DEBUG,"JSON parsed, " + QString(QString::number(size)).toStdString() + " pictures loaded");
 
     return pictures;
+}
+
+void BooruSearchEngine::set(string tags)
+{
+    this->tags = tags;
+}
+
+void BooruSearchEngine::set(int page)
+{
+    this->page = page;
+}
+
+void BooruSearchEngine::set(string tags, int page)
+{
+    this->tags = tags;
+    this->page = page;
+}
+
+void BooruSearchEngine::set(string tags, int page, int limit)
+{
+    this->tags = tags;
+    this->page = page;
+    this->limit = limit;
 }

@@ -17,6 +17,9 @@
 
 #include "utils/file.h"
 #include "utils/output.h"
+#include <QFile>
+#include <QFileInfo>
+#include "utils/qnamredirect.h"
 
 enum ReqType{
     GET = 0,
@@ -43,6 +46,8 @@ public:
     QNetworkReply* execGetRequest(QUrl url, QUrlQuery *data = 0);
 
     QNetworkReply* execRequest(QUrl url, ReqType type = GET, QUrlQuery *data = 0);
+
+    QUrl findRedirection(QUrl url);
 
 
 private:

@@ -13,8 +13,8 @@ QBooruPicture::QBooruPicture(BooruPicture *picture, QWidget *parent) : QWidget(p
 
 void QBooruPicture::loadUI()
 {
-    labelPicture = new QLabel(this);
-    labelComment = new QLabel("Bleh",this);
+    labelPicture = new QLabel("Picture",this);
+    labelComment = new QLabel("Size",this);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(labelPicture);
@@ -34,6 +34,7 @@ void QBooruPicture::setBooruPicture(BooruPicture* picture)
 void QBooruPicture::setPixmap(QPixmap pixmap)
 {
     this->pixmap = pixmap;
+    pixmap.scaled(150,150, Qt::KeepAspectRatio);
     labelPicture->setPixmap(pixmap);
 }
 
