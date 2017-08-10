@@ -17,6 +17,14 @@
 
 using namespace std;
 
+enum PictureType{
+    PREVIEW = 0,
+    PREVIEW_JPG,
+    SAMPLE,
+    FULL,
+    PICTURE_TYPE_END
+};
+
 class BooruPicture
 {
 public:
@@ -26,6 +34,8 @@ public:
     int getW();
     string getThumbnailUrl();
     string getThumbnailPath();
+    string getURL(PictureType type);
+    string getFile(PictureType type);
 
 private:
     void loadGelbooru(Json::Value root);
@@ -50,16 +60,12 @@ private:
     int w;
     int h;
 
-    string url_preview;
-    string url_sample;
-    string url_full;
+    string url[PICTURE_TYPE_END];
     string url_show;
 
     string rating;
 
-    string file_preview;
-    string file_sample;
-    string file_download;
+    string file[PICTURE_TYPE_END];
     string ext;
 
 

@@ -19,11 +19,6 @@ string getFileExtension(string filename)
 
 bool fexists(const char *filename)
 {
-  ifstream ifile(filename);
-
-#if __linux
-  return ifile.is_open();
-#else
-  return ifile;
-#endif
+    ifstream ifile(filename);
+    return ifile.is_open();
 }

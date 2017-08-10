@@ -18,6 +18,9 @@ public:
     void loadUI();
     void setupBooru(BooruSite* booru);
 
+    void loadPictures(std::vector<BooruPicture*> pictures);
+    void loadPicture(BooruPicture* picture, int index);
+
 signals:
 
 public slots:
