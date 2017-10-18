@@ -51,3 +51,47 @@ void test_picture()
         exit(-1);
     }
 }
+
+void test_maingrid()
+{
+    BooruSite* site = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+    cout << "Site " << site->getName() << " loaded" << endl;
+
+    BooruSearchEngine *engine = new BooruSearchEngine(site);
+    cout << "Engine loaded" << endl;
+
+    vector<BooruPicture*> pics = engine->search("kawashiro_nitori",0,15);
+    cout << pics.size() << " pics loaded" << endl;
+
+    QMainGrid *grid = new QMainGrid(5,3);
+    cout << "Widget initialized" << endl;
+
+    grid->loadPictures(pics);
+    cout << "Pictures loaded" << endl;
+
+    grid->show();
+}
+
+void test_simple_tab()
+{
+    qRegisterMetaType<QVector<BooruPicture*> >("QVector<BooruPicture*>");
+
+    //Webiste
+    BooruSite* site = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+    cout << "Site " << site->getName() << " loaded" << endl;
+
+    //Widgets
+    QWidget *w = new QWidget();
+    QSearchWidget *s = new QSearchWidget(site,15,w);
+    QMainGrid *g = new QMainGrid(5,3,w);
+
+    //Logic
+    QObject::connect(s,SIGNAL(loadedPictures(QVector<BooruPicture*>)),g,SLOT(loadPictures(QVector<BooruPicture*>)));
+
+    //Layout
+    QVBoxLayout *l = new QVBoxLayout;
+    l->addWidget(s);
+    l->addWidget(g);
+    w->setLayout(l);
+    w->show();
+}

@@ -12,6 +12,7 @@
 
 #include "jsonobject.h"
 #include "boorusite.h"
+
 #include "const.h"
 #include "utils/conversion.h"
 
@@ -32,6 +33,8 @@ public:
 
     int getH();
     int getW();
+    int getID();
+
     string getThumbnailUrl();
     string getThumbnailPath();
     string getURL(PictureType type);

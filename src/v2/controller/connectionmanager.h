@@ -15,11 +15,10 @@
 #include <QNetworkCookie>
 #include <QVariant>
 
+#include "utils/file.h"
+#include "utils/output.h"
 #include <QFile>
 #include <QFileInfo>
-
-#include "utils/output.h"
-#include "utils/file.h"
 #include "utils/qnamredirect.h"
 
 enum ReqType{
@@ -36,11 +35,11 @@ public:
 
     string get(string url, string params);
 
-    bool downloadFile(std::string url, std::string path, bool override);
-    bool downloadFile(QString url, QString path, bool override);
-
     QList<QNetworkCookie> getLoginCookie(string url, string user, string pass);
     QList<QNetworkCookie> getLoginCookie(QString url, QString user, QString pass);
+
+    void downloadFile(QString url, QString path, bool overwrite = false);
+    void downloadFile(QUrl url, QString path, bool overwrite = false);
 
     QNetworkReply* execPostRequest(QUrl url, QUrlQuery *data = 0);
 
