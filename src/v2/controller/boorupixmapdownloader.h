@@ -3,8 +3,9 @@
 
 #include <QObject>
 #include <QPixmap>
-#include "model/boorupicture.h"
-#include "controller/connectionmanager.h"
+
+class Connectionmanager;
+class BooruPicture;
 
 class BooruPixmapDownloader : public QObject
 {
@@ -12,6 +13,7 @@ class BooruPixmapDownloader : public QObject
 public:
     BooruPixmapDownloader(BooruPicture* pic, bool overwrite = false, QObject *parent = nullptr);
     BooruPixmapDownloader(QString url, QString path, bool overwrite = false, QObject *parent = nullptr);
+    BooruPixmapDownloader(BooruPicture* pic, int type, bool overwrite = false, QObject *parent = nullptr);
 
 signals:
     void pixmapLoaded(QPixmap pixmap);

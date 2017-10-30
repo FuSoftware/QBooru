@@ -87,18 +87,19 @@ QNetworkReply* ConnectionManager::execRequest(QUrl url, ReqType type, QUrlQuery 
 
     request.setUrl(url.toString());
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    request.setHeader(QNetworkRequest::UserAgentHeader, "QBooru/2.0 FuSoftware https://github.com/FuSoftware/QBooru");
     //request.setRawHeader("Referer", referer);
 
     QNetworkReply* m_pReply;
 
     switch(type){
     case GET:
-        qDebug() << "Querying" << url.toString() << "with GET";
+        //qDebug() << "Querying" << url.toString() << "with GET";
         m_pReply = manager->get(request);
         break;
     case POST:
         if(data != NULL){
-            qDebug() << "Querying" << url.toString() << "with POST" << data->toString(QUrl::FullyEncoded).toUtf8();
+            //qDebug() << "Querying" << url.toString() << "with POST" << data->toString(QUrl::FullyEncoded).toUtf8();
             m_pReply = manager->post(request, data->toString(QUrl::FullyEncoded).toUtf8());
         }else{
             qDebug() << "Could not query" << url.toString() << "with POST : " << "Post data empty";

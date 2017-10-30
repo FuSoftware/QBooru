@@ -37,7 +37,11 @@ SOURCES += main.cpp\
     controller/boorupixmapdownloader.cpp \
     controller/qsearchworker.cpp \
     utils/qnamredirect.cpp \
-    view/qsearchwidget.cpp
+    view/qsearchwidget.cpp \
+    view/qboorupictureviewer.cpp \
+    view/qboorupictureinfowidget.cpp \
+    view/clickablelabel.cpp \
+    view/qboorutab.cpp
 
 HEADERS  += mainwidget.h \
     model/boorupicture.h \
@@ -70,7 +74,11 @@ HEADERS  += mainwidget.h \
     const.h \
     controller/qsearchworker.h \
     utils/qnamredirect.h \
-    view/qsearchwidget.h
+    view/qsearchwidget.h \
+    view/qboorupictureviewer.h \
+    view/qboorupictureinfowidget.h \
+    view/clickablelabel.h \
+    view/qboorutab.h
 
 DISTFILES += \
     json/sconscript

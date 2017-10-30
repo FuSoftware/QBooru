@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include <sstream> //Used for int to string conversion
+#include <sstream> //Used for int to std::string conversion
 #include <ctime> //Used to generate the post's age
 
 //Used to check the Taglist, might be improved
@@ -15,8 +15,6 @@
 
 #include "const.h"
 #include "utils/conversion.h"
-
-using namespace std;
 
 enum PictureType{
     PREVIEW = 0,
@@ -35,46 +33,52 @@ public:
     int getW();
     int getID();
 
-    string getThumbnailUrl();
-    string getThumbnailPath();
-    string getURL(PictureType type);
-    string getFile(PictureType type);
+    std::string getThumbnailUrl();
+    std::string getThumbnailPath();
+    std::string getURL(int type);
+    std::string getFile(int type);
+    std::string getShowUrl();
+
+    std::string getAuthor();
+    std::string getCreationDate();
+    BooruSite* getWebsite();
+    int getScore();
 
 private:
     void loadGelbooru(Json::Value root);
     void loadMoebooru(Json::Value root);
     void loadDanbooru(Json::Value root);
     void loadE621(Json::Value root);
-    void loadTags(string tags_str);
+    void loadTags(std::string tags_str);
 
     BooruSite *parent;
 
     int id;
-    string created_at;
-    string author;
-    string source;
+    std::string created_at;
+    std::string author;
+    std::string source;
 
     int score;
     int size;
 
-    vector<string> taglist;
-    string tags;
+    vector<std::string> taglist;
+    std::string tags;
 
     int w;
     int h;
 
-    string url[PICTURE_TYPE_END];
-    string url_show;
+    std::string url[PICTURE_TYPE_END];
+    std::string url_show;
 
-    string rating;
+    std::string rating;
 
-    string file[PICTURE_TYPE_END];
-    string ext;
+    std::string file[PICTURE_TYPE_END];
+    std::string ext;
 
 
 };
 
-string secondsToString(int time);
+std::string secondsToString(int time);
 int postAge(int postDate);
 
 #endif // BOORUPICTURE_H

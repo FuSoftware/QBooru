@@ -14,13 +14,12 @@
 #include "view/qmaingrid.h"
 #include "view/qsearchwidget.h"
 
-using namespace std;
-
 void test_search();
 void test_site();
 void test_database();
 void test_picture();
 void test_maingrid();
 void test_simple_tab();
+void test_sample_boorus();
 
 #endif // TESTS_H

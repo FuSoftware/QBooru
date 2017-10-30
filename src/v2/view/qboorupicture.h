@@ -1,11 +1,11 @@
 #ifndef QBOORUPICTURE_H
 #define QBOORUPICTURE_H
 
-#include "model/boorupicture.h"
-#include "controller/connectionmanager.h"
-
 #include <QtWidgets>
 #include <QDebug>
+#include "clickablelabel.h"
+
+class BooruPicture;
 
 class QBooruPicture : public QWidget
 {
@@ -17,17 +17,19 @@ public:
     void loadUI();
 
 signals:
+    void pictureClicked(BooruPicture* picture);
 
 public slots:
     void setBooruPicture(BooruPicture* picture);
     void setPixmap(QPixmap pixmap);
     void setText(QString text);
+    void onPictureClicked();
 
 private:
     BooruPicture* picture;
     QPixmap pixmap;
 
-    QLabel *labelPicture;
+    ClickableLabel *labelPicture;
     QLabel *labelComment;
 };
 

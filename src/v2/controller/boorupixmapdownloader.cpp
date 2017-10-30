@@ -1,9 +1,12 @@
 #include "boorupixmapdownloader.h"
 
+#include "model/boorupicture.h"
+#include "controller/connectionmanager.h"
+
 BooruPixmapDownloader::BooruPixmapDownloader(BooruPicture* pic, bool overwrite, QObject *parent) : QObject(parent)
 {
-    this->url = QString(pic->getThumbnailUrl().c_str());
-    this->path = QString(pic->getThumbnailPath().c_str());
+    this->url = QString::fromStdString(pic->getThumbnailUrl());
+    this->path = QString::fromStdString(pic->getThumbnailPath());
     this->id = pic->getID();
     this->overwrite = overwrite;
 }
@@ -13,6 +16,14 @@ BooruPixmapDownloader::BooruPixmapDownloader(QString url, QString path, bool ove
     this->url = url;
     this->path = path;
     id = 0;
+    this->overwrite = overwrite;
+}
+
+BooruPixmapDownloader::BooruPixmapDownloader(BooruPicture* pic, int type, bool overwrite, QObject *parent) : QObject(parent)
+{
+    this->url = QString::fromStdString(pic->getURL(type));
+    this->path = QString::fromStdString(pic->getFile(type));
+    id = pic->getID();
     this->overwrite = overwrite;
 }
 

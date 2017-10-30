@@ -20,6 +20,7 @@ public:
     int getWidgetCount();
 
 signals:
+    void pictureClicked(BooruPicture *picture);
 
 public slots:
     void loadPictures(std::vector<BooruPicture *> pictures);
