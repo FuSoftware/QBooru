@@ -2,7 +2,8 @@
 #define QBOORUPICTUREINFOWIDGET_H
 
 #include <QtWidgets>
-#include "model/boorupicture.h"
+
+class BooruPicture;
 
 class QBooruPictureInfoWidget : public QWidget
 {

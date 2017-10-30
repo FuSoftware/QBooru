@@ -3,12 +3,13 @@
 
 #include <QtWidgets>
 
-#include "view/qboorutab.h"
+class QBooruTab;
+class QBooruPictureViewer;
+class BooruSite;
 
 class MainWidget : public QWidget
 {
     Q_OBJECT
-
 public:
     MainWidget(QWidget *parent = 0);
     ~MainWidget();
@@ -19,8 +20,11 @@ public slots:
     void addBooru(BooruSite* site);
 
 private:
+    void reorderTabs();
+
     QTabWidget *tab_widget;
-    QVector<BooruSite*> loaded_sites;
+    QVector<QBooruTab*> tabs;
+    QBooruPictureViewer *viewer;
 };
 
 #endif // MAINWIDGET_H

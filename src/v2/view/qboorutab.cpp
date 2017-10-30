@@ -1,5 +1,8 @@
 #include "qboorutab.h"
 
+#include "qsearchwidget.h"
+#include "qmaingrid.h"
+
 QBooruTab::QBooruTab(BooruSite* site, QWidget *parent) : QWidget(parent)
 {
     this->site = site;
@@ -30,4 +33,9 @@ void QBooruTab::loadUI()
 BooruSite* QBooruTab::getBooru()
 {
     return this->site;
+}
+
+QString QBooruTab::getTitle()
+{
+    return QString::fromStdString(this->site->getName());
 }

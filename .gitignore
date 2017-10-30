@@ -218,8 +218,8 @@ pip-log.txt
 #############
 ## Qt
 #############
-Qt-builds/
-Qt-builds/*
+qt-builds/
+qt-builds/*
 src/viewer/QBooru.pro.user
 src/updater/QBooru_Updater.pro.user
 

@@ -2,8 +2,11 @@
 #define QBOORUTAB_H
 
 #include <QtWidgets>
-#include "qsearchwidget.h"
-#include "qmaingrid.h"
+
+class QMainGrid;
+class BooruSite;
+class BooruPicture;
+class QSearchWidget;
 
 class QBooruTab : public QWidget
 {
@@ -12,6 +15,7 @@ public:
     QBooruTab(BooruSite *site, QWidget *parent = nullptr);
     void loadUI();
     BooruSite* getBooru();
+    QString getTitle();
 
 signals:
     void pictureClicked(BooruPicture *picture);

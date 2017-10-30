@@ -1,5 +1,9 @@
 #include "qmaingrid.h"
 
+#include "qboorupicture.h"
+#include "model/boorupicture.h"
+#include "controller/boorupixmapdownloader.h"
+
 QMainGrid::QMainGrid(int l, int h, QWidget *parent) : QWidget(parent)
 {
     this->l = l;

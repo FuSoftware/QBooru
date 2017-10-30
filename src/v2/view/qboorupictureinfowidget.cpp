@@ -1,5 +1,7 @@
 #include "qboorupictureinfowidget.h"
 
+#include "model/boorupicture.h"
+
 QBooruPictureInfoWidget::QBooruPictureInfoWidget(QWidget *parent) : QWidget(parent)
 {
     loadUI();
@@ -26,7 +28,14 @@ void QBooruPictureInfoWidget::loadUI()
     for(int i=0;i<LABELS::COUNT;i++)
     {
         this->labels[i] = new QLabel(this->titles[i], this);
+        this->labels[i]->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        bLayout->addWidget(this->labels[i]);
     }
+
+    b->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+    this->labels[LABEL_SHOW_URL]->setOpenExternalLinks(true);
+    this->labels[LABEL_FULL_URL]->setOpenExternalLinks(true);
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(b);
@@ -75,12 +84,13 @@ void QBooruPictureInfoWidget::setDimensions(int w, int h)
 
 void QBooruPictureInfoWidget::setFullUrl(QString url)
 {
-    setLabel(LABELS::LABEL_FULL_URL, url);
+    QString html = QString("<a href=\"") + url + QString("\">Link</a>");
+    setLabel(LABELS::LABEL_FULL_URL, html);
 }
 
 void QBooruPictureInfoWidget::setId(int id)
 {
-    setLabel(LABELS::LABEL_DIMENSIONS, QString::number(id));
+    setLabel(LABELS::LABEL_ID, QString::number(id));
 }
 
 void QBooruPictureInfoWidget::setScore(int score)
@@ -90,5 +100,6 @@ void QBooruPictureInfoWidget::setScore(int score)
 
 void QBooruPictureInfoWidget::setShowUrl(QString url)
 {
-    setLabel(LABELS::LABEL_SHOW_URL, url);
+    QString html = QString("<a href=\"") + url + QString("\">Link</a>");
+    setLabel(LABELS::LABEL_SHOW_URL, html);
 }

@@ -1,5 +1,7 @@
 #include "boorupicture.h"
 
+#include <sstream>
+
 BooruPicture::BooruPicture(Json::Value root, BooruSite *parent)
 {
     this->parent = parent;
@@ -19,6 +21,9 @@ BooruPicture::BooruPicture(Json::Value root, BooruSite *parent)
         loadE621(root);
         break;
     }
+
+    file[PREVIEW] = std::string(PATH_CACHE) + this->parent->getName() + "_thumb_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
+    file[SAMPLE] = std::string(PATH_CACHE) + this->parent->getName() + "_sample_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadGelbooru(Json::Value root){
@@ -52,8 +57,6 @@ void BooruPicture::loadGelbooru(Json::Value root){
     }
     this->rating = root["rating"].asString();
     loadTags(root["tags"].asString());
-
-    file[PREVIEW] = std::string(PATH_CACHE) + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadMoebooru(Json::Value root){
@@ -70,8 +73,6 @@ void BooruPicture::loadMoebooru(Json::Value root){
     this->url[SAMPLE]   = root["sample_url"].asString();
     this->rating   = root["rating"].asString();
     loadTags(root["posts"]["tags"].asString());
-
-    file[PREVIEW] = std::string(PATH_CACHE) + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadDanbooru(Json::Value root){
@@ -88,8 +89,6 @@ void BooruPicture::loadDanbooru(Json::Value root){
     this->url[SAMPLE] = parent->getMainUrl() + root["large_file_url"].asString();
     this->rating = root["rating"].asString();
     loadTags(root["tag_string"].asString());
-
-    file[PREVIEW] = std::string(PATH_CACHE) + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadE621(Json::Value root){
@@ -106,8 +105,6 @@ void BooruPicture::loadE621(Json::Value root){
     this->url[SAMPLE] = root["sample_url"].asString();
     this->rating = root["rating"].asString();
     loadTags(root["tags"].asString());
-
-    file[PREVIEW] = std::string(PATH_CACHE) + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadTags(std::string tags_str)
@@ -250,5 +247,7 @@ BooruSite* BooruPicture::getWebsite()
 
 std::string BooruPicture::getShowUrl()
 {
-    return this->url_show;
+    std::ostringstream oss;
+    oss << this->parent->getShowUrl() << this->getID();
+    return  oss.str();
 }

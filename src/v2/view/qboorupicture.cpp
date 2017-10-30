@@ -19,7 +19,7 @@ void QBooruPicture::loadUI()
     labelPicture = new ClickableLabel("Picture",this);
     labelComment = new QLabel("Size",this);
 
-    labelPicture->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    labelPicture->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(labelPicture);
@@ -29,12 +29,12 @@ void QBooruPicture::loadUI()
     layout->setAlignment(labelComment, Qt::AlignCenter | Qt::AlignBottom);
 
     setLayout(layout);
-
     connect(labelPicture, SIGNAL(clicked()), this, SLOT(onPictureClicked()));
 }
 
 void QBooruPicture::onPictureClicked()
 {
+    qDebug() << "Clicked picture " << QString::number(this->picture->getID()) << " from booru " << QString::fromStdString(this->picture->getWebsite()->getName());
     emit pictureClicked(this->picture);
 }
 
@@ -63,8 +63,8 @@ void QBooruPicture::setBooruPicture(BooruPicture* picture)
 
 void QBooruPicture::setPixmap(QPixmap pixmap)
 {
-    this->pixmap = pixmap.scaled(150,150, Qt::KeepAspectRatio);
-    labelPicture->setPixmap(this->pixmap);
+    this->pixmap = pixmap;
+    labelPicture->setPixmap(this->pixmap.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 void QBooruPicture::setText(QString text)

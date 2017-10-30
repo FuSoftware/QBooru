@@ -2,9 +2,10 @@
 #define QBOORUPICTUREVIEWER_H
 
 #include <QtWidgets>
-#include "qboorupictureinfowidget.h"
-#include "model/boorupicture.h"
-#include "controller/boorupixmapdownloader.h"
+
+class QBooruPictureInfoWidget;
+class BooruPicture;
+class BooruPixmapDownloader;
 
 class QBooruPictureViewer : public QWidget
 {

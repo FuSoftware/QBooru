@@ -1,5 +1,9 @@
 #include "qboorupictureviewer.h"
 
+#include "qboorupictureinfowidget.h"
+#include "model/boorupicture.h"
+#include "controller/boorupixmapdownloader.h"
+
 QBooruPictureViewer::QBooruPictureViewer(QWidget *parent) : QWidget(parent)
 {
     loadUI();
@@ -9,6 +13,8 @@ void QBooruPictureViewer::loadUI()
 {
     this->info_widget = new QBooruPictureInfoWidget(this);
     this->label_picture = new QLabel(this);
+
+    this->info_widget->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     QHBoxLayout *layout = new QHBoxLayout();
     layout->addWidget(label_picture);

@@ -2,10 +2,11 @@
 #define QMAINGRID_H
 
 #include <QtWidgets>
-#include "qboorupicture.h"
-#include "model/boorupicture.h"
-#include "controller/boorupixmapdownloader.h"
 #include <QThread>
+
+class BooruPixmapDownloader;
+class BooruPicture;
+class QBooruPicture;
 
 class QMainGrid : public QWidget
 {
