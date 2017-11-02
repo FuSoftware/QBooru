@@ -21,6 +21,7 @@ signals:
 
 public slots:
     void setBooruPicture(BooruPicture* picture);
+    void setBooruPictureEmpty();
     void setPixmap(QPixmap pixmap);
     void setText(QString text);
     void onPictureClicked();

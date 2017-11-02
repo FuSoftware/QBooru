@@ -32,6 +32,8 @@ void QSearchWidget::search()
     QThread *t = new QThread(this);
     worker = new QSearchWorker(engine);
 
+    worker->moveToThread(t);
+
     //Thread Management
     connect(t, SIGNAL(started()),  worker, SLOT(process()));
     connect(worker, SIGNAL(finished()), t, SLOT(quit()));
@@ -41,6 +43,5 @@ void QSearchWidget::search()
     //Output
     connect(worker,SIGNAL(results(QVector<BooruPicture*>)),this,SIGNAL(loadedPictures(QVector<BooruPicture*>)));
 
-    worker->moveToThread(t);
     t->start();
 }

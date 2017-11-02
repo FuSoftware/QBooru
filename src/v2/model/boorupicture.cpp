@@ -34,10 +34,10 @@ void BooruPicture::loadGelbooru(Json::Value root){
     dir = root["directory"].asString();
 
     /* Main Data */
-    id = root["id"].asInt();
-    created_at = secondsToString(root["change"].asInt());
-    author = root["owner"].asString();
-    score = root["score"].asInt();
+    this->id = root["id"].asInt();
+    this->created_at = secondsToString(root["change"].asInt());
+    this->author = root["owner"].asString();
+    this->score = root["score"].asInt();
 
     /* Size */
     this->size = 0;
