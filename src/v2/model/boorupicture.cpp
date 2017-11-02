@@ -1,5 +1,7 @@
 #include "boorupicture.h"
 
+#include <sstream>
+
 BooruPicture::BooruPicture(Json::Value root, BooruSite *parent)
 {
     this->parent = parent;
@@ -19,11 +21,14 @@ BooruPicture::BooruPicture(Json::Value root, BooruSite *parent)
         loadE621(root);
         break;
     }
+
+    file[PREVIEW] = std::string(PATH_CACHE) + this->parent->getName() + "_thumb_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
+    file[SAMPLE] = std::string(PATH_CACHE) + this->parent->getName() + "_sample_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadGelbooru(Json::Value root){
-    string pic;
-    string dir;
+    std::string pic;
+    std::string dir;
 
     pic = root["image"].asString();
     dir = root["directory"].asString();
@@ -52,8 +57,6 @@ void BooruPicture::loadGelbooru(Json::Value root){
     }
     this->rating = root["rating"].asString();
     loadTags(root["tags"].asString());
-
-    file[PREVIEW] = string(PATH_CACHE) + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadMoebooru(Json::Value root){
@@ -70,8 +73,6 @@ void BooruPicture::loadMoebooru(Json::Value root){
     this->url[SAMPLE]   = root["sample_url"].asString();
     this->rating   = root["rating"].asString();
     loadTags(root["posts"]["tags"].asString());
-
-    file[PREVIEW] = string(PATH_CACHE) + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadDanbooru(Json::Value root){
@@ -88,8 +89,6 @@ void BooruPicture::loadDanbooru(Json::Value root){
     this->url[SAMPLE] = parent->getMainUrl() + root["large_file_url"].asString();
     this->rating = root["rating"].asString();
     loadTags(root["tag_string"].asString());
-
-    file[PREVIEW] = string(PATH_CACHE) + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadE621(Json::Value root){
@@ -106,14 +105,12 @@ void BooruPicture::loadE621(Json::Value root){
     this->url[SAMPLE] = root["sample_url"].asString();
     this->rating = root["rating"].asString();
     loadTags(root["tags"].asString());
-
-    file[PREVIEW] = string(PATH_CACHE) + this->parent->getName() + "_" + intToString(this->id) + "." + getThumbnailUrl().substr(getThumbnailUrl().find_last_of(".") + 1);
 }
 
 void BooruPicture::loadTags(std::string tags_str)
 {
     char lettre;
-    string mot = "";
+    std::string mot = "";
     unsigned int i;
     unsigned int j = 0;
 
@@ -136,11 +133,11 @@ void BooruPicture::loadTags(std::string tags_str)
     mot = "";
 }
 
-string secondsToString(int time){
+std::string secondsToString(int time){
     int i=0;
-    string timeUnit;
-    string timeString;
-    stringstream ss;
+    std::string timeUnit;
+    std::string timeString;
+    std::stringstream ss;
 
     while(time >= 60 && i<2)
     {
@@ -208,22 +205,49 @@ int BooruPicture::getID(){
     return this->id;
 }
 
-string BooruPicture::getThumbnailUrl()
+std::string BooruPicture::getThumbnailUrl()
 {
     return this->url[PREVIEW];
 }
 
-string BooruPicture::getThumbnailPath()
+std::string BooruPicture::getThumbnailPath()
 {
     return this->file[PREVIEW];
 }
 
-string BooruPicture::getURL(PictureType type)
+std::string BooruPicture::getURL(int type)
 {
     return this->url[type];
 }
 
-string BooruPicture::getFile(PictureType type)
+std::string BooruPicture::getFile(int type)
 {
     return this->file[type];
+}
+
+std::string BooruPicture::getAuthor()
+{
+    return this->author;
+}
+
+int BooruPicture::getScore()
+{
+    return this->score;
+}
+
+std::string BooruPicture::getCreationDate()
+{
+    return this->created_at;
+}
+
+BooruSite* BooruPicture::getWebsite()
+{
+    return this->parent;
+}
+
+std::string BooruPicture::getShowUrl()
+{
+    std::ostringstream oss;
+    oss << this->parent->getShowUrl() << this->getID();
+    return  oss.str();
 }

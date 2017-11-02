@@ -1,8 +1,11 @@
 #include "tests.h"
 
+#include "view/qboorutab.h"
+#include "mainwidget.h"
+
 void test_search()
 {
-    BooruSite* site = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+    BooruSite* site = new BooruSite(string("Safebooru"),std::string("http://safebooru.org"), API::GELBOORU);
 
     cout << "Site " << site->getName() << " has search url " << site->getSearchUrl() << endl;
 
@@ -13,7 +16,7 @@ void test_search()
 
 void test_site()
 {
-    BooruSite* site = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+    BooruSite* site = new BooruSite(std::string("Safebooru"),std::string("http://safebooru.org"), API::GELBOORU);
 
     cout << "Site " << site->getName() << " has search url " << site->getSearchUrl() << endl;
 }
@@ -22,8 +25,8 @@ void test_database()
 {
     BoorusDatabase *db = new BoorusDatabase();
 
-    BooruSite* saf = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
-    BooruSite* kon = new BooruSite(string("Konachan"),string("http://konachan.net"), API::MOEBOORU);
+    BooruSite* saf = new BooruSite(std::string("Safebooru"),std::string("http://safebooru.org"), API::GELBOORU);
+    BooruSite* kon = new BooruSite(std::string("Konachan"),std::string("http://konachan.net"), API::MOEBOORU);
 
     db->addBooru(saf);
     db->addBooru(kon);
@@ -35,7 +38,7 @@ void test_database()
 
 void test_picture()
 {
-    BooruSite* saf = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+    BooruSite* saf = new BooruSite(std::string("Safebooru"),std::string("http://safebooru.org"), API::GELBOORU);
 
     BooruSearchEngine *engine = new BooruSearchEngine(saf);
 
@@ -54,7 +57,7 @@ void test_picture()
 
 void test_maingrid()
 {
-    BooruSite* site = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+    BooruSite* site = new BooruSite(std::string("Safebooru"),std::string("http://safebooru.org"), API::GELBOORU);
     cout << "Site " << site->getName() << " loaded" << endl;
 
     BooruSearchEngine *engine = new BooruSearchEngine(site);
@@ -77,21 +80,25 @@ void test_simple_tab()
     qRegisterMetaType<QVector<BooruPicture*> >("QVector<BooruPicture*>");
 
     //Webiste
-    BooruSite* site = new BooruSite(string("Safebooru"),string("http://safebooru.org"), API::GELBOORU);
+    BooruSite* site = new BooruSite(std::string("Yandere"),std::string("https://yande.re"), API::MOEBOORU);
     cout << "Site " << site->getName() << " loaded" << endl;
 
     //Widgets
-    QWidget *w = new QWidget();
-    QSearchWidget *s = new QSearchWidget(site,15,w);
-    QMainGrid *g = new QMainGrid(5,3,w);
+    QBooruTab *t = new QBooruTab(site, 0);
+    t->show();
+}
 
-    //Logic
-    QObject::connect(s,SIGNAL(loadedPictures(QVector<BooruPicture*>)),g,SLOT(loadPictures(QVector<BooruPicture*>)));
+void test_sample_boorus()
+{
+    qRegisterMetaType<QVector<BooruPicture*> >("QVector<BooruPicture*>");
+    QVector<BooruSite*> boorus;
 
-    //Layout
-    QVBoxLayout *l = new QVBoxLayout;
-    l->addWidget(s);
-    l->addWidget(g);
-    w->setLayout(l);
+    boorus.push_back(new BooruSite(std::string("Yandere"),std::string("https://yande.re"), API::MOEBOORU));
+    boorus.push_back(new BooruSite(std::string("Konachan"),std::string("https://konachan.com"), API::MOEBOORU));
+    boorus.push_back(new BooruSite(std::string("Safebooru"),std::string("http://safebooru.org"), API::GELBOORU));
+    boorus.push_back(new BooruSite(std::string("E621"),std::string("https://e621.net"), API::E621));
+
+    MainWidget *w = new MainWidget();
+    w->loadBoorus(boorus);
     w->show();
 }

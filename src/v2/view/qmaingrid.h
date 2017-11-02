@@ -2,10 +2,11 @@
 #define QMAINGRID_H
 
 #include <QtWidgets>
-#include "qboorupicture.h"
-#include "model/boorupicture.h"
-#include "controller/boorupixmapdownloader.h"
 #include <QThread>
+
+class BooruPixmapDownloader;
+class BooruPicture;
+class QBooruPicture;
 
 class QMainGrid : public QWidget
 {
@@ -20,6 +21,7 @@ public:
     int getWidgetCount();
 
 signals:
+    void pictureClicked(BooruPicture *picture);
 
 public slots:
     void loadPictures(std::vector<BooruPicture *> pictures);
