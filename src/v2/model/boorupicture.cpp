@@ -46,14 +46,14 @@ void BooruPicture::loadGelbooru(Json::Value root){
 
     /* URLs */
     this->url[FULL] = parent->getMainUrl() + std::string("/images/") + dir +std::string("/") + pic;
-    this->url[PREVIEW] = parent->getMainUrl() + std::string("/thumbnails/") + dir +std::string("/thumbnail_") + pic.substr(0,pic.find_last_of('.')) + std::string(".jpg"); //http://gelbooru.com/thumbnails/16/b2/thumbnail_16b2851ba391157b418d9d6cb2a3b602.jpg
+    this->url[PREVIEW] = parent->getMainUrl() + std::string("/thumbnails/") + dir + std::string("/thumbnail_") + pic; //http://gelbooru.com/thumbnails/16/b2/thumbnail_16b2851ba391157b418d9d6cb2a3b602.jpg
     if(root["sample"].asBool())
     {
-        this->url[SAMPLE] = parent->getMainUrl() + std::string("/samples/") + dir +std::string("/sample_") + pic.substr(0,pic.find_last_of('.')) + std::string(".jpg");//http://simg3.gelbooru.com/samples/16/24/sample_1624d72ba640bb22adb6820dbac88f01.jpg
+        this->url[SAMPLE] = parent->getMainUrl() + std::string("/samples/") + dir + std::string("/sample_") + pic; //http://simg3.gelbooru.com/samples/16/24/sample_1624d72ba640bb22adb6820dbac88f01.jpg
     }
     else
     {
-        this->url[SAMPLE] = parent->getMainUrl() + std::string("/images/") + dir +std::string("/") + pic;//http://simg3.gelbooru.com/images/16/b2/16b2851ba391157b418d9d6cb2a3b602.jpg
+        this->url[SAMPLE] = parent->getMainUrl() + std::string("/images/") + dir + std::string("/") + pic; //http://simg3.gelbooru.com/images/16/b2/16b2851ba391157b418d9d6cb2a3b602.jpg
     }
     this->rating = root["rating"].asString();
     loadTags(root["tags"].asString());

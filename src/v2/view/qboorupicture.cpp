@@ -34,8 +34,16 @@ void QBooruPicture::loadUI()
 
 void QBooruPicture::onPictureClicked()
 {
-    qDebug() << "Clicked picture " << QString::number(this->picture->getID()) << " from booru " << QString::fromStdString(this->picture->getWebsite()->getName());
-    emit pictureClicked(this->picture);
+    if(this->picture)
+    {
+        qDebug() << "Clicked picture " << QString::number(this->picture->getID()) << " from booru " << QString::fromStdString(this->picture->getWebsite()->getName());
+        qDebug() << "PREVIEW: " << QString::fromStdString(this->picture->getURL(0));
+        qDebug() << "PREVIEW_jpg: " << QString::fromStdString(this->picture->getURL(1));
+        qDebug() << "SAMPLE" << QString::fromStdString(this->picture->getURL(2));
+        qDebug() << "FULL" << QString::fromStdString(this->picture->getURL(3));
+        qDebug() << "PICTURE_TYPE_END" << QString::fromStdString(this->picture->getURL(4));
+        emit pictureClicked(this->picture);
+    }
 }
 
 void QBooruPicture::setBooruPicture(BooruPicture* picture)
@@ -64,6 +72,7 @@ void QBooruPicture::setBooruPicture(BooruPicture* picture)
 
 void QBooruPicture::setBooruPictureEmpty()
 {
+    this->picture = 0;
     QString text = QString("");
     setText(text);
 
