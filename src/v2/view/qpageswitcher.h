@@ -3,11 +3,15 @@
 
 #include <QtWidgets>
 
+class BooruSite;
+
+#define PAGE_OFFSET 0
+
 class QPageSwitcher : public QWidget
 {
     Q_OBJECT
 public:
-    QPageSwitcher(QWidget *parent = nullptr);
+    QPageSwitcher(BooruSite *booru, QWidget *parent = nullptr);
     void loadUI();
 
 signals:
@@ -16,12 +20,22 @@ signals:
     void openPage(int page);
 
 public slots:
-    void setPage(int page);
+    void setCurrentPage(int page);
 
-private:
-    QPushButton *pbNextPage;
-    QPushButton *pbPreviousPage;
-    QLineEdit *lePageNumber;
+private slots:
+    void updatePageNumber();
+    void setPage();
+    void setNextPage();
+    void setPreviousPage();
+
+private:    
+    QPushButton *pbNextPage = 0;
+    QPushButton *pbPreviousPage = 0;
+    QLineEdit *lePageNumber = 0;
+
+    BooruSite *booru = 0;
+
+    int page = 1;
 };
 
 #endif // QPAGESWITCHER_H

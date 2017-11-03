@@ -18,30 +18,28 @@ enum Ratings{
     RATING_LIST_END
 };
 
-using namespace std;
-
 class BooruSearchEngine
 {
 public:
     BooruSearchEngine(BooruSite* parent);
 
-    QUrlQuery* generateRequest(string tags, int page, int limit);
+    QString generateRequest(QString tags, int page, int limit);
 
-    vector<BooruPicture*> search(string tags);
+    vector<BooruPicture*> search(QString tags);
     vector<BooruPicture*> search(int page);
-    vector<BooruPicture*> search(string tags, int page);
-    vector<BooruPicture*> search(string tags, int page, int limit);
+    vector<BooruPicture*> search(QString tags, int page);
+    vector<BooruPicture*> search(QString tags, int page, int limit);
     vector<BooruPicture*> search();
 
-    void set(string tags);
+    void set(QString tags);
     void set(int page);
-    void set(string tags, int page);
-    void set(string tags, int page, int limit);
+    void set(QString tags, int page);
+    void set(QString tags, int page, int limit);
 
     vector<BooruPicture*> parse(QString data);
 
 private:
-    string tags;
+    QString tags;
     int page;
     int limit;
     BooruSite* parent;

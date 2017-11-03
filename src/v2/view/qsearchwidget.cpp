@@ -5,6 +5,7 @@ QSearchWidget::QSearchWidget(BooruSite *site, int limit, QWidget *parent) : QWid
     this->site = site;
     this->engine = new BooruSearchEngine(site);
     this->limit = limit;
+    this->page = site->getAPI()->getStartPage();
     loadUI();
 }
 
@@ -23,11 +24,29 @@ void QSearchWidget::loadUI()
     connect(lineEditTags,SIGNAL(returnPressed()),this,SLOT(search()));
 }
 
+void QSearchWidget::setPage(int page)
+{
+    this->page = page;
+    search(page);
+}
+
 void QSearchWidget::search()
 {
-    QString tags = lineEditTags->text();
+    this->tags = lineEditTags->text();
+    this->page = this->site->getAPI()->getStartPage();;
+    emit pageSet(this->page);
 
-    engine->set(tags.toStdString(),0,limit);
+    search(this->tags, this->page, this->limit);
+}
+
+void QSearchWidget::search(int page)
+{
+    search(this->tags, page, this->limit);
+}
+
+void QSearchWidget::search(QString tags, int page, int limit)
+{
+    engine->set(tags,page,limit);
 
     QThread *t = new QThread(this);
     worker = new QSearchWorker(engine);

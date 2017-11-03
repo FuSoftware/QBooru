@@ -4,8 +4,6 @@
 #include <iostream>
 #include <ctime>
 
-using namespace std;
-
 enum LogLevel{
     L_DEBUG = 0,
     L_INFO,
@@ -14,7 +12,7 @@ enum LogLevel{
 };
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
-const string currentDateTime();
-void outputInfo(int type, string data);
+const std::string currentDateTime();
+void outputInfo(int type, std::string data);
 
 #endif // OUTPUT_H

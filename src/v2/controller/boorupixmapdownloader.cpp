@@ -29,10 +29,8 @@ BooruPixmapDownloader::BooruPixmapDownloader(BooruPicture* pic, int type, bool o
 
 void BooruPixmapDownloader::process()
 {
-    ConnectionManager* c = new ConnectionManager();
-    c->downloadFile(this->url,this->path,this->overwrite);
+    ConnectionManager::downloadFile(this->url,this->path,this->overwrite);
     QPixmap p(this->path);
-    delete c;
 
     emit pixmapLoaded(p);
     emit finished();

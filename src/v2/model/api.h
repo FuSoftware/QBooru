@@ -20,8 +20,6 @@ enum ID{
     ID_E621
 };
 
-using namespace std;
-
 class API
 {
 public:
@@ -35,16 +33,17 @@ public:
 private:
     //Private variables
     int id;
-    string name;
-    string url_search;
-    string file_search;
-    string url_posts;
-    string url_login;
-    string source;
+    std::string name;
+    std::string url_search;
+    std::string file_search;
+    std::string url_posts;
+    std::string url_login;
+    std::string source;
+    int start_page;
 
 private:
     //Constructor
-    API(int id, string name, string url_search, string file_search, string url_posts, string url_login, string source)
+    API(int id, std::string name, std::string url_search, int start_page, std::string file_search, std::string url_posts, std::string url_login, std::string source)
     {
         this->id = id;
         this->name = name;
@@ -53,6 +52,7 @@ private:
         this->url_posts = url_posts;
         this->url_login = url_login;
         this->source = source;
+        this->start_page = start_page;
     }
 
 public:
@@ -61,15 +61,14 @@ public:
     API(const API* api);
 
     int getID()const;
-    string getName()const;
-    string getSearchUrl()const;
-    string getSearchFile()const;
-    string getPostsUrl()const;
-    string getSource()const;
-    string getLoginUrl()const;
-
-
+    std::string getName()const;
+    std::string getSearchUrl()const;
+    std::string getSearchFile()const;
+    std::string getPostsUrl()const;
+    std::string getSource()const;
+    std::string getLoginUrl()const;
+    int getStartPage()const;
 };
-static vector<const API *> values();
+static std::vector<const API *> values();
 
 #endif // API_H

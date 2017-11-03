@@ -17,29 +17,30 @@ class BooruSite
 public:
     BooruSite();
     BooruSite(Json::Value obj);
-    BooruSite(string name, string url, int type_id);
-    BooruSite(string name, string url, API *api);
-    BooruSite(string name, API *api, string url_main, string url_search, string url_show, string url_login, bool login_required);
+    BooruSite(std::string name, std::string url, int type_id);
+    BooruSite(std::string name, std::string url, API *api);
+    BooruSite(std::string name, API *api, std::string url_main, std::string url_search, std::string url_show, std::string url_login, bool login_required);
 
-    string getName();
-    string getMainUrl();
-    string getSearchUrl();
-    string getShowUrl();
-    string getLoginUrl();
+    std::string getName();
+    std::string getMainUrl();
+    std::string getSearchUrl();
+    std::string getShowUrl();
+    std::string getLoginUrl();
+    int getStartPage();
     bool needsLogin();
     API *getAPI();
 
 private:
-    void init(string name, string url, API *api);
-    void init(string name, API *api, string url_main, string url_search, string url_show, string url_login, bool login_required);
+    void init(std::string name, std::string url, API *api);
+    void init(std::string name, API *api, std::string url_main, std::string url_search, std::string url_show, std::string url_login, bool login_required);
 
-    string name;
+    std::string name;
     API *api;
 
-    string url_main;
-    string url_search;
-    string url_show;
-    string url_login;
+    std::string url_main;
+    std::string url_search;
+    std::string url_show;
+    std::string url_login;
 
     bool login_required;
 

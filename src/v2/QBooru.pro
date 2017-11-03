@@ -83,7 +83,8 @@ HEADERS  += mainwidget.h \
     view/qpageswitcher.h
 
 DISTFILES += \
-    json/sconscript
+    json/sconscript \
+    config/config.ini
 
 macx { # Mac OS
     CONFIG += c++11

@@ -26,29 +26,22 @@ enum ReqType{
     POST
 };
 
-using namespace std;
-
 class ConnectionManager
 {
 public:
     ConnectionManager();
 
-    string get(string url, string params);
+    static QList<QNetworkCookie> getLoginCookie(std::string url, std::string user, std::string pass);
+    static QList<QNetworkCookie> getLoginCookie(QString url, QString user, QString pass);
 
-    QList<QNetworkCookie> getLoginCookie(string url, string user, string pass);
-    QList<QNetworkCookie> getLoginCookie(QString url, QString user, QString pass);
+    static void downloadFile(QString url, QString path, bool overwrite = false);
+    static void downloadFile(QUrl url, QString path, bool overwrite = false);
 
-    void downloadFile(QString url, QString path, bool overwrite = false);
-    void downloadFile(QUrl url, QString path, bool overwrite = false);
+    static QNetworkReply* execPostRequest(QUrl url, QUrlQuery *data = 0);
+    static QNetworkReply* execGetRequest(QUrl url, QUrlQuery *data = 0);
+    static QNetworkReply* execRequest(QUrl url, ReqType type = GET, QUrlQuery *data = 0);
 
-    QNetworkReply* execPostRequest(QUrl url, QUrlQuery *data = 0);
-
-    QNetworkReply* execGetRequest(QUrl url, QUrlQuery *data = 0);
-
-    QNetworkReply* execRequest(QUrl url, ReqType type = GET, QUrlQuery *data = 0);
-
-    QUrl findRedirection(QUrl url);
-
+    static QUrl findRedirection(QUrl url);
 
 private:
 };

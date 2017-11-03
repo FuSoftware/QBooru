@@ -10,31 +10,31 @@ BooruSite::BooruSite(Json::Value obj)
     init(obj["name"].asString(), API::getAPIFromID(obj["api"].asInt()), obj["url_main"].asString(), obj["url_search"].asString(), obj["url_show"].asString(), obj["url_login"].asString(), obj["login_required"].asBool());
 }
 
-BooruSite::BooruSite(string name, string url, int type_id)
+BooruSite::BooruSite(std::string name, std::string url, int type_id)
 {
     init(name,url,API::getAPIFromID(type_id));
 }
 
-BooruSite::BooruSite(string name, string url, API *api)
+BooruSite::BooruSite(std::string name, std::string url, API *api)
 {
     init(name,url,api);
 }
 
-BooruSite::BooruSite(string name, API *api, string url_main, string url_search, string url_show, string url_login, bool login_required)
+BooruSite::BooruSite(std::string name, API *api, std::string url_main, std::string url_search, std::string url_show, std::string url_login, bool login_required)
 {
     init(name, api, url_main, url_search, url_show, url_login, login_required);
 }
 
-void BooruSite::init(string name, string url, API *api){
-    string url_main = url;
-    string url_search = url + api->getSearchUrl();
-    string url_show = url + api->getPostsUrl();
-    string url_login = url + api->getLoginUrl();
+void BooruSite::init(std::string name, std::string url, API *api){
+    std::string url_main = url;
+    std::string url_search = url + api->getSearchUrl();
+    std::string url_show = url + api->getPostsUrl();
+    std::string url_login = url + api->getLoginUrl();
 
     init(name, api, url_main, url_search, url_show, url_login, login_required);
 }
 
-void BooruSite::init(string name, API *api, string url_main, string url_search, string url_show, string url_login, bool login_required){
+void BooruSite::init(std::string name, API *api, std::string url_main, std::string url_search, std::string url_show, std::string url_login, bool login_required){
     this->name = name;
     this->api = api;
     this->url_main = url_main;
@@ -44,23 +44,23 @@ void BooruSite::init(string name, API *api, string url_main, string url_search, 
     this->login_required = login_required;
 }
 
-string BooruSite::getName(){
+std::string BooruSite::getName(){
     return this->name;
 }
 
-string BooruSite::getMainUrl(){
+std::string BooruSite::getMainUrl(){
     return this->url_main;
 }
 
-string BooruSite::getSearchUrl(){
+std::string BooruSite::getSearchUrl(){
     return this->url_search;
 }
 
-string BooruSite::getShowUrl(){
+std::string BooruSite::getShowUrl(){
     return this->url_show;
 }
 
-string BooruSite::getLoginUrl(){
+std::string BooruSite::getLoginUrl(){
     return this->url_login;
 }
 
@@ -71,3 +71,4 @@ bool BooruSite::needsLogin(){
 API* BooruSite::getAPI(){
     return this->api;
 }
+

@@ -1,24 +1,24 @@
 #include "file.h"
 
-string getFileExtension(string filename)
+std::string getFileExtension(std::string filename)
 {
     return filename.substr(filename.find_last_of(".") + 1);
 }
 
-bool fexists(string filename)
+bool fexists(std::string filename)
 {
     return fexists(filename.c_str());
 }
 
 bool fexists(const char *filename)
 {
-    ifstream ifile(filename);
+    std::ifstream ifile(filename);
     return ifile.is_open();
 }
 
-void createFolder(string file)
+void createFolder(std::string file)
 {
-    createFolder((QString(file.c_str())));
+    createFolder((QString::fromStdString(file)));
 }
 
 void createFolder(QString file)

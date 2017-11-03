@@ -48,6 +48,10 @@ void QBooruPicture::onPictureClicked()
 
 void QBooruPicture::setBooruPicture(BooruPicture* picture)
 {
+    //Delete the previously stored picture to prevent memory leaks
+    if(this->picture != 0)
+        delete this->picture;
+
     this->picture = picture;
 
     QString text = QString::number(picture->getW()) + QString("x") + QString::number(picture->getH());
@@ -72,6 +76,10 @@ void QBooruPicture::setBooruPicture(BooruPicture* picture)
 
 void QBooruPicture::setBooruPictureEmpty()
 {
+    //Delete the previously stored picture to prevent memory leaks
+    if(this->picture)
+        delete this->picture;
+
     this->picture = 0;
     QString text = QString("");
     setText(text);

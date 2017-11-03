@@ -1,6 +1,6 @@
 #include "output.h"
 
-const string currentDateTime()
+const std::string currentDateTime()
 {
     time_t     now = time(0);
     struct tm  tstruct;
@@ -20,8 +20,8 @@ void outputInfo(int type, std::string data)
      * [TYPE][DATE]|-->DATA
      * */
 
-    string type_string;
-    int level;
+    std::string type_string;
+    int level = 0;
 
     switch(type)
     {
@@ -43,10 +43,10 @@ void outputInfo(int type, std::string data)
         break;
     }
 
-    cout << "[" << type_string << "]";
+    std::cout << "[" << type_string << "]";
 
-    for(int i=0;i<level;i++){cout << " ";}
+    for(int i=0;i<level;i++){std::cout << " ";}
 
-    cout << "[" << currentDateTime() << "]"
-              << "|--> " << data << endl;
+    std::cout << "[" << currentDateTime() << "]"
+              << "|--> " << data << std::endl;
 }

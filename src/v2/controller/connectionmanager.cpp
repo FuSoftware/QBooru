@@ -5,10 +5,10 @@ ConnectionManager::ConnectionManager()
 
 }
 
-QList<QNetworkCookie> ConnectionManager::getLoginCookie(string url, string user, string pass){
-    QString qurl = QString(url.c_str());
-    QString quser = QString(user.c_str());
-    QString qpass = QString(pass.c_str());
+QList<QNetworkCookie> ConnectionManager::getLoginCookie(std::string url, std::string user, std::string pass){
+    QString qurl = QString::fromStdString(url);
+    QString quser = QString::fromStdString(user);
+    QString qpass = QString::fromStdString(pass);
 
     return getLoginCookie(qurl,quser,qpass);
 }
@@ -23,20 +23,22 @@ QList<QNetworkCookie> ConnectionManager::getLoginCookie(QString url, QString use
 
     QUrl qurl = QUrl(url);
 
-    QNetworkReply* m_pReply = execPostRequest(qurl,postData);
+    QNetworkReply* reply = execPostRequest(qurl,postData);
 
     //qDebug() << "Loop finished";
-    QVariant variantCookies = m_pReply->header(QNetworkRequest::SetCookieHeader);
+    QVariant variantCookies = reply->header(QNetworkRequest::SetCookieHeader);
     QList<QNetworkCookie> cookies = qvariant_cast<QList<QNetworkCookie> >(variantCookies);
     //qDebug() << "Cookies reply: " << cookies.toSet();
 
-    if(m_pReply->error() != QNetworkReply::NoError)
+    if(reply->error() != QNetworkReply::NoError)
     {
         std::string output_s = std::string("Network error while downloading ") + url.toStdString();
         outputInfo(L_ERROR,output_s);
-        outputInfo(L_ERROR,m_pReply->errorString().toStdString());
-        return cookies;
+        outputInfo(L_ERROR,reply->errorString().toStdString());
     }
+
+    delete reply;
+    delete postData;
 
     return cookies;
 }

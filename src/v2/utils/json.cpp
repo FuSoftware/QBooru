@@ -11,7 +11,7 @@ Json::Value saveAndLoad(Json::Value root, const char* file)
     return root;
 }
 
-Json::Value loadJSONString(string str)
+Json::Value loadJSONString(std::string str)
 {
     Json::Value root; // will contains the root value after parsing
     Json::Reader reader;

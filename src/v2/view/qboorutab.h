@@ -7,6 +7,7 @@ class QMainGrid;
 class BooruSite;
 class BooruPicture;
 class QSearchWidget;
+class QPageSwitcher;
 
 class QBooruTab : public QWidget
 {
@@ -25,6 +26,7 @@ public slots:
 private:
     QSearchWidget *search_widget = 0;
     QMainGrid *main_grid = 0;
+    QPageSwitcher *page_switcher = 0;
     BooruSite *site = 0;
 
 };

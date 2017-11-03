@@ -27,7 +27,7 @@ public slots:
     void onPictureClicked();
 
 private:
-    BooruPicture* picture;
+    BooruPicture* picture = 0;
     QPixmap pixmap;
 
     ClickableLabel *labelPicture;
