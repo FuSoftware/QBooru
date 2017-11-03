@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     view/qboorupictureviewer.cpp \
     view/qboorupictureinfowidget.cpp \
     view/clickablelabel.cpp \
-    view/qboorutab.cpp
+    view/qboorutab.cpp \
+    view/qpageswitcher.cpp
 
 HEADERS  += mainwidget.h \
     model/boorupicture.h \
@@ -78,7 +79,8 @@ HEADERS  += mainwidget.h \
     view/qboorupictureviewer.h \
     view/qboorupictureinfowidget.h \
     view/clickablelabel.h \
-    view/qboorutab.h
+    view/qboorutab.h \
+    view/qpageswitcher.h
 
 DISTFILES += \
     json/sconscript

@@ -18,6 +18,7 @@ public:
 public slots:
     void loadBoorus(QVector<BooruSite*> sites);
     void addBooru(BooruSite* site);
+    void openViewer();
 
 private:
     void reorderTabs();

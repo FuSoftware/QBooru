@@ -39,6 +39,7 @@ void MainWidget::addBooru(BooruSite* site)
     this->tabs.push_back(tab);
 
     QObject::connect(tab, SIGNAL(pictureClicked(BooruPicture*)), this->viewer, SLOT(loadPicture(BooruPicture*)));
+    QObject::connect(tab, SIGNAL(pictureClicked(BooruPicture*)), this, SLOT(openViewer()));
 }
 
 void MainWidget::reorderTabs()
@@ -53,4 +54,9 @@ void MainWidget::reorderTabs()
 
     //Viewer
     this->tab_widget->addTab(this->viewer, "Viewer");
+}
+
+void MainWidget::openViewer()
+{
+    this->tab_widget->setCurrentWidget(this->viewer);
 }
