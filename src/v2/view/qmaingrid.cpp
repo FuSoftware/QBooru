@@ -43,6 +43,10 @@ void QMainGrid::loadPictures(QVector<BooruPicture*> pictures)
     {
         pictureWidgets[i]->setBooruPicture(pictures[i]);
     }
+    for(int i=pictures.size();i<pictureWidgets.size();i++)
+    {
+        pictureWidgets[i]->setBooruPictureEmpty();
+    }
 }
 
 QBooruPicture* QMainGrid::getWidget(int i)

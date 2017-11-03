@@ -30,6 +30,8 @@ void QBooruPictureViewer::loadPicture(BooruPicture *picture)
     BooruPixmapDownloader* d = new BooruPixmapDownloader(picture, PictureType::SAMPLE, true);
     QThread* t = new QThread(this);
 
+    d->moveToThread(t);
+
     //Thread Management
     connect(t, SIGNAL(started()),  d, SLOT(process()));
     connect(d, SIGNAL(finished()), t, SLOT(quit()));
@@ -39,7 +41,6 @@ void QBooruPictureViewer::loadPicture(BooruPicture *picture)
     //Output
     connect(d, SIGNAL(pixmapLoaded(QPixmap)), this, SLOT(setPixmap(QPixmap)));
 
-    d->moveToThread(t);
     t->start();
 }
 

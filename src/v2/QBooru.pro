@@ -84,3 +84,8 @@ HEADERS  += mainwidget.h \
 
 DISTFILES += \
     json/sconscript
+
+macx { # Mac OS
+    CONFIG += c++11
+    CONFIG -= app_bundle
+}

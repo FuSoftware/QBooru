@@ -34,8 +34,16 @@ void QBooruPicture::loadUI()
 
 void QBooruPicture::onPictureClicked()
 {
-    qDebug() << "Clicked picture " << QString::number(this->picture->getID()) << " from booru " << QString::fromStdString(this->picture->getWebsite()->getName());
-    emit pictureClicked(this->picture);
+    if(this->picture)
+    {
+        qDebug() << "Clicked picture " << QString::number(this->picture->getID()) << " from booru " << QString::fromStdString(this->picture->getWebsite()->getName());
+        qDebug() << "PREVIEW: " << QString::fromStdString(this->picture->getURL(0));
+        qDebug() << "PREVIEW_jpg: " << QString::fromStdString(this->picture->getURL(1));
+        qDebug() << "SAMPLE" << QString::fromStdString(this->picture->getURL(2));
+        qDebug() << "FULL" << QString::fromStdString(this->picture->getURL(3));
+        qDebug() << "PICTURE_TYPE_END" << QString::fromStdString(this->picture->getURL(4));
+        emit pictureClicked(this->picture);
+    }
 }
 
 void QBooruPicture::setBooruPicture(BooruPicture* picture)
@@ -48,6 +56,8 @@ void QBooruPicture::setBooruPicture(BooruPicture* picture)
     BooruPixmapDownloader* d = new BooruPixmapDownloader(picture, PictureType::PREVIEW, true);
     QThread* t = new QThread(this);
 
+    d->moveToThread(t);
+
     //Thread Management
     connect(t, SIGNAL(started()),  d, SLOT(process()));
     connect(d, SIGNAL(finished()), t, SLOT(quit()));
@@ -57,14 +67,36 @@ void QBooruPicture::setBooruPicture(BooruPicture* picture)
     //Output
     connect(d, SIGNAL(pixmapLoaded(QPixmap)), this, SLOT(setPixmap(QPixmap)));
 
+    t->start();
+}
+
+void QBooruPicture::setBooruPictureEmpty()
+{
+    this->picture = 0;
+    QString text = QString("");
+    setText(text);
+
+    BooruPixmapDownloader* d = new BooruPixmapDownloader(QString(""), QString("empty.png"), false);
+    QThread* t = new QThread(this);
+
     d->moveToThread(t);
+
+    //Thread Management
+    connect(t, SIGNAL(started()),  d, SLOT(process()));
+    connect(d, SIGNAL(finished()), t, SLOT(quit()));
+    connect(d, SIGNAL(finished()), d, SLOT(deleteLater()));
+    connect(t, SIGNAL(finished()), t, SLOT(deleteLater()));
+
+    //Output
+    connect(d, SIGNAL(pixmapLoaded(QPixmap)), this, SLOT(setPixmap(QPixmap)));
+
     t->start();
 }
 
 void QBooruPicture::setPixmap(QPixmap pixmap)
 {
     this->pixmap = pixmap;
-    labelPicture->setPixmap(this->pixmap.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    labelPicture->setPixmap(this->pixmap.scaled(200, 150, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 void QBooruPicture::setText(QString text)
