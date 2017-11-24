@@ -1,8 +1,5 @@
 # QBooru
 
-## Important notice
-Since 1.15, a new version control relying on http://florentuguet.net16.net/ has been implemented. The software won't need to download the versions anymore.
-
 ## Summary
 QBooru is a lightweight Windows, Linux and MacOS client that allows users to see pictures from most booru sites, and download them, for example :
 <ul>
