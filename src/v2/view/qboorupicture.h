@@ -30,8 +30,8 @@ private:
     BooruPicture* picture = 0;
     QPixmap pixmap;
 
-    ClickableLabel *labelPicture;
-    QLabel *labelComment;
+    ClickableLabel *labelPicture = 0;
+    QLabel *labelComment = 0;
 };
 
 #endif // QBOORUPICTURE_H
