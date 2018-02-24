@@ -1,0 +1,45 @@
+@startuml class-model
+
+class BooruPicture{
+    int id
+    string created_at
+    string author
+    string source
+    int score
+    int size
+    vector<string> taglist
+    string tags
+    int width
+    int heught
+    string[] urls
+    string[] files
+    string url_show
+    string rating
+    string extension    
+    BooruSite parent
+}
+
+class BooruSite{
+    string name
+    string main_url
+    string search_url
+    string show_url
+    string login_url
+    int start_page
+    bool needs_login
+    API api
+}
+
+class API{
+    string name
+    string main_url
+    string search_url
+    string show_url
+    string login_url
+    int start_page
+}
+
+BooruPicture o-- BooruSite
+BooruSite o-- API
+
+@enduml

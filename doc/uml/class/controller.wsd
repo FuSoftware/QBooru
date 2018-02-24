@@ -1,0 +1,28 @@
+@startuml class-controller
+
+class BooruPixmapDownloader{
+    
+}
+
+class BoorusDatabase{
+        
+}
+
+class ConnectionManager{
+
+}
+
+class QSearchWorker{
+
+}
+
+class BooruSearchEngine{
+
+}
+
+QSearchWorker o-- ConnectionManager
+BooruPixmapDownloader o-- ConnectionManager
+QSearchWorker *-- BooruSearchEngine
+
+
+@enduml

@@ -1,0 +1,55 @@
+@startuml class-view
+
+class QBooru{
+    --UI--
+    --Data--
+}
+
+class QBooruPicture{
+    --UI--
+    --Data--
+}
+
+class QBooruPictureInfo{
+    --UI--
+    --Data--
+}
+
+class QBooruPictureViewer{
+    --UI--
+    --Data--
+}
+
+class QBooruTab{
+    --UI--
+    --Data--
+}
+
+class QMainGrid{
+    --UI--
+    --Data--
+}
+
+class QPageSwitcher{
+    --UI--
+    --Data--
+}
+
+class QSearchWidget{
+    --UI--
+    --Data--
+}
+
+QBooru *-- QBooruTab
+QBooru *-- QBooruPictureViewer
+QBooruPictureViewer *-- QBooruPictureInfo
+QBooruPictureViewer *-- QBooruPicture
+
+QBooruTab *-- QMainGrid
+QBooruTab *-- QSearchWidget
+QBooruTab *-- QPageSwitcher
+
+QMainGrid *-- QBooruPicture
+
+'Included Classes
+@enduml

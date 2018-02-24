@@ -1,0 +1,19 @@
+@startuml class
+!include class/controller.wsd
+!include class/model.wsd
+!include class/view.wsd
+
+'Controllers
+BooruPixmapDownloader o-- BooruPicture
+BoorusDatabase o-- BooruSite
+BooruSearchEngine o-- BooruSite
+QSearchWorker o-- BooruPicture
+
+'Views
+QBooruPicture o-- BooruPicture
+QBooruPictureInfo o-- BooruPicture
+QMainGrid *-- BooruPixmapDownloader
+QSearchWidget *-- QSearchWorker
+
+
+@enduml
